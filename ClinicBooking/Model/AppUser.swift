@@ -6,9 +6,10 @@
 //
 
 import Foundation
-import FirebaseAuth
+import FirebaseFirestore
 
 struct AppUser: Codable {
+    @DocumentID var id: String?
     let password: String
     let email: String
     let firstName: String
@@ -20,9 +21,25 @@ struct AppUser: Codable {
     let bloodGroup: String
     let phoneNumber: String
     let imageURL: String
+    var address: String?
+    var role: String? = "patient" // "patient" or "doctor"
+    var verificationStatus: String? = "none" // "none", "pending", "verified", "rejected"
+    
+    // Doctor Specific Fields
+    var hospitalName: String?
+    var experienceYears: String?
+    var country: String?
+    var city: String?
+    var specialty: String?
+    var licenseNumber: String?
+    var aboutMe: String?
+
+    var favoriteDoctorIds: [String]? = []
 
     // Custom keys to match JSON structure, if needed
     private enum CodingKeys: String, CodingKey {
-        case password, email, firstName, lastName, createdAt, height, weight, age, bloodGroup, phoneNumber, imageURL
+        case password, email, firstName, lastName, createdAt, height, weight, age, bloodGroup, phoneNumber, imageURL, address, role, verificationStatus
+        case hospitalName, experienceYears, country, city, specialty, licenseNumber, aboutMe
+        case favoriteDoctorIds = "favorite_doctor_ids"
     }
 }

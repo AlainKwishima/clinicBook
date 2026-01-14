@@ -6,22 +6,25 @@
 //
 
 import SwiftUI
-import ProgressHUD
+import FirebaseAuth
 
 struct UserProfileView: View {
     @State var addMember: Bool = false
     @State var showEditProfile: Bool = false
+    @State var showDeleteAlert: Bool = false
     @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
     @StateObject private var viewModel = AuthenticationViewModel()
     @StateObject private var userViewModel = UserViewModel()
     @State private var showSignoutAlert = false
+    @State private var isSyncing = false
 
     var body: some View {
-        NavigationStack {
             VStack {
                 ScrollView {
+                    
                     profileHeaderView
                     familyMemberView
+                    helpAndSupportView
                     Spacer()
                         .navigationTitle("Profile")
                         .navigationBarTitleDisplayMode(.inline)
@@ -29,20 +32,30 @@ struct UserProfileView: View {
                         .foregroundColor(.white)
                 }
             }
-        }
 
         .onAppear{
             Task {
-               await userViewModel.getFamilyMembers()
+                await userViewModel.getFamilyMembers()
+                await syncUserData()
             }
         }
-
+        .refreshable {
+            await syncUserData()
+        }
+    }
+    
+    private func syncUserData() async {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        isSyncing = true
+        await FireStoreManager.shared.getUserDetails(userId: userId) { _ in
+            defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
+            isSyncing = false
+        }
     }
 
     var profileHeaderView: some View {
-        NavigationStack {
-            VStack {
-                ZStack(alignment: .center) {
+        VStack {
+            ZStack(alignment: .center) {
                     Color(Color.appBlue.opacity(0.2))
                     VStack(spacing: 15) {
 //                        Image("user").resizable()
@@ -67,8 +80,7 @@ struct UserProfileView: View {
                             .foregroundColor(.black)
                             .font(.customFont(style: .bold, size: .h17))
                         Text("\(defaults?.email.lowercased() ?? "")")
-                            .foregroundColor(.black)
-                            .foregroundStyle(.black)
+                            .foregroundColor(.gray)
                             .font(.customFont(style: .medium, size: .h15))
                         HStack(spacing: 15) {
                             Button {
@@ -117,10 +129,6 @@ struct UserProfileView: View {
                     }
                     Button("Cancel", role: .cancel) {}
                 }
-                .navigationDestination(isPresented: $viewModel.showSignInView) {
-                    LoginView()
-                        .navigationBarBackButtonHidden(true)
-                }
                 .navigationDestination(isPresented: $addMember) {
                     AddFamilyMemberView()
                 }
@@ -129,13 +137,11 @@ struct UserProfileView: View {
                         .transition(.slide)
                 }
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-                    }
+                    // Prompt refresh of user details when view appears
+                    defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
                 }
             }
         }
-    }
 
     var familyMemberView: some View {
         VStack {
@@ -170,6 +176,102 @@ struct UserProfileView: View {
         }
         .padding()
     }
+
+    var helpAndSupportView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 15) {
+                Text("Help & Support")
+                    .font(.customFont(style: .bold, size: .h18))
+                    .padding(.horizontal)
+                
+                VStack(spacing: 0) {
+                    supportItem(icon: "questionmark.circle", title: "FAQ")
+                    Divider()
+                    supportItem(icon: "envelope", title: "Contact Us")
+                    Divider()
+                    supportItem(icon: "message", title: "In-app Chat")
+                }
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                .padding(.horizontal)
+            }
+            .padding(.top, 20)
+            
+            Button(action: {
+                showDeleteAlert = true
+            }) {
+                Text("Delete Account")
+                    .font(.customFont(style: .bold, size: .h16))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.red.opacity(0.1))
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+            .padding(.top, 20)
+            .alert("Delete Account", isPresented: $showDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    deleteAccount()
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("Are you sure you want to delete your account? This action is irreversible and will remove all your data.")
+            }
+        }
+    }
+    
+    func deleteAccount() {
+        guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
+        Task {
+            do {
+                try await FireStoreManager.shared.deleteUserAccount(userId: userId)
+                // Sign out locally
+                viewModel.signOut()
+                UserDefaults.standard.removeObject(forKey: "userDetails")
+                UserDefaults.standard.removeObject(forKey: "userID")
+            } catch {
+                print("Error deleting account: \(error)")
+            }
+        }
+    }
+    
+    func supportItem(icon: String, title: String) -> some View {
+        Button {
+            handleSupportAction(title: title)
+        } label: {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(.appBlue)
+                    .frame(width: 30)
+                Text(title)
+                    .foregroundColor(.black)
+                    .font(.customFont(style: .medium, size: .h16))
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+                    .font(.caption)
+            }
+            .padding()
+        }
+    }
+    
+    func handleSupportAction(title: String) {
+        if title == "Contact Us" {
+            if let url = URL(string: "mailto:support@clinicbooking.com") {
+                UIApplication.shared.open(url)
+            }
+        } else if title == "In-app Chat" {
+             // Mock action or open webview
+             print("Opening chat...")
+        } else if title == "FAQ" {
+            if let url = URL(string: "https://clinicbooking.com/faq") {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
+
 }
 
 #Preview {

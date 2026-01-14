@@ -1,50 +1,12 @@
 //
-//  SplashViewCoordinator.swift
+//  WalkthroughView.swift
 //  ClinicBooking
 //
-//  Created by Janarthanan Kannan on 27/11/24.
+//  Created by Assistant on 08/01/26.
 //
 
 import SwiftUI
 
-struct SplashViewCoordinator: View {
-    @State private var isActive = false
-    @AppStorage("hasSeenWalkthrough") var hasSeenWalkthrough: Bool = false
-    @State private var showWalkthrough = false
-    
-    var body: some View {
-        if isActive {
-            if !hasSeenWalkthrough {
-                WalkthroughView(isActive: $showWalkthrough)
-                    .onChange(of: showWalkthrough) { oldValue, newValue in
-                         // When walkthrough finishes (isActive becomes false inside it), we are done
-                         if !newValue {
-                             // Force redraw or just rely on AppRootView appearing if we structure this right
-                             // simpler approach:
-                             hasSeenWalkthrough = true 
-                         }
-                    }
-                    .onAppear {
-                        showWalkthrough = true
-                    }
-                // Determine what to show based on the completed state
-                 if hasSeenWalkthrough {
-                     AppRootView()
-                 }
-            } else {
-                AppRootView()
-            }
-        } else {
-            SplashScreen(isActive: $isActive)
-        }
-    }
-}
-
-#Preview {
-    SplashViewCoordinator()
-}
-
-// MARK: - Walkthrough View
 struct WalkthroughView: View {
     @Binding var isActive: Bool
     @State private var currentPage = 0
@@ -79,12 +41,13 @@ struct WalkthroughView: View {
                                 .padding(.top, 40)
                             
                             Text(pages[index].title)
-                                .font(.customFont(style: .bold, size: .h24))
+                                .font(.title)
+                                .bold()
                                 .foregroundColor(.black)
                                 .multilineTextAlignment(.center)
                             
                             Text(pages[index].description)
-                                .font(.customFont(style: .medium, size: .h16))
+                                .font(.body)
                                 .foregroundColor(.gray)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 30)
@@ -107,7 +70,7 @@ struct WalkthroughView: View {
                     }
                 }) {
                     Text(currentPage == pages.count - 1 ? "Get Started" : "Next")
-                        .font(.customFont(style: .bold, size: .h18))
+                        .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -130,4 +93,8 @@ struct WalkthroughPage {
     let image: String
     let title: String
     let description: String
+}
+
+#Preview {
+    WalkthroughView(isActive: .constant(true))
 }

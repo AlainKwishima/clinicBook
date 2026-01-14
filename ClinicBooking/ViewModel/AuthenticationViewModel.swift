@@ -20,17 +20,21 @@ class AuthenticationViewModel: ObservableObject {
     @Published var showSignInView = false
     @Published var validationMessage: String?
     @Published var shouldNavigateToSignIn = false
+    @Published var isLoading = false
     private let firebaseService = FirebaseService()
 
     func signIn() async -> Bool {
-        if email.isEmpty {
+        let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if sanitizedEmail.isEmpty {
             validationMessage = "Please enter your email."
             return false
         } else if password.isEmpty {
             validationMessage = "Please enter your password."
             return false
         }
-        let errorMessage = await firebaseService.signIn(email: email, password: password)
+        isLoading = true
+        defer { isLoading = false }
+        let errorMessage = await firebaseService.signIn(email: sanitizedEmail, password: password)
         validationMessage = errorMessage?.localizedDescription
         return errorMessage == nil
     }
@@ -43,24 +47,82 @@ class AuthenticationViewModel: ObservableObject {
         }
     }
 
+    func signInDoctor(licenseNumber: String) async -> Bool {
+        let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if sanitizedEmail.isEmpty {
+            validationMessage = "Please enter your email."
+            return false
+        } else if password.isEmpty {
+            validationMessage = "Please enter your password."
+            return false
+        } else if licenseNumber.isEmpty {
+            validationMessage = "Please enter your license number."
+            return false
+        }
+        
+        isLoading = true
+        defer { isLoading = false }
+        
+        // 1. Firebase Auth Sign In
+        let errorMessage = await firebaseService.signIn(email: sanitizedEmail, password: password)
+        if let error = errorMessage {
+            validationMessage = error.localizedDescription
+            return false
+        }
+        
+        // 2. Fetch Details & Verify Role
+        if let user = Auth.auth().currentUser {
+            var success = false
+            await FireStoreManager.shared.getUserDetails(userId: user.uid) { msg in
+                success = msg
+            }
+            
+            if success, let details = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
+                if details.role != "doctor" {
+                    validationMessage = "This account is not registered as a doctor."
+                    signOut()
+                    return false
+                }
+                
+                if details.licenseNumber != licenseNumber {
+                    validationMessage = "Invalid Medical License Number for this account."
+                    signOut()
+                    return false
+                }
+                
+                return true
+            } else {
+                validationMessage = "Failed to fetch user profile."
+                signOut()
+                return false
+            }
+        }
+        
+        return false
+    }
+
     func clearValidationMessage() {
         validationMessage = nil
     }
 
     func resetPassword() async {
-        if email.isEmpty {
+        let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if sanitizedEmail.isEmpty {
             validationMessage = "Please enter your email."
             return
         }
-        let errorMessage = await firebaseService.resetPassword(email: email)
+        let errorMessage = await firebaseService.resetPassword(email: sanitizedEmail)
         validationMessage = errorMessage?.localizedDescription
     }
 
+    @Published var shouldNavigateToAdditionalInfo = false
+
     func signup() async {
+        let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         if password.isEmpty {
             validationMessage = "Please enter your password."
             return
-        } else if email.isEmpty {
+        } else if sanitizedEmail.isEmpty {
             validationMessage = "Please enter your email."
             return
         } else if firstName.isEmpty {
@@ -70,8 +132,10 @@ class AuthenticationViewModel: ObservableObject {
             validationMessage = "Please enter your Last Name."
             return
         }
+        isLoading = true
+        defer { isLoading = false }
         let user = AppUser(password: password,
-                           email: email,
+                           email: sanitizedEmail,
                            firstName: firstName,
                            lastName: lastName,
                            createdAt: Date(),
@@ -80,13 +144,14 @@ class AuthenticationViewModel: ObservableObject {
                            age: "",
                            bloodGroup: "",
                            phoneNumber: "",
-                           imageURL: ""
+                           imageURL: "",
+                           address: ""
         )
         let result = await firebaseService.signup(user: user)
         switch result {
         case .success:
-            validationMessage = "Sign Up Successful!"
-            shouldNavigateToSignIn = true
+            // validationMessage = "Sign Up Successful!" // Removed to allow smooth transition
+            shouldNavigateToAdditionalInfo = true
         case .failure(let error):
             validationMessage = "Failed to sign up: \(error.localizedDescription)"
         }

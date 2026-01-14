@@ -11,6 +11,37 @@ import Foundation
 struct AppConstants {
 
     static let serviceListImages = ["anesthesiology", "cardiology", "dermatology", "endocrinology", "general-surgery", "geriatrics", "nephrology", "oncology", "ophthalmology", "orthopedics", "pathology", "pediatrics", "psychiatry", "radiology", "surgery"]
+    
+    static let specializations: [(String, String, Bool)] = [
+        ("Cardiology", "cardiology", false),
+        ("Dermatology", "dermatology", false),
+        ("Pediatrics", "pediatrics", false),
+        ("Orthopedics", "orthopedics", false),
+        ("Neurology", "brain", true),
+        ("Dentistry", "mouth", true),
+        ("Gastroenterology", "pills", true),
+        ("Endocrinology", "endocrinology", false),
+        ("Hematology", "drop.fill", true),
+        ("Oncology", "oncology", false),
+        ("Ophthalmology", "ophthalmology", false),
+        ("Psychiatry", "psychiatry", false),
+        ("Pulmonology", "lungs.fill", true),
+        ("Radiology", "radiology", false),
+        ("Rheumatology", "hand.point.up.left.fill", true),
+        ("Urology", "flask", true),
+        ("General Surgery", "general-surgery", false),
+        ("Pathology", "pathology", false),
+        ("Anesthesiology", "anesthesiology", false),
+        ("Geriatrics", "geriatrics", false),
+        ("Surgery", "surgery", false),
+        ("Ob/Gyn", "person.2.fill", true),
+        ("Gastroenterologist", "pills", true),
+        ("Neurologist", "brain", true),
+        ("Dentist", "mouth", true),
+        ("Urologist", "flask", true),
+        ("Psychologist", "person.text.rectangle", true),
+        ("General Physician", "stethoscope", true)
+    ]
 }
 
 enum Texts: String, CustomStringConvertible {

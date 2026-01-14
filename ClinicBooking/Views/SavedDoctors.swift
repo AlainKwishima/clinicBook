@@ -25,29 +25,9 @@ struct SavedDoctors: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
-            let data = viewModel.loadJson(fileName: "doctors")
-            self.doctors.removeAll()
-            if let data = data {
-                for doc in data.doctors {
-                    if doc.isSaved == true {
-                        let meme = Doctor(
-                            doctorID: doc.doctorID,
-                            name: doc.name,
-                            specialist: doc.specialist,
-                            degree: doc.degree,
-                            image: doc.image,
-                            position: doc.position,
-                            languageSpoken: doc.languageSpoken,
-                            about: doc.about,
-                            contact: doc.contact,
-                            address: doc.address,
-                            rating: doc.rating,
-                            isPopular: doc.isPopular,
-                            isSaved: doc.isSaved
-                        )
-                        self.doctors.append(meme)
-                    }
-                }
+            Task {
+                await viewModel.fetchDoctors()
+                self.doctors = viewModel.doctors.filter { $0.isSaved }
             }
         }
         .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })

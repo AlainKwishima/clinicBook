@@ -30,34 +30,80 @@ struct ClinicBookingApp: App {
 }
 
 struct AppRootView: View {
-    //    @EnvironmentObject var userSession: UserSession  // Use the shared session
     @State var isAuthenticated: Bool = false
+    @State var isPendingVerification: Bool = false
+    @State var isDoctor: Bool = false
+    @State var isLoading: Bool = true
+    @State private var rootViewId = UUID()
+    @AppStorage("userID") var storedUserID: String = ""
 
     var body: some View {
-        NavigationStack {
-            if isAuthenticated {
-                HomeDashboard()
-                    .navigationBarBackButtonHidden(true)
+        Group {
+            if isLoading {
+                VStack {
+                    ProgressView("Authenticating...")
+                }
+            } else if isAuthenticated {
+                NavigationStack {
+                    if isDoctor {
+                         DoctorHomeDashboard()
+                            .navigationBarBackButtonHidden(true)
+                    } else {
+                        HomeDashboard()
+                            .navigationBarBackButtonHidden(true)
+                    }
+                }
+                .id(rootViewId)
             } else {
-                LoginView()
+                NavigationStack {
+                    RoleSelectionView()
+                }
+                .id(rootViewId)
             }
         }
-        .onAppear(perform: checkUserAuthentication)
+        .onAppear(perform: listenToAuthState)
     }
-    private func checkUserAuthentication() {
-        if let user = Auth.auth().currentUser {
-            print("Found current user: \(user.uid), email \(String(describing: user.email))")
-            fetchOrCreateUser(uid: user.uid, email: user.email)
-        } else {
-            print("No current user found.")
+    
+    @State private var authStateHandle: AuthStateDidChangeListenerHandle?
+
+    private func listenToAuthState() {
+        self.authStateHandle = Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user {
+                print("Auth State Change: User is signed in with \(user.uid)")
+                storedUserID = user.uid
+                Task {
+                    await fetchUserStatus(uid: user.uid)
+                }
+            } else {
+                print("Auth State Change: No user is signed in.")
+                storedUserID = ""
+                self.isAuthenticated = false
+                self.isPendingVerification = false
+                self.isLoading = false
+                self.rootViewId = UUID()
+            }
         }
     }
-    private func fetchOrCreateUser(uid: String, email: String?) {
-        // Fetch the user's data from your app's server or create a new record if it doesn't exist
-        let defaults =  UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-        if let mail = defaults?.email {
-            isAuthenticated = email == mail.lowercased() ? true : false
+    
+    private func fetchUserStatus(uid: String) async {
+        await FireStoreManager.shared.getUserDetails(userId: uid) { result in
+             DispatchQueue.main.async {
+                 if let user = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
+                     self.isAuthenticated = true
+                     if user.role == "doctor" {
+                         self.isDoctor = true
+                         self.isPendingVerification = (user.verificationStatus == "pending")
+                     } else {
+                         self.isDoctor = false
+                         self.isPendingVerification = false
+                     }
+                 } else {
+                     // Check if we can fallback to basic auth if firestore fails temporarily
+                     self.isAuthenticated = true 
+                 }
+                 self.isLoading = false
+                 self.rootViewId = UUID() // Force refresh
+             }
         }
-        debugPrint("Defaults == \(String(describing: defaults))")
     }
 }

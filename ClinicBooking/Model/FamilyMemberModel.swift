@@ -13,6 +13,12 @@ struct FamilyMemberModel: Codable {
     var members: [MemberModel]
 }
 
-struct MemberModel: Codable, Hashable {
+struct MemberModel: Codable, Hashable, Identifiable {
+    var id: String? = UUID().uuidString
     var firstName, lastName, height, weight, age, bloodGroup, phoneNumber, imageURL: String
+    var relation: String = "Family Member"
+    
+    var name: String {
+        return "\(firstName) \(lastName)"
+    }
 }

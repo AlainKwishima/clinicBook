@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DoctorsCardView: View {
+    var id: String? // Added ID
     var name: String
     var speciality: String
     var rating: String
@@ -15,9 +16,48 @@ struct DoctorsCardView: View {
     var image: String
     var btnAction: () -> Void
     @Environment(\.colorScheme) var colorScheme
+    @State private var isSaved: Bool = false
+    
+    // Check initial state
+    func checkIsSaved() {
+        guard let user = UserDefaults.standard.value(AppUser.self, forKey: "userDetails"),
+              let favs = user.favoriteDoctorIds,
+              let docId = id else { return }
+        isSaved = favs.contains(docId)
+    }
+    
+    func toggleFavorite() {
+        guard let docId = id, let userId = UserDefaults.standard.string(forKey: "userID") else { return }
+        // Optimistic UI
+        isSaved.toggle()
+        
+        Task {
+            do {
+                let _ = try await FireStoreManager.shared.toggleFavoriteDoctor(doctorId: docId, userId: userId)
+            } catch {
+                isSaved.toggle() // Revert on error
+                print("Error toggling favorite: \(error)")
+            }
+        }
+    }
+
     var body: some View {
             HStack(spacing: 15) {
-                ImageCircle(icon: image, radius: 40, circleColor: Color.doctorBG)
+                ZStack(alignment: .bottomTrailing) {
+                    ImageCircle(icon: image, radius: 40, circleColor: Color.doctorBG)
+                    
+                    Button {
+                        toggleFavorite()
+                    } label: {
+                        Image(systemName: isSaved ? "heart.fill" : "heart")
+                            .foregroundColor(isSaved ? .red : .gray)
+                            .padding(6)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
+                    .offset(x: 5, y: 5)
+                }
                 VStack(alignment: .leading, spacing: 8) {
                     Text(name)
                         .font(.customFont(style: .bold, size: .h14))
@@ -49,7 +89,11 @@ struct DoctorsCardView: View {
                 }
                 .frame(width: 85)
             }
-            .frame(width: UIScreen.main.bounds.width - 30)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
+            .onAppear {
+                checkIsSaved()
+            }
             Divider()
     }
 }

@@ -87,9 +87,6 @@ struct SignupView: View {
                         print("Signup tapped!")
                         Task {
                             await viewModel.signup()
-                            if viewModel.shouldNavigateToSignIn {
-                                presentationMode.wrappedValue.dismiss()
-                            }
                         }
                     } label: {
                         Text(Texts.signup.description)
@@ -120,10 +117,237 @@ struct SignupView: View {
                 Spacer()
                 Spacer()
             }
+            .navigationDestination(isPresented: $viewModel.shouldNavigateToAdditionalInfo) {
+                AdditionalInfoView()
+            }
         }
     }
 }
 
 #Preview {
     SignupView()
+}
+//
+//  AdditionalInfoView.swift
+//  ClinicBooking
+//
+//  Created by Assistant on 08/01/26.
+//
+
+import SwiftUI
+import FirebaseAuth
+
+struct AdditionalInfoView: View {
+    @StateObject private var viewModel = AuthenticationViewModel() // We might need a shared VM or just use FireStoreManager directly
+    @State private var height: String = ""
+    @State private var weight: String = ""
+    @State private var age: String = ""
+    @State private var address: String = ""
+    @State private var selectedBloodGroup: String = "Blood Group"
+    @State private var isLoading = false
+    @State private var navigateToSuccess = false
+    @State private var errorMessage: String?
+    
+    var bloodGroups = ["Blood Group", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"]
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Tell us more about you")
+                .font(.customFont(style: .bold, size: .h24))
+                .padding(.top, 40)
+            
+            Text("These details help us provide better health recommendations.")
+                .font(.customFont(style: .medium, size: .h15))
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            ScrollView {
+                VStack(spacing: 15) {
+                    CustomTextField(placeholder: "Height (in)", text: $height)
+                        .keyboardType(.numberPad)
+                    
+                    CustomTextField(placeholder: "Weight (kg)", text: $weight)
+                        .keyboardType(.numberPad)
+                    
+                    CustomTextField(placeholder: "Age", text: $age)
+                        .keyboardType(.numberPad)
+                    
+                    CustomTextField(placeholder: "Address / Location", text: $address)
+                    
+                    HStack {
+                        Text("Blood Group")
+                            .foregroundColor(.gray)
+                        Spacer()
+                        Picker("Blood Group", selection: $selectedBloodGroup) {
+                            ForEach(bloodGroups, id: \.self) { group in
+                                Text(group)
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(Color.lightGray.opacity(0.3))
+                    .cornerRadius(12)
+                }
+                .padding()
+            }
+            
+            if let error = errorMessage {
+                Text(error)
+                    .foregroundColor(.red)
+                    .font(.caption)
+            }
+            
+            Button {
+                saveDetails()
+            } label: {
+                if isLoading {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Text("Continue")
+                        .font(.customFont(style: .bold, size: .h17))
+                }
+            }
+            .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
+            .padding()
+            .disabled(isLoading)
+            .navigationDestination(isPresented: $navigateToSuccess) {
+                SuccessStateView()
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+    }
+    
+    func saveDetails() {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        if height.isEmpty || weight.isEmpty || age.isEmpty || address.isEmpty || selectedBloodGroup == "Blood Group" {
+            errorMessage = "Please fill in all fields."
+            return
+        }
+        
+        self.isLoading = true
+        
+        // Fetch existing user details first to merge (optional, but good practice if we don't want to overwrite)
+        // For now, we assume we just update the specific fields. 
+        // Note: AppUser is immutable/struct, so we effectively create a 'patch' or need to fetch-update-save.
+        // Given FireStoreManager.updateUserDetails takes a full AppUser object, we should ideally fetch current local state or create a partial update method.
+        // Let's create a partial update logic or fetch-modify-save pattern relying on what's available.
+        
+        // Since we are in a fresh signup flow, we might not have the full AppUser in memory in this View. 
+        // But we can construct a "partial" AppUser or modify `FireStoreManager` to accept a dictionary for updates.
+        // For simplicity with current architecture: fetch -> update -> save
+        
+        Task {
+            // Simplified: We will construct a new AppUser with the known data. 
+            // Better approach: Update `FireStoreManager` to allow partial updates. 
+            // Workaround for now: We will use the existing updateUserDetails but we need to make sure we don't wipe out name/email. 
+            // Ideally, we passed the 'User' object from SignupView to here. 
+            
+            // LET'S ASSUME we fetch it first.
+            await FireStoreManager.shared.getUserDetails(userId: user.uid) { success in
+                // The manager updates UserDefaults. let's read from there.
+                if let currentUser = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
+                    
+                    // Creates a new AppUser with updated fields (Manual copy since struct is immutable)
+                    let updatedUser = AppUser(
+                        password: currentUser.password, // Ideally shouldn't be stored/handled this way but adhering to existing model
+                        email: currentUser.email,
+                        firstName: currentUser.firstName,
+                        lastName: currentUser.lastName,
+                        createdAt: currentUser.createdAt,
+                        height: height,
+                        weight: weight,
+                        age: age,
+                        bloodGroup: selectedBloodGroup,
+                        phoneNumber: currentUser.phoneNumber,
+                        imageURL: currentUser.imageURL,
+                        address: address
+                    )
+                    
+                    // Save
+                    Task {
+                        await FireStoreManager.shared.updateUserDetails(user.uid, dataModel: updatedUser) { success in
+                            self.isLoading = false
+                            if success {
+                                self.navigateToSuccess = true
+                            } else {
+                                self.errorMessage = "Failed to save details."
+                            }
+                        }
+                    }
+                } else {
+                    self.isLoading = false
+                    self.errorMessage = "User details not found locally."
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    AdditionalInfoView()
+}
+//
+//  SuccessStateView.swift
+//  ClinicBooking
+//
+//  Created by Assistant on 08/01/26.
+//
+
+import SwiftUI
+
+struct SuccessStateView: View {
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Spacer()
+                Image(systemName: "checkmark.seal.fill")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.appBlue)
+                    .padding()
+                
+                Text("All set!")
+                    .font(.customFont(style: .bold, size: .h24))
+                    .padding(.top, 10)
+                
+                Text("Your profile has been created successfully. You can now start booking appointments.")
+                    .font(.customFont(style: .medium, size: .h15))
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 5)
+                
+                Spacer()
+                
+                Button {
+                    // Force a full refresh of the auth state to return to the proper root dashboard
+                    NotificationCenter.default.post(name: NSNotification.Name("AuthStatusChanged"), object: nil)
+                    // In current structure, clicking this just takes them home.
+                    // To be safe and clean, we rely on AppRootView. 
+                    // But since this is a NavigationLink, let's keep it as is for UI continuity 
+                    // but ensure the underlying data is already persisted.
+                } label: {
+                    NavigationLink(destination: HomeDashboard().navigationBarBackButtonHidden(true)) {
+                        Text("Go to Home")
+                            .font(.customFont(style: .bold, size: .h17))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 55)
+                            .background(Color.appBlue)
+                            .foregroundColor(.white)
+                            .cornerRadius(15)
+                    }
+                }
+                .padding()
+                .padding(.bottom, 20)
+            }
+            .navigationBarBackButtonHidden(true)
+        }
+    }
+}
+
+#Preview {
+    SuccessStateView()
 }
