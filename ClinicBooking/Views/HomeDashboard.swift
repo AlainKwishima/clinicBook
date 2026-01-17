@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct HomeDashboard: View {
-    @State private var selectedIndex: Int = 0
+    @State private var selectedIndex: Int? = 0
     @State private var isShowServices: Bool = false
     @State private var showDoctorProfile: Bool = false
     @State private var showSearch: Bool = false
@@ -25,14 +25,146 @@ struct HomeDashboard: View {
     @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
 
     var body: some View {
-        tabView
-            .onAppear {
-                Task {
-                    await viewModel.fetchDoctors()
-                    self.doctors = Array(viewModel.doctors.prefix(10))
-                    await clinicsVM.fetchClinics()
+        Group {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                NavigationSplitView {
+                    SidebarView(role: "patient", selectedIndex: $selectedIndex)
+                } detail: {
+                    detailView
+                }
+            } else {
+                tabView
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchDoctors()
+                self.doctors = Array(viewModel.doctors.prefix(10))
+                await clinicsVM.fetchClinics()
+            }
+        }
+    }
+
+    @ViewBuilder
+    var detailView: some View {
+        VStack(spacing: 0) {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                iPadHeader
+            }
+            
+            ZStack {
+                switch selectedIndex ?? 0 {
+                case 0:
+                    NavigationStack {
+                        homeContent
+                            .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
+                            .navigationDestination(isPresented: $showClinicProfile, destination: { if let clinic = selectedClinic { ClinicProfileView(clinic: clinic) } })
+                            .navigationDestination(isPresented: $isShowServices, destination: { ServicesView() })
+                            .fullScreenCover(isPresented: $showSearch, onDismiss: { selectedSearchCategory = nil }) {
+                                SearchFilterView(initialCategory: selectedSearchCategory)
+                            }
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                case 1:
+                    NavigationStack {
+                        AppointmentsView()
+                            .navigationTitle("Appointments")
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                case 2:
+                    NavigationStack {
+                        MedicalRecordsView()
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                case 3:
+                    NavigationStack {
+                        SavedDoctors()
+                            .navigationTitle("Saved Doctors")
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                case 4:
+                    NavigationStack {
+                        UserProfileView()
+                            .navigationTitle("Profile")
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                default:
+                    homeContent
                 }
             }
+            .id(selectedIndex ?? 0)
+        }
+    }
+
+    var iPadHeader: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(SidebarItem(rawValue: selectedIndex ?? 0)?.title(for: "patient") ?? "Dashboard")
+                    .font(.customFont(style: .bold, size: .h24))
+                Text(Date().formatted(date: .long, time: .omitted))
+                    .font(.customFont(style: .medium, size: .h14))
+                    .foregroundColor(.gray)
+            }
+            
+            Spacer()
+            
+            HStack(spacing: 20) {
+                Button {
+                    showSearch = true
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.text)
+                        .padding(10)
+                        .background(Color.card)
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.05), radius: 5)
+                }
+                
+                Button {
+                    showNotifications = true
+                } label: {
+                    Image(systemName: "bell.fill")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.text)
+                        .padding(10)
+                        .background(Color.card)
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.05), radius: 5)
+                }
+                
+                Divider()
+                    .frame(height: 30)
+                    .padding(.horizontal, 5)
+                
+                Button {
+                    selectedIndex = 4 // Profile
+                } label: {
+                    HStack(spacing: 12) {
+                        VStack(alignment: .trailing, spacing: 2) {
+                            Text("\(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
+                                .font(.customFont(style: .bold, size: .h14))
+                            Text("Patient")
+                                .font(.customFont(style: .medium, size: .h12))
+                                .foregroundColor(.appBlue)
+                        }
+                        
+                        AsyncImage(url: URL(string: defaults?.imageURL ?? "")) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            Image("user").resizable()
+                        }
+                        .frame(width: 44, height: 44)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.appBlue.opacity(0.2), lineWidth: 1))
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 30)
+        .padding(.vertical, 20)
+        .background(Color.bg)
     }
 
     var headerView: some View {
@@ -89,7 +221,7 @@ struct HomeDashboard: View {
     }
 
     var tabView: some View {
-        TabView(selection: $selectedIndex) {
+        TabView(selection: Binding(get: { selectedIndex ?? 0 }, set: { selectedIndex = $0 })) {
             NavigationStack() {
                 homeContent
                     .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
@@ -148,64 +280,79 @@ struct HomeDashboard: View {
     }
 
     var homeContent: some View {
-        ScrollView(.vertical) {
-            headerView
-                .padding(.horizontal)
-                .padding(.top, 10)
-            
-            searchHeaderView
-                .padding(.vertical, 10)
-            
-            servicesView
-                .padding(.horizontal)
-                .padding(.bottom, 15)
-            
-            clinicsView
-                .padding(.horizontal)
-                .padding(.bottom, 15)
-            
-            popularDoctorsView
-                .padding(.horizontal)
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 25) {
+                headerView
+                    .padding(.top, 10)
+                
+                searchHeaderView
+                
+                servicesView
+                    .padding(.bottom, 5)
+                
+                clinicsView
+                    .padding(.bottom, 5)
+                
+                popularDoctorsView
+            }
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 16)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 1100 : .infinity)
+            .frame(maxWidth: .infinity)
         }
     }
 
     var searchHeaderView: some View {
         ZStack {
-            Spacer()
-            RoundedRectangle(cornerRadius: 25)
-                .fill(Color.appBlue)
-                .frame(maxWidth: .infinity)
-                .frame(height: 160)
-                .padding(.horizontal)
+            LinearGradient(
+                gradient: Gradient(colors: [Color.appBlue, Color.appBlue.opacity(0.8), Color.appBlue.opacity(0.6)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .frame(maxWidth: .infinity)
+            .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 200 : 160)
+            .cornerRadius(25)
+            .padding(.horizontal)
+            .overlay(
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(LinearGradient(colors: [.white.opacity(0.4), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
+                    .padding(.horizontal)
+            )
+            
             HStack {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text(Texts.lookingForDoctors.description)
-                        .font(.customFont(style: .bold, size: .h18))
+                        .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h24 : .h18))
                         .foregroundColor(.white)
                         .fixedSize(horizontal: false, vertical: true)
+                        .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     
                     Button {
                         showSearch = true
                     } label: {
-                        Text(Texts.searchFor.description)
-                            .font(.customFont(style: .bold, size: .h14))
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                            .background(Color.white)
-                            .clipShape(Capsule())
+                        HStack(spacing: 8) {
+                            Text(Texts.searchFor.description)
+                                .font(.customFont(style: .bold, size: .h14))
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 12, weight: .bold))
+                        }
+                        .foregroundColor(.appBlue)
+                        .padding(.horizontal, 25)
+                        .padding(.vertical, 12)
+                        .background(Color.white)
+                        .clipShape(Capsule())
+                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                     }
                 }
-                .padding(.leading, 30)
+                .padding(.leading, UIDevice.current.userInterfaceIdiom == .pad ? 50 : 30)
                 
                 Spacer()
                 
                 Image("home-doctor")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 140)
-                    .padding(.trailing, 20)
-                    .offset(y: 5)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 200 : 140)
+                    .padding(.trailing, 30)
+                    .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 5)
             }
             .padding(.horizontal)
         }
@@ -283,7 +430,7 @@ struct HomeDashboard: View {
                     .font(.customFont(style: .bold, size: .h18))
                 Spacer()
                 Button {
-
+                    // Action for See All Popular Doctors
                 } label: {
                     Text(Texts.seeAll.description)
                         .font(.customFont(style: .medium, size: .h15))
@@ -291,28 +438,33 @@ struct HomeDashboard: View {
             }
             Spacer()
                 .padding(.top, 10)
-//            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    ForEach(0..<doctors.count, id: \.self) { index in
-                        DoctorsCardView(
-                            id: doctors[index].doctorID,
-                            name: doctors[index].name,
-                            speciality: doctors[index].specialist,
-                            rating: doctors[index].rating,
-                            fee: "$50.99", 
-                            image: doctors[index].image,
-                            btnAction: {
-                                showDoctorProfile = true
+            
+            VStack(alignment: .leading) {
+                let homeResultColumns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
+                    
+                    LazyVGrid(columns: homeResultColumns, spacing: 15) {
+                        ForEach(0..<doctors.count, id: \.self) { index in
+                            DoctorsCardView(
+                                id: doctors[index].doctorID,
+                                name: doctors[index].name,
+                                speciality: doctors[index].specialist,
+                                rating: doctors[index].rating,
+                                fee: doctors[index].fee != nil ? "$\(String(format: "%.2f", doctors[index].fee!))" : "$50.99",
+                                image: doctors[index].image,
+                                btnAction: {
+                                    showDoctorProfile = true
+                                    self.doctorDetail = doctors[index]
+                                }
+                            )
+                            .onTapGesture {
+                                showDoctorProfile =  true
                                 self.doctorDetail = doctors[index]
                             }
-                        )
-                        .onTapGesture {
-                            showDoctorProfile =  true
-                            self.doctorDetail = doctors[index]
                         }
                     }
-//                }
-            }
+                    .padding(.horizontal)
+                }
+                .padding(.top, 10)
 //            NavigationLink(destination: DoctorProfile(), isActive: $showDoctorProfile) { EmptyView() }
         }
     }
@@ -343,12 +495,16 @@ struct SearchFilterView: View {
         self.initialCategory = initialCategory
     }
     
-    // Grid layout for categories
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    // Adaptive Grid layout for categories
+    private var columns: [GridItem] {
+        let count = UIDevice.current.userInterfaceIdiom == .pad ? (UIScreen.main.bounds.width > UIScreen.main.bounds.height ? 5 : 4) : 3
+        return Array(repeating: GridItem(.flexible(), spacing: 15), count: count)
+    }
+    
+    // Adaptive Grid layout for results
+    private var resultColumns: [GridItem] {
+        return [GridItem(.adaptive(minimum: 300), spacing: 20)]
+    }
     
     @State private var selectedSearchMode = 0 // 0: Doctors, 1: Hospitals
     
@@ -357,15 +513,25 @@ struct SearchFilterView: View {
     var filteredDoctors: [Doctor] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
-        return viewModel.doctors.filter { doctor in
+        print("DEBUG: Filtering \(viewModel.doctors.count) doctors. Query: '\(query)', SelectedCategory: '\(selectedCategory ?? "None")'")
+        
+        let results = viewModel.doctors.filter { doctor in
             let matchesName = query.isEmpty || doctor.name.localizedCaseInsensitiveContains(query)
             let matchesSpecialty = query.isEmpty || doctor.specialist.localizedCaseInsensitiveContains(query)
             
             // For category selection, we use exact match or contains
+            // If selectedCategory is nil, it matches ALL (unless initial category logic interferes)
             let matchesCategory = selectedCategory == nil || doctor.specialist.localizedCaseInsensitiveContains(selectedCategory!)
+            
+            if !matchesCategory && selectedCategory != nil {
+                 print("DEBUG: Doctor '\(doctor.name)' skipped. Spec: '\(doctor.specialist)' != Category: '\(selectedCategory!)'")
+            }
             
             return (matchesName || matchesSpecialty) && matchesCategory
         }
+        
+        print("DEBUG: Filtered result count: \(results.count)")
+        return results
     }
     
     var body: some View {
@@ -434,7 +600,7 @@ struct SearchFilterView: View {
                                         Text(category.0)
                                             .font(.caption)
                                             .multilineTextAlignment(.center)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(.text)
                                     }
                                     .onTapGesture {
                                         selectedCategory = category.0
@@ -451,6 +617,7 @@ struct SearchFilterView: View {
                             if selectedSearchMode == 0 {
                                 // Selected Category Chip
                                 if selectedCategory != nil {
+
                                     HStack {
                                         Text("Category: \(selectedCategory!)")
                                             .padding(.horizontal, 10)
@@ -484,12 +651,14 @@ struct SearchFilterView: View {
                                     .frame(maxWidth: .infinity)
                                     .padding(.top, 50)
                                 } else {
-                                    ForEach(filteredDoctors) { doctor in
-                                        Button {
-                                            selectedDoctor = doctor
-                                            showDoctorProfile = true
-                                        } label: {
-                                            DoctorRowView(doctor: doctor)
+                                    LazyVGrid(columns: resultColumns, spacing: 15) {
+                                        ForEach(filteredDoctors) { doctor in
+                                            Button {
+                                                selectedDoctor = doctor
+                                                showDoctorProfile = true
+                                            } label: {
+                                                DoctorRowView(doctor: doctor)
+                                            }
                                         }
                                     }
                                 }
@@ -570,7 +739,7 @@ struct DoctorRowView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(doctor.name)
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(.text)
                     Text(doctor.specialist)
                         .font(.subheadline)
                         .foregroundColor(.gray)
@@ -591,7 +760,7 @@ struct DoctorRowView: View {
                     .foregroundColor(.appBlue)
             }
             .padding()
-            .background(Color.white)
+            .background(Color.card)
             .cornerRadius(12)
             .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
             .padding(.bottom, 8)
@@ -625,7 +794,7 @@ struct ClinicRowView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(clinic.name)
                     .font(.customFont(style: .bold, size: .h15))
-                    .foregroundColor(.black)
+                    .foregroundColor(.text)
                 Text(clinic.type)
                     .font(.customFont(style: .medium, size: .h13))
                     .foregroundColor(.gray)
@@ -648,7 +817,7 @@ struct ClinicRowView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color.card)
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
         .padding(.bottom, 8)
@@ -809,7 +978,7 @@ struct DoctorHomeTab: View {
                                 .foregroundColor(.appBlue.opacity(0.4))
                             Text("No appointments for today")
                                 .font(.customFont(style: .bold, size: .h16))
-                                .foregroundColor(.black)
+                                .foregroundColor(.text)
                             Text("Enjoy your free time or catch up on patient notes")
                                 .font(.customFont(style: .medium, size: .h14))
                                 .foregroundColor(.gray)
@@ -865,7 +1034,7 @@ struct DoctorHomeTab: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Hello Dr. \(defaults?.lastName ?? "")")
                     .font(.customFont(style: .bold, size: .h17))
-                    .foregroundColor(.black)
+                    .foregroundColor(.text)
                 Text("Have a great day at work!")
                     .font(.customFont(style: .medium, size: .h13))
                     .foregroundColor(.gray)
@@ -1154,7 +1323,7 @@ struct DoctorProfileView: View {
                         Divider()
                         ProfileDetailRow(icon: "doc.text.fill", title: "License", value: defaults?.licenseNumber ?? "N/A")
                     }
-                    .background(Color.white)
+                    .background(Color.card)
                     .cornerRadius(12)
                     .padding()
                     .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
@@ -1303,10 +1472,10 @@ struct DoctorProfileView: View {
                             }
                         })
                     Text("Dr. \(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
-                        .foregroundColor(.black)
+                        .foregroundColor(.text)
                         .font(.customFont(style: .bold, size: .h17))
-                    Text("\(defaults?.email.lowercased() ?? "")")
-                        .foregroundColor(.black)
+                    Text("\(defaults?.email?.lowercased() ?? "")")
+                        .foregroundColor(.text)
                         .font(.customFont(style: .medium, size: .h15))
                     
                     Button {
@@ -1315,7 +1484,7 @@ struct DoctorProfileView: View {
                         Label("Sign Out", systemImage: "power")
                             .font(.customFont(style: .bold, size: .h14))
                     }
-                    .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .black, height: 50, background: .clear))
+                    .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .text, height: 50, background: .clear))
                     .padding(.horizontal, 50)
                 }
                 .padding(.vertical, 30)
@@ -1443,65 +1612,110 @@ struct MedicalRecordsView: View {
 
 struct ClinicCardView: View {
     let clinic: Clinic
+    @State private var isHovered = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             ZStack(alignment: .topTrailing) {
-                if clinic.image.hasPrefix("http") {
-                    AsyncImage(url: URL(string: clinic.image)) { image in
-                        image.resizable()
+                Group {
+                    if clinic.image.hasPrefix("http") {
+                        AsyncImage(url: URL(string: clinic.image)) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            Rectangle().fill(Color.gray.opacity(0.1))
+                        }
+                    } else {
+                        Image(clinic.image)
+                            .resizable()
                             .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        Color.gray.opacity(0.1)
                     }
-                    .frame(width: 200, height: 120)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                } else {
-                    Image(clinic.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 200, height: 120)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
+                .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 280 : 200, height: UIDevice.current.userInterfaceIdiom == .pad ? 170 : 120)
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(Color.black.opacity(0.05), lineWidth: 1)
+                )
                 
                 Text(clinic.type)
                     .font(.customFont(style: .bold, size: .h11))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.appBlue)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(BlurView(style: .systemUltraThinMaterialDark))
                     .foregroundColor(.white)
                     .clipShape(Capsule())
-                    .padding(10)
+                    .padding(12)
             }
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(clinic.name)
-                    .font(.customFont(style: .bold, size: .h15))
-                    .foregroundColor(.black)
+                    .font(.customFont(style: .bold, size: .h16))
+                    .foregroundColor(.text)
+                    .lineLimit(1)
                 
-                HStack {
+                HStack(spacing: 4) {
                     Image(systemName: "mappin.and.ellipse")
-                        .font(.caption)
+                        .font(.caption2)
                     Text(clinic.address)
                         .font(.customFont(style: .medium, size: .h13))
+                        .lineLimit(1)
                 }
                 .foregroundColor(.gray)
                 
                 HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                        .font(.caption)
-                    Text(clinic.rating)
-                        .font(.customFont(style: .bold, size: .h13))
+                    HStack(spacing: 3) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption2)
+                        Text(clinic.rating)
+                            .font(.customFont(style: .bold, size: .h13))
+                            .foregroundColor(.text)
+                    }
+                    
                     Spacer()
+                    
                     Text("Details")
-                        .font(.caption).bold()
+                        .font(.customFont(style: .bold, size: .h13))
                         .foregroundColor(.appBlue)
                 }
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, 4)
         }
-        .frame(width: 200)
+        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 280 : 200)
+        .padding(10)
+        .background(Color.card)
+        .cornerRadius(22)
+        .shadow(color: .black.opacity(isHovered ? 0.12 : 0.06), radius: isHovered ? 15 : 8, x: 0, y: isHovered ? 10 : 4)
+        .scaleEffect(isHovered ? 1.02 : 1.0)
+        .onHover { hovering in
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                isHovered = hovering
+            }
+        }
+        .contextMenu {
+            Button {
+                // Quick Book
+            } label: {
+                Label("Book Visit", systemImage: "calendar.badge.plus")
+            }
+            
+            Button {
+                // View Profile
+            } label: {
+                Label("View Profile", systemImage: "info.circle")
+            }
+        }
+    }
+}
+
+struct BlurView: UIViewRepresentable {
+    var style: UIBlurEffect.Style
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
     }
 }
 
@@ -1547,7 +1761,7 @@ struct ClinicProfileView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(clinic.name)
                                     .font(.customFont(style: .bold, size: .h22))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.text)
                                 
                                 Text(clinic.type)
                                     .font(.customFont(style: .medium, size: .h13))
@@ -1568,7 +1782,7 @@ struct ClinicProfileView: View {
                             }
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
-                            .background(Color.white)
+                            .background(Color.bg)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .shadow(color: .black.opacity(0.1), radius: 5)
                         }
@@ -1601,12 +1815,14 @@ struct ClinicProfileView: View {
                     }
                     .padding(.horizontal, 25)
                     .padding(.vertical, 30)
-                    .background(Color.white)
+                    .background(Color.bg)
                     .cornerRadius(25)
                     .padding(.horizontal, 15)
                     .offset(y: -50)
                     .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: -5)
                 }
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
+                .frame(maxWidth: .infinity)
             }
             .edgesIgnoringSafeArea(.top)
             
@@ -1773,6 +1989,135 @@ struct FlowLayout<Data, Content: View>: View {
                 }
             }
         }
+    }
+
+}
+
+// MARK: - Sidebar Components
+enum SidebarSection: String, CaseIterable {
+    case general = "GENERAL"
+    case medical = "HEALTH & RECORDS"
+    case personal = "ACCOUNT"
+}
+
+enum SidebarItem: Int, CaseIterable, Identifiable {
+    case home = 0
+    case appointments = 1
+    case recordsOrHistory = 2
+    case saved = 3
+    case profile = 4
+    
+    var id: Int { self.rawValue }
+    
+    var section: SidebarSection {
+        switch self {
+        case .home, .appointments: return .general
+        case .recordsOrHistory: return .medical
+        case .saved, .profile: return .personal
+        }
+    }
+    
+    func title(for role: String) -> String {
+        switch self {
+        case .home: return "Home"
+        case .appointments: return "Appointments"
+        case .recordsOrHistory: return role == "doctor" ? "History" : "Medical Records"
+        case .saved: return "Saved"
+        case .profile: return "Profile"
+        }
+    }
+    
+    func icon(for role: String) -> String {
+        switch self {
+        case .home: return "house.fill"
+        case .appointments: return "calendar"
+        case .recordsOrHistory: return role == "doctor" ? "clock.arrow.circlepath" : "text.book.closed.fill"
+        case .saved: return "heart"
+        case .profile: return "person.fill"
+        }
+    }
+}
+
+struct SidebarView: View {
+    let role: String
+    @Binding var selectedIndex: Int?
+    @State private var hoveredItem: Int? = nil
+    
+    var body: some View {
+        List(selection: $selectedIndex) {
+            ForEach(SidebarSection.allCases, id: \.self) { section in
+                let items = filteredItems.filter { $0.section == section }
+                if !items.isEmpty {
+                    Section(header: Text(section.rawValue)
+                        .font(.customFont(style: .bold, size: .h12))
+                        .foregroundColor(.gray.opacity(0.8))
+                        .padding(.vertical, 8)) {
+                            ForEach(items) { item in
+                                SidebarRow(item: item, role: role, isSelected: selectedIndex == item.rawValue, isHovered: hoveredItem == item.rawValue)
+                                    .onHover { isHovered in
+                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                            hoveredItem = isHovered ? item.rawValue : nil
+                                        }
+                                    }
+                                    .tag(item.rawValue)
+                            }
+                        }
+                }
+            }
+        }
+        .listStyle(SidebarListStyle())
+        .navigationTitle("Clinic Booking")
+        .background(Color.bg.ignoresSafeArea())
+    }
+    
+    private var filteredItems: [SidebarItem] {
+        if role == "doctor" {
+            return [.home, .appointments, .recordsOrHistory, .profile]
+        } else {
+            return SidebarItem.allCases
+        }
+    }
+}
+
+struct SidebarRow: View {
+    let item: SidebarItem
+    let role: String
+    let isSelected: Bool
+    let isHovered: Bool
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: item.icon(for: role))
+                .font(.system(size: 18, weight: .medium))
+                .frame(width: 24)
+            
+            Text(item.title(for: role))
+                .font(.customFont(style: .medium, size: .h16))
+            
+            Spacer()
+            
+            if isSelected {
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 6, height: 6)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .foregroundColor(isSelected ? .white : (isHovered ? .appBlue : .text))
+        .background(
+            ZStack {
+                if isSelected {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.appBlue)
+                        .shadow(color: Color.appBlue.opacity(0.3), radius: 4, x: 0, y: 2)
+                } else if isHovered {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.lightBlue.opacity(0.2))
+                }
+            }
+        )
+        .contentShape(Rectangle())
     }
 }
 

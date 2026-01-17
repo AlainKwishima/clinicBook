@@ -44,13 +44,6 @@
 		EFFF3B752C871221000C35CC /* DoctorsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B742C871221000C35CC /* DoctorsList.swift */; };
 		EFFF3B772C8712AE000C35CC /* DoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B762C8712AE000C35CC /* DoctorsViewModel.swift */; };
 		EFFF3B782C8717A4000C35CC /* doctors.json in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B622C84BFBA000C35CC /* doctors.json */; };
-		EFFF3B7B2C874827000C35CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B7A2C874827000C35CC /* FirebaseAuth */; };
-		EFFF3B7D2C874827000C35CC /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B7C2C874827000C35CC /* FirebaseAuthCombine-Community */; };
-		EFFF3B7F2C874827000C35CC /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B7E2C874827000C35CC /* FirebaseDatabase */; };
-		EFFF3B812C874827000C35CC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B802C874827000C35CC /* FirebaseFirestore */; };
-		EFFF3B832C874827000C35CC /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B822C874827000C35CC /* FirebaseFirestoreCombine-Community */; };
-		EFFF3B852C874827000C35CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B842C874827000C35CC /* FirebaseStorage */; };
-		EFFF3B872C874827000C35CC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = EFFF3B862C874827000C35CC /* FirebaseStorageCombine-Community */; };
 		EFFF3B892C874E97000C35CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B882C874E97000C35CC /* GoogleService-Info.plist */; };
 		EFFF3B8B2C874FEF000C35CC /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B8A2C874FEF000C35CC /* FirebaseService.swift */; };
 		EFFF3B8D2C8751A5000C35CC /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B8C2C8751A5000C35CC /* AppUser.swift */; };
@@ -105,25 +98,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFFF3B7F2C874827000C35CC /* FirebaseDatabase in Frameworks */,
 				EF3D167B2C932F010011694A /* ProgressHUD in Frameworks */,
 				EF3D16A22C9AA9540011694A /* iPhoneNumberField in Frameworks */,
-				EFFF3B872C874827000C35CC /* FirebaseStorageCombine-Community in Frameworks */,
-				EFFF3B812C874827000C35CC /* FirebaseFirestore in Frameworks */,
-				EFFF3B7B2C874827000C35CC /* FirebaseAuth in Frameworks */,
-				EFFF3B832C874827000C35CC /* FirebaseFirestoreCombine-Community in Frameworks */,
-				EFFF3B7D2C874827000C35CC /* FirebaseAuthCombine-Community in Frameworks */,
-				EFFF3B852C874827000C35CC /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B5D71BB62F1BD10700F7219F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EFFF3B332C8435C7000C35CC = {
 			isa = PBXGroup;
 			children = (
 				EFFF3B3E2C8435C7000C35CC /* ClinicBooking */,
+				B5D71BB62F1BD10700F7219F /* Frameworks */,
 				EFFF3B3D2C8435C7000C35CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -271,13 +265,6 @@
 			);
 			name = ClinicBooking;
 			packageProductDependencies = (
-				EFFF3B7A2C874827000C35CC /* FirebaseAuth */,
-				EFFF3B7C2C874827000C35CC /* FirebaseAuthCombine-Community */,
-				EFFF3B7E2C874827000C35CC /* FirebaseDatabase */,
-				EFFF3B802C874827000C35CC /* FirebaseFirestore */,
-				EFFF3B822C874827000C35CC /* FirebaseFirestoreCombine-Community */,
-				EFFF3B842C874827000C35CC /* FirebaseStorage */,
-				EFFF3B862C874827000C35CC /* FirebaseStorageCombine-Community */,
 				EF3D167A2C932F010011694A /* ProgressHUD */,
 				EF3D16A12C9AA9540011694A /* iPhoneNumberField */,
 			);
@@ -310,7 +297,6 @@
 			);
 			mainGroup = EFFF3B332C8435C7000C35CC;
 			packageReferences = (
-				EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 			);
@@ -524,7 +510,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = ClinicBooking;
+				PRODUCT_BUNDLE_IDENTIFIER = "ClinicBooking9090p-----------------------";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -554,7 +540,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = ClinicBooking;
+				PRODUCT_BUNDLE_IDENTIFIER = "ClinicBooking9090p-----------------------";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -602,14 +588,6 @@
 				minimumVersion = 0.10.4;
 			};
 		};
-		EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.1.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -622,41 +600,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
 			productName = iPhoneNumberField;
-		};
-		EFFF3B7A2C874827000C35CC /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		EFFF3B7C2C874827000C35CC /* FirebaseAuthCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseAuthCombine-Community";
-		};
-		EFFF3B7E2C874827000C35CC /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		EFFF3B802C874827000C35CC /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		EFFF3B822C874827000C35CC /* FirebaseFirestoreCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreCombine-Community";
-		};
-		EFFF3B842C874827000C35CC /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		EFFF3B862C874827000C35CC /* FirebaseStorageCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EFFF3B792C874827000C35CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseStorageCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

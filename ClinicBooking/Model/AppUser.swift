@@ -10,17 +10,17 @@ import FirebaseFirestore
 
 struct AppUser: Codable {
     @DocumentID var id: String?
-    let password: String
-    let email: String
+    var password: String?
+    var email: String?
     let firstName: String
     let lastName: String
     let createdAt: Date
-    let height: String
-    let weight: String
-    let age: String
-    let bloodGroup: String
-    let phoneNumber: String
-    let imageURL: String
+    var height: String?
+    var weight: String?
+    var age: String?
+    var bloodGroup: String?
+    var phoneNumber: String?
+    var imageURL: String?
     var address: String?
     var role: String? = "patient" // "patient" or "doctor"
     var verificationStatus: String? = "none" // "none", "pending", "verified", "rejected"

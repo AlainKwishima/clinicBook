@@ -12,8 +12,12 @@ struct DoctorHomeTab: View {
     @State var todayAppointments: [Appointment] = []
     
     var body: some View {
-        ScrollView(.vertical) {
-            headerView
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 25) {
+                if UIDevice.current.userInterfaceIdiom != .pad {
+                    headerView
+                        .padding(.top, 10)
+                }
             
             // Stats Overview
             HStack(spacing: 15) {
@@ -21,6 +25,7 @@ struct DoctorHomeTab: View {
                 StatCard(title: "Confirmed", count: "8", color: .appBlue)
                 StatCard(title: "Completed", count: "12", color: .green)
             }
+            .padding(.horizontal)
             .padding(.vertical)
             
             // Today's Schedule
@@ -35,26 +40,31 @@ struct DoctorHomeTab: View {
                         .foregroundColor(.gray)
                         .padding()
                 } else {
-                    ForEach(todayAppointments) { appointment in
-                        UpcomingAppointmentCardView(
-                            address: "", // Don't show address for doctor view maybe? Or show clinic room?
-                            date: appointment.time, // Using time for today
-                            time: appointment.time,
-                            name: appointment.doctorName, // This would be Patient Name actually
-                            speciality: "General Checkup", // Reason for visit
-                            image: "user" // Patient image placeholder
-                        )
-                        .padding(.horizontal)
+                    let columns = [GridItem(.adaptive(minimum: 350), spacing: 15)]
+                    
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        ForEach(todayAppointments) { appointment in
+                            UpcomingAppointmentCardView(
+                                address: "", 
+                                date: appointment.time, 
+                                time: appointment.time,
+                                name: appointment.doctorName, 
+                                speciality: "General Checkup", 
+                                image: "user" 
+                            )
+                        }
                     }
+                    .padding(.horizontal)
                 }
             }
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 16)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 1100 : .infinity)
+            .frame(maxWidth: .infinity)
         }
     }
     
     var headerView: some View {
         HStack {
-            Spacer()
-                .frame(width: 15)
             Button(action: {
                 
             }, label: {
@@ -92,7 +102,8 @@ struct DoctorHomeTab: View {
                     .foregroundColor(Color.appBlue)
             })
         }
-        .frame(width: UIScreen.main.bounds.width - 20, height: 60)
+        .frame(maxWidth: .infinity)
+        .frame(height: 60)
     }
 }
 

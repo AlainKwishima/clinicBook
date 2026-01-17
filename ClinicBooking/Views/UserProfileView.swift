@@ -20,16 +20,19 @@ struct UserProfileView: View {
 
     var body: some View {
             VStack {
-                ScrollView {
-                    
-                    profileHeaderView
-                    familyMemberView
-                    helpAndSupportView
-                    Spacer()
-                        .navigationTitle("Profile")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .font(.title2)
-                        .foregroundColor(.white)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 30) {
+                        profileHeaderView
+                        
+                        VStack(spacing: 30) {
+                            familyMemberView
+                            helpAndSupportView
+                        }
+                        .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 16)
+                    }
+                    .padding(.bottom, 40)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
+                    .frame(maxWidth: .infinity)
                 }
             }
 
@@ -54,127 +57,135 @@ struct UserProfileView: View {
     }
 
     var profileHeaderView: some View {
-        VStack {
-            ZStack(alignment: .center) {
-                    Color(Color.appBlue.opacity(0.2))
-                    VStack(spacing: 15) {
-//                        Image("user").resizable()
-//                            .frame(width: 100, height: 100)
-                        AsyncImage(
-                            url: URL(string: defaults?.imageURL ?? ""),
-                            content: { image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(maxWidth: 120, maxHeight: 120)
-                                    .clipShape(Circle())
-                            },
-                            placeholder: {
-                                if defaults?.imageURL == "" {
-                                    Image("user").resizable()
-                                        .frame(width: 120, height: 120)
-                                } else {
-                                    ProgressView()
-                                }
-                            })
-                        Text("\(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
-                            .foregroundColor(.black)
-                            .font(.customFont(style: .bold, size: .h17))
-                        Text("\(defaults?.email.lowercased() ?? "")")
-                            .foregroundColor(.gray)
-                            .font(.customFont(style: .medium, size: .h15))
-                        HStack(spacing: 15) {
-                            Button {
-                                print("Edit profile tapped!")
-                                showEditProfile = true
-                            } label: {
-                                Label(
-                                    title: {
-                                        Text(Texts.editProfile.description)
-                                            .font(.customFont(style: .bold, size: .h14))
-                                    },
-                                    icon: { Image(systemName: "pencil") }
-                                )
-                            }
-                            .buttonStyle(BorderButtonStyle(borderColor: Color.gray, foregroundColor: .black, height: 60, background: .clear))
-                            Button {
-                                print("Signout Tapped!")
-                                showSignoutAlert = true
-                            } label: {
-                                Label(
-                                    title: { 
-                                        Text(Texts.signOut.description)
-                                            .font(.customFont(style: .bold, size: .h14))
-                                    },
-                                    icon: { Image(systemName: "power") }
-                                )
-                            }
-                            .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .black, height: 60, background: .clear))
+        VStack(spacing: 25) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.appBlue.opacity(0.1))
+                    .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 350 : 300)
+                
+                VStack(spacing: 15) {
+                    AsyncImage(
+                        url: URL(string: defaults?.imageURL ?? ""),
+                        content: { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+                        },
+                        placeholder: {
+                            Image("user")
+                                .resizable()
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
                         }
-                        .padding(.horizontal, 30)
+                    )
+                    
+                    VStack(spacing: 5) {
+                        Text("\(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
+                            .font(.customFont(style: .bold, size: .h20))
+                            .foregroundColor(.text)
+                        
+                        Text("\(defaults?.email?.lowercased() ?? "")")
+                            .font(.customFont(style: .medium, size: .h15))
+                            .foregroundColor(.gray)
                     }
-                    .padding(.top, 20)
-                    .padding(.bottom, 20)
-                }
-                .padding(.bottom, 20)
-                HStack(spacing: 15) {
-                    UserDetailsCardView(image: "height", title: Texts.height.description, value: "\(defaults?.height ?? "") in")
-                    UserDetailsCardView(image: "weight", title: Texts.weight.description, value: "\(defaults?.weight ?? "") KG")
-                    UserDetailsCardView(image: "age", title: Texts.age.description, value: "\(defaults?.age ?? "")")
-                    UserDetailsCardView(image: "blood", title: Texts.blood.description, value: "\(defaults?.bloodGroup ?? "")")
-                }
-                .alert("Are you sure you want to logging out?", isPresented: $showSignoutAlert) {
-                    Button("OK") {
-                        viewModel.signOut()
-                        UserDefaults.standard.removeObject(forKey: "userDetails")
+                    
+                    HStack(spacing: 15) {
+                        Button {
+                            showEditProfile = true
+                        } label: {
+                            Label("Edit Profile", systemImage: "pencil")
+                                .font(.customFont(style: .bold, size: .h14))
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(Color.white)
+                                .foregroundColor(.text)
+                                .cornerRadius(12)
+                                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        }
+                        
+                        Button {
+                            showSignoutAlert = true
+                        } label: {
+                            Label("Sign Out", systemImage: "power")
+                                .font(.customFont(style: .bold, size: .h14))
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(Color.appBlue.opacity(0.1))
+                                .foregroundColor(.appBlue)
+                                .cornerRadius(12)
+                        }
                     }
-                    Button("Cancel", role: .cancel) {}
-                }
-                .navigationDestination(isPresented: $addMember) {
-                    AddFamilyMemberView()
-                }
-                .navigationDestination(isPresented: $showEditProfile) {
-                    EditProfileView()
-                        .transition(.slide)
-                }
-                .onAppear {
-                    // Prompt refresh of user details when view appears
-                    defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
                 }
             }
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 16)
+            
+            // Stats Grid
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                UserDetailsCardView(image: "height", title: Texts.height.description, value: "\(defaults?.height ?? "") in")
+                UserDetailsCardView(image: "weight", title: Texts.weight.description, value: "\(defaults?.weight ?? "") KG")
+                UserDetailsCardView(image: "age", title: Texts.age.description, value: "\(defaults?.age ?? "")")
+                UserDetailsCardView(image: "blood", title: Texts.blood.description, value: "\(defaults?.bloodGroup ?? "")")
+            }
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 16)
         }
+        .onAppear {
+            defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
+        }
+    }
 
     var familyMemberView: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 15) {
             HStack {
                 Text(Texts.familyMembers.description)
                     .font(.customFont(style: .bold, size: .h18))
                 Spacer()
                 Button {
-                    /// Button Action
                     addMember = true
                 } label: {
                     Label(Texts.addNew.description, systemImage: "plus")
+                        .font(.customFont(style: .bold, size: .h14))
                 }
                 .buttonStyle(BlueButtonStyle(height: 35, color: Color.appBlue))
-                .frame(width: 120)
+                .frame(width: 130)
             }
-            Spacer()
-                .padding(.top, 10)
-            if let member = userViewModel.familyMembers?.members {
-                ForEach(0..<member.count, id: \.self) { index in
-                    FamilyMembersListView(
-                        imageUrl: member[index].imageURL,
-                        name: (member[index].firstName) + " " + (member[index].lastName),
-                        phoneNumber: member[index].phoneNumber,
-                        bloodGroup: member[index].bloodGroup,
-                        age: member[index].age,
-                        height: member[index].height,
-                        weight: member[index].weight
-                    )
+            
+            if let member = userViewModel.familyMembers?.members, !member.isEmpty {
+                VStack(spacing: 0) {
+                    ForEach(0..<member.count, id: \.self) { index in
+                        FamilyMembersListView(
+                            imageUrl: member[index].imageURL,
+                            name: (member[index].firstName) + " " + (member[index].lastName),
+                            phoneNumber: member[index].phoneNumber,
+                            bloodGroup: member[index].bloodGroup,
+                            age: member[index].age,
+                            height: member[index].height,
+                            weight: member[index].weight
+                        )
+                        .padding()
+                        
+                        if index < member.count - 1 {
+                            Divider()
+                                .padding(.horizontal)
+                        }
+                    }
                 }
+                .background(Color.card)
+                .cornerRadius(18)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(Color.black.opacity(0.05), lineWidth: 1)
+                )
+            } else {
+                Text("No family members added yet.")
+                    .font(.customFont(style: .medium, size: .h14))
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
             }
         }
-        .padding()
     }
 
     var helpAndSupportView: some View {
@@ -191,7 +202,7 @@ struct UserProfileView: View {
                     Divider()
                     supportItem(icon: "message", title: "In-app Chat")
                 }
-                .background(Color.white)
+                .background(Color.card)
                 .cornerRadius(12)
                 .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 .padding(.horizontal)
@@ -246,7 +257,7 @@ struct UserProfileView: View {
                     .foregroundColor(.appBlue)
                     .frame(width: 30)
                 Text(title)
-                    .foregroundColor(.black)
+                    .foregroundColor(.text)
                     .font(.customFont(style: .medium, size: .h16))
                 Spacer()
                 Image(systemName: "chevron.right")

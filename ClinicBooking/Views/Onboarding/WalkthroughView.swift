@@ -19,7 +19,7 @@ struct WalkthroughView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            Color.bg.ignoresSafeArea()
             
             VStack {
                 HStack {
@@ -43,7 +43,7 @@ struct WalkthroughView: View {
                             Text(pages[index].title)
                                 .font(.title)
                                 .bold()
-                                .foregroundColor(.black)
+                                .foregroundColor(.text)
                                 .multilineTextAlignment(.center)
                             
                             Text(pages[index].description)

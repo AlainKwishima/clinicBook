@@ -47,7 +47,7 @@ struct AppointmentsView: View {
                                                     speciality: appointment.doctorSpeciality,
                                                     image: appointment.doctorImage
                                                 )
-                                                .frame(width: UIScreen.main.bounds.width - 30)
+                                                .frame(width: min(UIScreen.main.bounds.width - 30, 400))
                                                 .padding([.leading, .trailing], 16)
                                             }
                                         }
@@ -63,19 +63,23 @@ struct AppointmentsView: View {
                                 Text("Past")
                                     .font(.customFont(style: .bold, size: .h16))
                                     .padding(.horizontal, 16)
-                                ForEach(pastAppointments) { appointment in
-                                    NavigationLink(destination: AppointmentDetailView(appointment: appointment)) {
-                                        PastAppointmetsCard(
-                                            image: appointment.doctorImage,
-                                            name: appointment.doctorName,
-                                            speciality: appointment.doctorSpeciality,
-                                            date: appointment.date.formatted(date: .abbreviated, time: .omitted),
-                                            time: appointment.time
-                                        )
-                                        .padding([.leading, .trailing], 16)
-                                        .padding(.bottom, 5)
+                                
+                                let columns = [GridItem(.adaptive(minimum: 320), spacing: 15)]
+                                
+                                LazyVGrid(columns: columns, spacing: 12) {
+                                    ForEach(pastAppointments) { appointment in
+                                        NavigationLink(destination: AppointmentDetailView(appointment: appointment)) {
+                                            PastAppointmetsCard(
+                                                image: appointment.doctorImage,
+                                                name: appointment.doctorName,
+                                                speciality: appointment.doctorSpeciality,
+                                                date: appointment.date.formatted(date: .abbreviated, time: .omitted),
+                                                time: appointment.time
+                                            )
+                                        }
                                     }
                                 }
+                                .padding(.horizontal, 16)
                             }
                         }
                         Spacer()
@@ -169,7 +173,7 @@ struct AppointmentDetailView: View {
                     Spacer()
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color.card)
                 .cornerRadius(12)
                 .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 
@@ -180,7 +184,7 @@ struct AppointmentDetailView: View {
                     DetailRow(icon: "mappin.circle.fill", title: "Location", value: appointment.location)
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color.card)
                 .cornerRadius(12)
                 .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 
@@ -197,7 +201,7 @@ struct AppointmentDetailView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .background(Color.card)
                 .cornerRadius(12)
                 .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 
@@ -239,7 +243,10 @@ struct AppointmentDetailView: View {
                 .padding(.bottom, 20)
             }
             .padding()
+            .frame(maxWidth: 600)
+            .frame(maxWidth: .infinity)
         }
+        .background(Color.bg)
         .navigationTitle("Appointment Details")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Cancel Appointment", isPresented: $showCancelAlert) {
@@ -289,7 +296,10 @@ struct DetailRow: View {
                     .foregroundColor(.gray)
                 Text(value)
                     .font(.customFont(style: .medium, size: .h16))
+                    .foregroundColor(.text)
             }
         }
     }
 }
+
+

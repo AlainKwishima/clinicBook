@@ -70,10 +70,9 @@ class FireStoreManager {
     }
 
     func fetchRegisteredDoctors() async throws -> [AppUser] {
-        let snapshot = try await db.collection(FireStoreCollections.users.rawValue)
-            .whereField("role", isEqualTo: "doctor")
-            .whereField("verificationStatus", isEqualTo: "verified")
+        let snapshot = try await db.collection("doctors")
             .getDocuments()
+        
         return snapshot.documents.compactMap { try? $0.data(as: AppUser.self) }
     }
 
@@ -86,9 +85,15 @@ class FireStoreManager {
     }
 
     func updateVerificationStatus(userId: String, status: String) async throws {
-        try await db.collection(FireStoreCollections.users.rawValue).document(userId).updateData([
-            "verificationStatus": status
-        ])
+        let batch = db.batch()
+        
+        let userRef = db.collection(FireStoreCollections.users.rawValue).document(userId)
+        let doctorRef = db.collection(FireStoreCollections.doctors.rawValue).document(userId)
+        
+        batch.updateData(["verificationStatus": status], forDocument: userRef)
+        batch.updateData(["verificationStatus": status], forDocument: doctorRef)
+        
+        try await batch.commit()
     }
 
     func fetchClinics() async throws -> [Clinic] {

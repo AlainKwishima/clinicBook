@@ -192,7 +192,7 @@ struct DoctorProfileView: View {
                     Text("Dr. \(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
                         .foregroundColor(.black)
                         .font(.customFont(style: .bold, size: .h17))
-                    Text("\(defaults?.email.lowercased() ?? "")")
+                    Text("\(defaults?.email?.lowercased() ?? "")")
                         .foregroundColor(.black)
                         .font(.customFont(style: .medium, size: .h15))
                     

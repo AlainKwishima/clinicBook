@@ -61,11 +61,11 @@ extension Doctor {
         self.name = "Dr. \(appUser.firstName) \(appUser.lastName)"
         self.specialist = appUser.specialty ?? "General Physician"
         self.degree = "MD" // Default or could be added to AppUser
-        self.image = appUser.imageURL.isEmpty ? "user" : appUser.imageURL
+        self.image = (appUser.imageURL ?? "").isEmpty ? "user" : (appUser.imageURL ?? "user")
         self.position = "Specialist"
         self.languageSpoken = "English"
         self.about = appUser.aboutMe ?? "No bio available."
-        self.contact = appUser.phoneNumber
+        self.contact = appUser.phoneNumber ?? "N/A"
         self.address = appUser.address ?? "Clinic Address"
         self.rating = "5.0"
         self.isPopular = true

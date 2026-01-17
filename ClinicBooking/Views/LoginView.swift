@@ -24,7 +24,7 @@ struct LoginView: View {
             if viewModel.isLoading {
                 ProgressView("Please wait...")
                     .padding()
-                    .background(Color.white)
+                    .background(Color.card)
                     .cornerRadius(10)
                     .shadow(radius: 10)
                     .zIndex(1)
@@ -42,45 +42,51 @@ struct LoginView: View {
                     }
                 }
                 Spacer()
-                VStack(spacing: 20) {
+                VStack(spacing: 25) {
                     if let message = viewModel.validationMessage {
                         Text(message)
                             .foregroundColor(.red)
                             .font(.customFont(style: .medium, size: .h15))
                             .padding()
                     }
-                    CustomTextField(placeholder: Texts.enterEmail.description, text: $viewModel.email)
-                        .textInputAutocapitalization(.never)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .emailField)
-                        .onTapGesture {
-                            viewModel.clearValidationMessage()
+                    
+                    VStack(spacing: 20) {
+                        CustomTextField(placeholder: Texts.enterEmail.description, text: $viewModel.email)
+                            .textInputAutocapitalization(.never)
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .emailField)
+                            .onTapGesture {
+                                viewModel.clearValidationMessage()
+                            }
+                            .onSubmit {
+                                focusedField = .passwordField
+                            }
+                        
+                        CustomTextField(placeholder: Texts.enterPassword.description, text: $viewModel.password, isSecure: true)
+                            .padding(.bottom, 10)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled(true)
+                            .submitLabel(.done)
+                            .focused($focusedField, equals: .passwordField)
+                            .onTapGesture {
+                                viewModel.clearValidationMessage()
+                            }
+                            .onSubmit {
+                                focusedField = nil
+                            }
+                        
+                        Button {
+                            print("Forget password tapped!")
+                            viewModel.showingResetPasswordSheet = true
+                        }  label: {
+                            Text(Texts.forgotPassword.description)
+                                .font(.customFont(style: .medium, size: .h16))
+                                .foregroundColor(.blue)
                         }
-                        .onSubmit {
-                            focusedField = .passwordField
-                        }
-                    CustomTextField(placeholder: Texts.enterPassword.description, text: $viewModel.password, isSecure: true)
-                        .padding(.bottom, 10)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(true)
-                        .submitLabel(.done)
-                        .focused($focusedField, equals: .passwordField)
-                        .onTapGesture {
-                            viewModel.clearValidationMessage()
-                        }
-                        .onSubmit {
-                            focusedField = nil
-                        }
-                    Button {
-                        print("Forget password tapped!")
-                        viewModel.showingResetPasswordSheet = true
-                    }  label: {
-                        Text(Texts.forgotPassword.description)
-                            .font(.customFont(style: .medium, size: .h16))
-                            .foregroundColor(.blue)
+                        .padding(.vertical, 10)
                     }
-                    .padding()
-                    .foregroundColor(Color.appBlue)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
+                    
                     Button {
                         print("Login tapped!")
                         Task {
@@ -94,12 +100,12 @@ struct LoginView: View {
                             .foregroundColor(.white)
                             .font(.customFont(style: .bold, size: .h17))
                             .padding()
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .background(Color.appBlue)
                             .cornerRadius(30)
-                            .padding(.horizontal)
-                            .padding(.bottom, 10)
                     }
+                    .padding(.bottom, 10)
+                    
                     Button {
                         print("Sigup tapped!")
                         viewModel.isShowingSignUpScreen = true
@@ -107,7 +113,7 @@ struct LoginView: View {
                         HStack(spacing: 10) {
                             Text(Texts.accountMessage.description)
                                 .font(.customFont(style: .medium, size: .h15))
-                                .foregroundColor(.black)
+                                .foregroundColor(.text)
                             Text(Texts.signup.description)
                                 .foregroundColor(Color.appBlue)
                                 .underline()
@@ -115,6 +121,8 @@ struct LoginView: View {
                         }
                     }
                 }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
                 Spacer()
                 Spacer()
             }
@@ -187,7 +195,7 @@ struct RoleSelectionView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 55)
-                    .background(Color.white)
+                    .background(Color.bg)
                     .foregroundColor(.appBlue)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
@@ -274,7 +282,7 @@ struct DoctorLoginView: View {
             if viewModel.isLoading {
                 ProgressView("Verifying credentials...")
                     .padding()
-                    .background(Color.white)
+                    .background(Color.card)
                     .cornerRadius(10)
                     .shadow(radius: 10)
             }
@@ -305,7 +313,7 @@ struct DoctorLoginView: View {
                         SecureField("Password", text: $viewModel.password)
                             .padding()
                             .frame(height: 55)
-                            .background(Color.white)
+                            .background(Color.bg)
                             .cornerRadius(10)
                             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
                     }
@@ -575,9 +583,11 @@ struct DoctorRegistrationContainerView: View {
                         specialty: regVM.specialty, licenseNumber: regVM.licenseNumber, aboutMe: ""
                     )
                     await FireStoreManager.shared.updateUserDetails(userId, dataModel: doctorUser) { success in
-                        regVM.isLoading = false
-                        if success { regVM.navigateToPending = true }
-                        else { regVM.errorMessage = "Failed to save doctor details." }
+                        Task { @MainActor in
+                            regVM.isLoading = false
+                            if success { regVM.navigateToPending = true }
+                            else { regVM.errorMessage = "Failed to save doctor details." }
+                        }
                     }
                 }
             } else {
@@ -597,7 +607,7 @@ struct DoctorRegStep1View: View {
             CustomTextField(placeholder: "Last Name", text: $viewModel.lastName)
             CustomTextField(placeholder: "Phone Number", text: $viewModel.phoneNumber).keyboardType(.phonePad)
             CustomTextField(placeholder: "Email Address", text: $viewModel.email).textInputAutocapitalization(.never).keyboardType(.emailAddress)
-            SecureField("Password", text: $viewModel.password).padding().frame(height: 55).background(Color.white).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+            SecureField("Password", text: $viewModel.password).padding().frame(height: 55).background(Color.bg).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
         }
     }
 }
@@ -613,9 +623,9 @@ struct DoctorRegStep2View: View {
                 ForEach(specialties, id: \.self) { spec in Button(spec) { viewModel.specialty = spec } }
             } label: {
                 HStack {
-                    Text(viewModel.specialty.isEmpty ? "Select Specialty" : viewModel.specialty).foregroundColor(viewModel.specialty.isEmpty ? .gray : .black)
+                    Text(viewModel.specialty.isEmpty ? "Select Specialty" : viewModel.specialty).foregroundColor(viewModel.specialty.isEmpty ? .gray : .text)
                     Spacer(); Image(systemName: "chevron.down").foregroundColor(.gray)
-                }.padding().frame(height: 55).background(Color.white).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                }.padding().frame(height: 55).background(Color.bg).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
             }
             CustomTextField(placeholder: "Years of Experience", text: $viewModel.experienceYears).keyboardType(.numberPad)
             HStack(spacing: 15) {

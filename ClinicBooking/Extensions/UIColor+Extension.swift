@@ -41,6 +41,27 @@ extension Color {
     static var doctorBG: Color {
         return Color.init(hex: Colors.doctorBG.description)
     }
+
+    // MARK: - Adaptive Semantic Colors
+    static var bg: Color {
+        return Color(UIColor.systemBackground)
+    }
+    
+    static var card: Color {
+        return Color(UIColor.secondarySystemGroupedBackground)
+    }
+    
+    static var text: Color {
+        return Color.primary
+    }
+    
+    static var textSecondary: Color {
+        return Color.secondary
+    }
+    
+    static var cardShadow: Color {
+        return Color("cardShadow") // Requires asset catalog or conditional logic
+    }
 }
 
 extension Color {

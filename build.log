@@ -1,0 +1,142 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ClinicBooking.xcodeproj -scheme ClinicBooking -destination generic/platform=iOS build
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  iPhoneNumberField: https://github.com/MojtabaHs/iPhoneNumberField.git @ 0.10.4
+  PhoneNumberKit: https://github.com/marmelroy/PhoneNumberKit @ 3.8.0
+  ProgressHUD: https://github.com/relatedcode/ProgressHUD.git @ 14.1.3
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (9 targets)
+    Target 'ClinicBooking' in project 'ClinicBooking'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit' (no dependencies)
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.2-23C53-3794476bd08197c3e2abd9bb477ef7f7.sdkstatcache
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk -o /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.2-23C53-3794476bd08197c3e2abd9bb477ef7f7.sdkstatcache
+
+CompileXIB /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/ViewController.xib (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module ProgressHUD_ProgressHUD --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphoneos/ProgressHUD_ProgressHUD.build/ViewController-PartialInfo.plist --auto-activate-custom-fonts --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --output-format human-readable-text --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/ProgressHUD_ProgressHUD.bundle/ViewController.nib /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/ViewController.xib
+
+CompileStoryboard /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Base.lproj/LaunchScreen.storyboard (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module ProgressHUD_ProgressHUD --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphoneos/ProgressHUD_ProgressHUD.build/Base.lproj/LaunchScreen-SBPartialInfo.plist --auto-activate-custom-fonts --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --output-format human-readable-text /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Base.lproj/LaunchScreen.storyboard --compilation-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphoneos/ProgressHUD_ProgressHUD.build/Base.lproj
+
+CompileAssetCatalogVariant thinned /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/ClinicBooking.app /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 17.5 --platform iphoneos
+
+SwiftDriver ClinicBooking normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name ClinicBooking -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk -target arm64-apple-ios17.5 -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos -emit-localized-strings -emit-localized-strings-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphoneos26.2-23C53-3794476bd08197c3e2abd9bb477ef7f7.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64/ClinicBooking_const_extract_protocols.json -Xcc -iquote -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/ClinicBooking-generated-files.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/ClinicBooking-own-target-headers.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/ClinicBooking-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking-9570d0f49aac4855f9b781f15a341d07-VFS-iphoneos/all-product-headers.yaml -Xcc -iquote -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/ClinicBooking-project-headers.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphoneos/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphoneos/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking -experimental-emit-module-separately -disable-cmo
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: error: Unable to find module dependency: 'FirebaseAuth'
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/SignupView.swift:145:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/AuthenticationViewModel.swift:9:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:10:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/UserViewModel.swift:9:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/EditProfileView.swift:11:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:9:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:10:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/UserProfileView.swift:9:8: note: Also imported here
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: error: Unable to find module dependency: 'FirebaseFirestore'
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/Firebase.swift:9:8: note: Also imported here
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:9:8: note: Also imported here
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: note: Also imported here
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/AppUser.swift:9:8: note: Also imported here
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:10:8: note: Also imported here
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: error: Unable to find module dependency: 'FirebaseStorage'
+import FirebaseStorage
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseStorage
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: error: Unable to find module dependency: 'Firebase'
+import Firebase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: note: A dependency of main module 'ClinicBooking'
+import Firebase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: error: Unable to find module dependency: 'FirebaseCore'
+import FirebaseCore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseCore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+
+warning: no rule to process file '/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/PrivacyInfo.xcprivacy' of type 'file' for architecture 'arm64' (in target 'ProgressHUD' from project 'ProgressHUD')

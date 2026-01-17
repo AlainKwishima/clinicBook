@@ -41,7 +41,7 @@ struct PastAppointmetsCard: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(.white)
+        .background(Color.card)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

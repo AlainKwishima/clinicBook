@@ -1,0 +1,160 @@
+2026-01-17 16:49:03.812 xcodebuild[24370:271540] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+2026-01-17 16:49:03.812 xcodebuild[24370:271540] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: error: Unable to find module dependency: 'FirebaseAuth'
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: error: Unable to find module dependency: 'FirebaseAuth'
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/SignupView.swift:145:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/AuthenticationViewModel.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:10:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/UserViewModel.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/EditProfileView.swift:11:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:10:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/SignupView.swift:145:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/AuthenticationViewModel.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:10:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/UserViewModel.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/EditProfileView.swift:11:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:10:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/UserProfileView.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: error: Unable to find module dependency: 'FirebaseFirestore'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/UserProfileView.swift:9:8: note: also imported here
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: error: Unable to find module dependency: 'FirebaseFirestore'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/FamilyMemberModel.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/Firebase.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/AppUser.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:10:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: error: Unable to find module dependency: 'FirebaseStorage'
+import FirebaseStorage
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseStorage
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: error: Unable to find module dependency: 'Firebase'
+import Firebase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/Firebase.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/AppUser.swift:9:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:10:8: note: also imported here
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: error: Unable to find module dependency: 'FirebaseStorage'
+import FirebaseStorage
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseStorage
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: error: Unable to find module dependency: 'Firebase'
+import Firebase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import Firebase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/FirebaseService.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import Firebase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: error: Unable to find module dependency: 'FirebaseCore'
+import FirebaseCore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: error: Unable to find module dependency: 'FirebaseCore'
+import FirebaseCore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseCore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseCore
+       ^
+** BUILD FAILED **
+
+
+The following build commands failed:
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftDriver ClinicBooking normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ClinicBooking' from project 'ClinicBooking')
+	SwiftDriver ClinicBooking normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ClinicBooking' from project 'ClinicBooking')
+	Building project ClinicBooking with scheme ClinicBooking
+	Building project ClinicBooking with scheme ClinicBooking
+(2 failures)
+(2 failures)

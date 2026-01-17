@@ -21,7 +21,7 @@ struct CustomTextField: View {
                 .keyboardType(.default)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
-                .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: 60, alignment: .center)
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity, maxHeight: 60, alignment: .center)
         } else {
             SecureField(placeholder, text: $text)
                 .font(.customFont(style: .medium, size: .h16))
@@ -29,7 +29,7 @@ struct CustomTextField: View {
                 .keyboardType(.default)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
-                .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: 60, alignment: .center)
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity, maxHeight: 60, alignment: .center)
         }
     }
 
@@ -52,16 +52,18 @@ struct CustomTextField: View {
                 }
             }
             .padding(.horizontal, 15)
-            .background(.white)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity)
+            .background(Color.bg)
             .font(.customFont(style: .medium, size: .h16))
             .overlay(
                 RoundedRectangle(cornerRadius: 30)
                     .stroke(Color.lightGray, lineWidth: 2)
             )
             .padding(.horizontal, 15)
+            .frame(maxWidth: .infinity)
             //            SecureField(placeholder, text: $text)
             //                .padding()
-            //                .background(.white)
+            //                .background(Color.bg)
             //                .font(.customFont(style: .medium, size: .h16))
             //                .overlay(RoundedRectangle(cornerRadius: 30)
             //                    .stroke(Color.lightGray, lineWidth: 2)
@@ -74,13 +76,15 @@ struct CustomTextField: View {
             )
             .padding()
             .autocapitalization(.none)
-            .background(.white)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity)
+            .background(Color.bg)
             .font(.customFont(style: .medium, size: .h16))
             .overlay(
                 RoundedRectangle(cornerRadius: 30)
                     .stroke(Color.lightGray, lineWidth: 2)
             )
             .padding(.horizontal)
+            .frame(maxWidth: .infinity)
         }
     }
 

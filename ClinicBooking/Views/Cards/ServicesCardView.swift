@@ -11,13 +11,15 @@ struct ServicesCardView: View {
     var image: String
     var title: String
     var isSymbol: Bool = false
+    @State private var isHovered = false
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(Color.lightBlue)
+                    .fill(Color.lightBlue.opacity(0.3))
                     .frame(width: 80, height: 80)
+                    .shadow(color: Color.appBlue.opacity(isHovered ? 0.2 : 0.05), radius: isHovered ? 12 : 5)
                 
                 if isSymbol {
                     Image(systemName: image)
@@ -30,8 +32,16 @@ struct ServicesCardView: View {
                         .frame(width: 45, height: 45)
                 }
             }
+            .scaleEffect(isHovered ? 1.1 : 1.0)
+            
             Text(title)
-                .font(.customFont(style: .medium, size: .h15))
+                .font(.customFont(style: .bold, size: .h15))
+                .foregroundColor(isHovered ? .appBlue : .text)
+        }
+        .onHover { hovering in
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                isHovered = hovering
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ class DoctorsViewModel: ObservableObject {
     @Published var doctors: [Doctor] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
+    @Published var debugStatus: String = "Initializing..."
 
     func fetchDoctors() async {
         self.isLoading = true
@@ -19,11 +20,11 @@ class DoctorsViewModel: ObservableObject {
         
         var allDoctors: [Doctor] = []
         
-        // 1. Load from JSON (Legacy)
-        if let loadedList = loadJson(fileName: "doctors") {
-            allDoctors = loadedList.doctors
-            print("Successfully loaded \(allDoctors.count) doctors from JSON.")
-        }
+        // 1. Load from JSON (Legacy) - DISABLE for now to show real doctors only
+        // if let loadedList = loadJson(fileName: "doctors") {
+        //     allDoctors = loadedList.doctors
+        //     print("Successfully loaded \(allDoctors.count) doctors from JSON.")
+        // }
         
         // 2. Load from Firestore (Dynamic)
         do {
@@ -31,8 +32,8 @@ class DoctorsViewModel: ObservableObject {
             print("Fetched \(registeredUsers.count) registered doctors from Firestore.")
             
             let registeredDoctors = registeredUsers.compactMap { user -> Doctor in
-                // Find a unique ID (email or UID should be stable)
-                let stableId = user.email
+                // Use the document ID (UID) for a stable identity
+                let stableId = user.id ?? user.email ?? UUID().uuidString
                 return Doctor(from: user, id: stableId)
             }
             
@@ -44,6 +45,8 @@ class DoctorsViewModel: ObservableObject {
                     mergedCount += 1
                 }
             }
+            print("Merged \(mergedCount) new doctors into the list. Total count: \(allDoctors.count)")
+            
             print("Merged \(mergedCount) new doctors into the list. Total count: \(allDoctors.count)")
             
         } catch {

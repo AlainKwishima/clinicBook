@@ -20,13 +20,19 @@ struct DoctorProfile: View {
     var nightTimes = ["08-09 PM", "09-10 PM", "10-11 PM", "11-12 PM"]
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: true) {
-                headerView
-                    .padding(.top, 15)
-                appointmentView
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 30) {
+                    headerView
+                        .padding(.top, 15)
+                    appointmentView
+                }
+                .padding(.bottom, 40)
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
+                .frame(maxWidth: .infinity)
             }
             .navigationTitle(Texts.docProfile.description)
             .navigationBarTitleDisplayMode(.inline)
+            .background(Color.bg)
         }
     }
 
@@ -224,6 +230,7 @@ struct PatientSelectionView: View {
                             )
                         }
                     }
+                    .padding(.vertical, 5)
                 }
             }
             
@@ -240,10 +247,16 @@ struct PatientSelectionView: View {
             } label: {
                  Text("Proceed to Payment")
                      .font(.customFont(style: .bold, size: .h17))
+                     .foregroundColor(.white)
+                     .padding()
+                     .frame(maxWidth: .infinity)
+                     .background(Color.appBlue)
+                     .cornerRadius(15)
             }
-            .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
         }
         .padding()
+        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+        .frame(maxWidth: .infinity)
         .navigationTitle("Select Patient")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -459,29 +472,34 @@ struct PaymentMethodView: View {
                 .font(.headline)
                 .padding(.top)
             
-            ForEach(paymentMethods, id: \.self) { method in
-                HStack {
-                    Image(systemName: methodIcon(method))
-                        .foregroundColor(.appBlue)
-                        .frame(width: 30)
-                    Text(method)
-                        .font(.customFont(style: .medium, size: .h16))
-                    Spacer()
-                    if selectedMethod == method {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.appBlue)
-                    } else {
-                        Image(systemName: "circle")
-                            .foregroundColor(.gray)
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(paymentMethods, id: \.self) { method in
+                        HStack {
+                            Image(systemName: methodIcon(method))
+                                .foregroundColor(.appBlue)
+                                .frame(width: 30)
+                            Text(method)
+                                .font(.customFont(style: .medium, size: .h16))
+                            Spacer()
+                            if selectedMethod == method {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.appBlue)
+                            } else {
+                                Image(systemName: "circle")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+                        .onTapGesture {
+                            selectedMethod = method
+                        }
                     }
                 }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(12)
-                .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-                .onTapGesture {
-                    selectedMethod = method
-                }
+                .padding(.vertical, 5)
             }
             
             Spacer()
@@ -500,16 +518,18 @@ struct PaymentMethodView: View {
                 } else {
                     Text("Pay & Confirm")
                         .font(.customFont(style: .bold, size: .h17))
+                        .foregroundColor(.white)
+                        .padding()
                         .frame(maxWidth: .infinity)
+                        .background(isLoading ? Color.gray.opacity(0.3) : Color.appBlue)
+                        .cornerRadius(15)
                 }
             }
-            .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
             .disabled(isLoading)
-            .navigationDestination(isPresented: $showSuccess) {
-                BookingConfirmationView(doctor: doctor, date: date, time: time)
-            }
         }
         .padding()
+        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+        .frame(maxWidth: .infinity)
         .navigationTitle("Checkout")
         .navigationBarTitleDisplayMode(.inline)
     }

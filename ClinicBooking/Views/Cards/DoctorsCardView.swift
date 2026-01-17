@@ -52,49 +52,77 @@ struct DoctorsCardView: View {
                         Image(systemName: isSaved ? "heart.fill" : "heart")
                             .foregroundColor(isSaved ? .red : .gray)
                             .padding(6)
-                            .background(Color.white)
+                            .background(Color.bg)
                             .clipShape(Circle())
                             .shadow(radius: 2)
                     }
                     .offset(x: 5, y: 5)
                 }
-                VStack(alignment: .leading, spacing: 8) {
+                
+                VStack(alignment: .leading, spacing: 6) {
                     Text(name)
-                        .font(.customFont(style: .bold, size: .h14))
+                        .font(.customFont(style: .bold, size: .h16))
+                        .foregroundColor(.text)
                     Text(speciality)
-                        .font(.customFont(style: .medium, size: .h13))
-                    HStack {
-                        Image("star").resizable()
-                            .frame(width: 15, height: 15)
+                        .font(.customFont(style: .medium, size: .h14))
+                        .foregroundColor(.gray)
+                    HStack(spacing: 4) {
+                        Image(systemName: "star.fill")
+                            .renderingMode(.template)
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                            .foregroundColor(.yellow)
                         Text(rating)
-                            .font(.customFont(style: .medium, size: .h13))
+                            .font(.customFont(style: .medium, size: .h14))
+                            .foregroundColor(.text.opacity(0.8))
                     }
                 }
-//                .padding(.trailing, 10)
+                
                 Spacer()
-                VStack(alignment: .trailing) {
+                
+                VStack(alignment: .trailing, spacing: 8) {
                     Text("Fee \(fee)")
-                        .font(.customFont(style: .medium, size: .h13))
+                        .font(.customFont(style: .bold, size: .h14))
+                        .foregroundColor(.text)
+                    
                     Button {
-                        /// Button action for book now
                         btnAction()
                     } label: {
                         Text(Texts.bookNow.description)
-                            .font(.customFont(style: .medium, size: .h11))
+                            .font(.customFont(style: .bold, size: .h13))
                             .foregroundColor(.white)
-                            .frame(width: 70, height: 40)
+                            .frame(width: 90, height: 38)
                             .background(colorScheme == .dark ? Color.appGreen : Color.appBlue)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .cornerRadius(10)
                     }
                 }
-                .frame(width: 85)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal)
+            .padding(15)
+            .background(Color.card)
+            .cornerRadius(18)
+            .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
+            .contextMenu {
+                Button {
+                    btnAction()
+                } label: {
+                    Label("Book Appointment", systemImage: "calendar.badge.plus")
+                }
+                
+                Button {
+                    toggleFavorite()
+                } label: {
+                    Label(isSaved ? "Remove from Saved" : "Save Doctor", systemImage: isSaved ? "heart.fill" : "heart")
+                }
+                
+                Button {
+                    // Call action
+                } label: {
+                    Label("Contact Clinic", systemImage: "phone.fill")
+                }
+            }
             .onAppear {
                 checkIsSaved()
             }
-            Divider()
     }
 }
 

@@ -35,54 +35,59 @@ struct SignupView: View {
                     }
                 }
                 Spacer()
-                VStack(spacing: 20) {
+                VStack(spacing: 25) {
                     if let message = viewModel.validationMessage {
                         Text(message)
                             .foregroundColor(.red)
                             .font(.customFont(style: .medium, size: .h15))
                             .padding()
                     }
-                    HStack(spacing: -10) {
-                        CustomTextField(placeholder: Texts.firstName.description, text: $viewModel.firstName)
+                    
+                    VStack(spacing: 20) {
+                        HStack(spacing: -10) {
+                            CustomTextField(placeholder: Texts.firstName.description, text: $viewModel.firstName)
+                                .submitLabel(.next)
+                                .focused($focusedField, equals: .firstName)
+                                .onTapGesture {
+                                    viewModel.clearValidationMessage()
+                                }
+                                .onSubmit {
+                                    focusedField = .lastName
+                                }
+                            CustomTextField(placeholder: Texts.lastName.description, text: $viewModel.lastName)
+                                .submitLabel(.next)
+                                .focused($focusedField, equals: .lastName)
+                                .onTapGesture {
+                                    viewModel.clearValidationMessage()
+                                }
+                                .onSubmit {
+                                    focusedField = .emailField
+                                }
+                        }
+                        
+                        CustomTextField(placeholder: Texts.enterEmail.description, text: $viewModel.email)
                             .submitLabel(.next)
-                            .focused($focusedField, equals: .firstName)
+                            .focused($focusedField, equals: .emailField)
                             .onTapGesture {
                                 viewModel.clearValidationMessage()
                             }
                             .onSubmit {
-                                focusedField = .lastName
+                                focusedField = .passwordField
                             }
-                        CustomTextField(placeholder: Texts.lastName.description, text: $viewModel.lastName)
-                            .submitLabel(.next)
-                            .focused($focusedField, equals: .lastName)
+                        
+                        CustomTextField(placeholder: Texts.enterPassword.description, text: $viewModel.password, isSecure: true)
+                            .padding(.bottom, 10)
+                            .submitLabel(.done)
+                            .focused($focusedField, equals: .passwordField)
                             .onTapGesture {
                                 viewModel.clearValidationMessage()
                             }
                             .onSubmit {
-                                focusedField = .emailField
+                                focusedField = nil
                             }
                     }
-
-                    CustomTextField(placeholder: Texts.enterEmail.description, text: $viewModel.email)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .emailField)
-                        .onTapGesture {
-                            viewModel.clearValidationMessage()
-                        }
-                        .onSubmit {
-                            focusedField = .passwordField
-                        }
-                    CustomTextField(placeholder: Texts.enterPassword.description, text: $viewModel.password, isSecure: true)
-                        .padding(.bottom, 10)
-                        .submitLabel(.done)
-                        .focused($focusedField, equals: .passwordField)
-                        .onTapGesture {
-                            viewModel.clearValidationMessage()
-                        }
-                        .onSubmit {
-                            focusedField = nil
-                        }
-
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
+                    
                     Button {
                         print("Signup tapped!")
                         Task {
@@ -93,12 +98,12 @@ struct SignupView: View {
                             .foregroundColor(.white)
                             .font(.customFont(style: .bold, size: .h17))
                             .padding()
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .background(Color.appBlue)
                             .cornerRadius(30)
-                            .padding(.horizontal)
-                            .padding(.bottom, 10)
                     }
+                    .padding(.bottom, 10)
+                    
                     Button {
                         print("Login tapped!")
                         presentationMode.wrappedValue.dismiss()
@@ -106,7 +111,7 @@ struct SignupView: View {
                         HStack(spacing: 10) {
                             Text(Texts.loginAccountMessage.description)
                                 .font(.customFont(style: .medium, size: .h15))
-                                .foregroundColor(.black)
+                                .foregroundColor(.text)
                             Text(Texts.login.description)
                                 .foregroundColor(Color.appBlue)
                                 .underline()
@@ -114,6 +119,8 @@ struct SignupView: View {
                         }
                     }
                 }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
                 Spacer()
                 Spacer()
             }
@@ -177,6 +184,7 @@ struct AdditionalInfoView: View {
                     
                     HStack {
                         Text("Blood Group")
+                            .font(.customFont(style: .medium, size: .h16))
                             .foregroundColor(.gray)
                         Spacer()
                         Picker("Blood Group", selection: $selectedBloodGroup) {
@@ -186,10 +194,12 @@ struct AdditionalInfoView: View {
                         }
                     }
                     .padding()
-                    .background(Color.lightGray.opacity(0.3))
+                    .background(Color.card)
                     .cornerRadius(12)
                 }
                 .padding()
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 500 : .infinity)
+                .frame(maxWidth: .infinity)
             }
             
             if let error = errorMessage {
@@ -207,9 +217,13 @@ struct AdditionalInfoView: View {
                 } else {
                     Text("Continue")
                         .font(.customFont(style: .bold, size: .h17))
+                        .padding()
+                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 500 : .infinity)
+                        .background(Color.appBlue)
+                        .foregroundColor(.white)
+                        .cornerRadius(30)
                 }
             }
-            .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
             .padding()
             .disabled(isLoading)
             .navigationDestination(isPresented: $navigateToSuccess) {

@@ -14,15 +14,23 @@ struct SavedDoctors: View {
     @State private var showDoctorProfile: Bool = false
 
     var body: some View {
-        NavigationStack {
-            VStack {
+        VStack {
+            if doctors.isEmpty {
+                VStack(spacing: 20) {
+                    Image(systemName: "heart.slash")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray.opacity(0.3))
+                    Text("No saved doctors yet")
+                        .font(.customFont(style: .medium, size: .h16))
+                        .foregroundColor(.gray)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     savedDoctorsView
-                    Spacer()
+                        .padding()
                 }
             }
-            .navigationTitle("Saved Doctors")
-            .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
             Task {
@@ -34,13 +42,16 @@ struct SavedDoctors: View {
     }
 
     var savedDoctorsView: some View {
-        VStack {
+        let columns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
+        
+        return LazyVGrid(columns: columns, spacing: 15) {
             ForEach(0..<doctors.count, id: \.self) { index in
                 DoctorsCardView(
+                    id: doctors[index].doctorID,
                     name: doctors[index].name,
                     speciality: doctors[index].specialist,
                     rating: doctors[index].rating,
-                    fee: "$50.99",
+                    fee: doctors[index].fee != nil ? "$\(String(format: "%.2f", doctors[index].fee!))" : "$50.99",
                     image: doctors[index].image,
                     btnAction: {
                         showDoctorProfile =  true

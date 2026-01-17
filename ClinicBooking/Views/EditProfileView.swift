@@ -48,105 +48,132 @@ struct EditProfileView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical) {
-                VStack(spacing: 15) {
-                    PhotosPicker("Select Profile Picture", selection: $avatarItem, matching: .images)
-
-                    if imageURL == "" {
-                        avatarImage?
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                    } else {
-                        AsyncImage(
-                            url: URL(string: defaults?.imageURL ?? ""),
-                            content: { image in
-                                image.resizable()
+                VStack(spacing: 25) {
+                    PhotosPicker(selection: $avatarItem, matching: .images) {
+                        VStack(spacing: 12) {
+                            if imageURL == "" {
+                                avatarImage?
+                                    .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(maxWidth: 100, maxHeight: 100)
+                                    .frame(width: 120, height: 120)
                                     .clipShape(Circle())
-                            },
-                            placeholder: {
-                                if defaults?.imageURL == "" {
-                                    Image("user").resizable()
-                                        .frame(width: 100, height: 100)
-                                } else {
-                                    ProgressView()
-                                }
-                            })
+                                    .overlay(Circle().stroke(Color.appBlue.opacity(0.1), lineWidth: 4))
+                            } else {
+                                AsyncImage(
+                                    url: URL(string: defaults?.imageURL ?? ""),
+                                    content: { image in
+                                        image.resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 120, height: 120)
+                                            .clipShape(Circle())
+                                            .overlay(Circle().stroke(Color.appBlue.opacity(0.1), lineWidth: 4))
+                                    },
+                                    placeholder: {
+                                        if defaults?.imageURL == "" {
+                                            Image("user")
+                                                .resizable()
+                                                .frame(width: 120, height: 120)
+                                                .clipShape(Circle())
+                                        } else {
+                                            ProgressView()
+                                        }
+                                    })
+                            }
+                            
+                            Text("Change Photo")
+                                .font(.customFont(style: .bold, size: .h14))
+                                .foregroundColor(.appBlue)
+                        }
                     }
+                    .padding(.vertical, 20)
 
-                    HStack(spacing: -15) {
-                        CustomTextField(placeholder: defaults?.firstName ?? "", text: $firstName)
-                            .submitLabel(.next)
-                            .disabled(true)
-                            .focused($focusedField, equals: .firstName)
-                            .onSubmit {
-                                focusedField = .lastName
-                            }
-                        CustomTextField(placeholder: defaults?.lastName ?? "", text: $lastName)
-                            .submitLabel(.next)
-                            .disabled(true)
-                            .focused($focusedField, equals: .lastName)
-                            .onSubmit {
-                                focusedField = .height
-                            }
-                    }
-                    CustomTextField(placeholder: defaults?.email ?? "", text: $email)
-                        .disabled(true)
-                    CustomTextField(placeholder: Texts.heightInInch.description, text: $height)
-                        .keyboardType(.numbersAndPunctuation)
-                        .submitLabel(.next)
-                        .focused($focusedField, equals: .height)
-                        .limitInputLength(value: $height, length: 5)
-                        .onSubmit {
-                            focusedField = .weight
+                    VStack(spacing: 20) {
+                        HStack(spacing: -15) {
+                            CustomTextField(placeholder: defaults?.firstName ?? "", text: $firstName)
+                                .submitLabel(.next)
+                                .disabled(true)
+                                .focused($focusedField, equals: .firstName)
+                                .onSubmit {
+                                    focusedField = .lastName
+                                }
+                            CustomTextField(placeholder: defaults?.lastName ?? "", text: $lastName)
+                                .submitLabel(.next)
+                                .disabled(true)
+                                .focused($focusedField, equals: .lastName)
+                                .onSubmit {
+                                    focusedField = .height
+                                }
                         }
-                    CustomTextField(placeholder: Texts.weightInKG.description, text: $weight)
-                        .keyboardType(.numberPad)
-                        .limitInputLength(value: $weight, length: 3)
-                        .focused($focusedField, equals: .weight)
-                    HStack(spacing: -15) {
-                        CustomTextField(placeholder: Texts.age.description, text: $age)
-                            .limitInputLength(value: $age, length: 2)
-                            .focused($focusedField, equals: .age)
+                        
+                        CustomTextField(placeholder: defaults?.email ?? "", text: $email)
+                            .disabled(true)
+                        
+                        CustomTextField(placeholder: Texts.heightInInch.description, text: $height)
+                            .keyboardType(.numbersAndPunctuation)
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .height)
+                            .limitInputLength(value: $height, length: 5)
+                            .onSubmit {
+                                focusedField = .weight
+                            }
+                        
+                        CustomTextField(placeholder: Texts.weightInKG.description, text: $weight)
                             .keyboardType(.numberPad)
-                        Spacer()
-                        Picker("Select your blood group", selection: $selectedBloodGroup) {
-                            ForEach(bloodGroups, id: \.self) { group in
-                                Text(group)
+                            .limitInputLength(value: $weight, length: 3)
+                            .focused($focusedField, equals: .weight)
+                        
+                        HStack(spacing: -15) {
+                            CustomTextField(placeholder: Texts.age.description, text: $age)
+                                .limitInputLength(value: $age, length: 2)
+                                .focused($focusedField, equals: .age)
+                                .keyboardType(.numberPad)
+                            Spacer()
+                            Picker("Select your blood group", selection: $selectedBloodGroup) {
+                                ForEach(bloodGroups, id: \.self) { group in
+                                    Text(group)
+                                }
                             }
+                            .frame(width: 150)
+                            .padding(.trailing)
                         }
-                        .frame(width: 150)
+                        
+                        iPhoneNumberField("(000) 000-0000", text: $phoneNumber, isEditing: $isEditing, formatted: true)
+                            .flagHidden(false)
+                            .flagSelectable(true)
+                            .font(UIFont(size: 18, weight: .medium, design: .rounded))
+                            .maximumDigits(10)
+                            .clearButtonMode(.whileEditing)
+                            .onClear { _ in isEditing.toggle() }
+                            .padding()
+                            .background(Color.white)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.lightGray, lineWidth: 2)
+                            )
+                            .padding(.horizontal)
                     }
-                    iPhoneNumberField("(000) 000-0000", text: $phoneNumber, isEditing: $isEditing, formatted: true)
-                                .flagHidden(false)
-                                .flagSelectable(true)
-                                .font(UIFont(size: 18, weight: .medium, design: .rounded))
-                                .maximumDigits(10)
-                                .clearButtonMode(.whileEditing)
-                                .onClear { _ in isEditing.toggle() }
-                                .padding()
-                                .background(Color.white)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .stroke(Color.lightGray, lineWidth: 2)
-                                )
-                                .padding()
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+                    
                     Spacer()
+                    
                     Button {
                         Task {
-                         await uploadDetails()
+                            await uploadDetails()
                         }
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Label(Texts.updateProfile.description, systemImage: "person.crop.circle.fill.badge.plus")
+                            .font(.customFont(style: .bold, size: .h17))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+                            .background(disableForm ? Color.gray.opacity(0.3) : Color.appBlue)
+                            .cornerRadius(30)
                     }
                     .disabled(disableForm)
-                    .buttonStyle(disableForm ? BlueButtonStyle(height: 44, color: Color.gray.opacity(0.1)) : BlueButtonStyle(height: 44, color: Color.appBlue))
                     .padding()
-
                 }
+                .frame(maxWidth: .infinity)
                 .onAppear {
                     firstName = defaults?.firstName ?? ""
                     lastName = defaults?.lastName ?? ""

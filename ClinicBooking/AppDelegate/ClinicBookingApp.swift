@@ -44,16 +44,11 @@ struct AppRootView: View {
                     ProgressView("Authenticating...")
                 }
             } else if isAuthenticated {
-                NavigationStack {
-                    if isDoctor {
-                         DoctorHomeDashboard()
-                            .navigationBarBackButtonHidden(true)
-                    } else {
-                        HomeDashboard()
-                            .navigationBarBackButtonHidden(true)
-                    }
+                if isDoctor {
+                     DoctorHomeDashboard()
+                } else {
+                    HomeDashboard()
                 }
-                .id(rootViewId)
             } else {
                 NavigationStack {
                     RoleSelectionView()
