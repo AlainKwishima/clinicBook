@@ -11,81 +11,54 @@ struct CustomTextField: View {
     let placeholder: String
     @Binding var text: String
     @State var isSecure: Bool = false
-    @State var showPassword: Bool = false
-    @FocusState var isFieldFocus: FieldToFocus?
-    @ViewBuilder func secureField() -> some View {
-        if self.showPassword {
-            TextField(placeholder, text: $text)
-                .font(.customFont(style: .medium, size: .h16))
-                .focused($isFieldFocus, equals: .textField)
-                .keyboardType(.default)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity, maxHeight: 60, alignment: .center)
-        } else {
-            SecureField(placeholder, text: $text)
-                .font(.customFont(style: .medium, size: .h16))
-                .focused($isFieldFocus, equals: .secureField)
-                .keyboardType(.default)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity, maxHeight: 60, alignment: .center)
-        }
-    }
+    @State private var showPassword: Bool = false
+    @FocusState private var isFieldFocus: FieldToFocus?
+    @Environment(\.horizontalSizeClass) var sizeClass
 
     var body: some View {
-        if isSecure {
-            HStack {
-                secureField()
-                if !text.isEmpty {
-                    Button(action: {
-                        self.showPassword.toggle()
-                    }, label: {
-                        ZStack(alignment: .trailing){
-                            Color.clear
-                                .frame(maxWidth: 29, maxHeight: 60, alignment: .center)
-                            Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
-                                .font(.system(size: 18, weight: .medium))
-                                .foregroundColor(Color.init(red: 160.0/255.0, green: 160.0/255.0, blue: 160.0/255.0))
-                        }
-                    })
+        HStack {
+            if isSecure {
+                if showPassword {
+                    TextField(placeholder, text: $text)
+                        .font(.customFont(style: .medium, size: .h16))
+                        .focused($isFieldFocus, equals: .textField)
+                        .keyboardType(.default)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                } else {
+                    SecureField(placeholder, text: $text)
+                        .font(.customFont(style: .medium, size: .h16))
+                        .focused($isFieldFocus, equals: .secureField)
+                        .keyboardType(.default)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                 }
+            } else {
+                TextField(placeholder, text: $text)
+                    .font(.customFont(style: .medium, size: .h16))
+                    .keyboardType(.default)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
             }
-            .padding(.horizontal, 15)
-            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity)
-            .background(Color.bg)
-            .font(.customFont(style: .medium, size: .h16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(Color.lightGray, lineWidth: 2)
-            )
-            .padding(.horizontal, 15)
-            .frame(maxWidth: .infinity)
-            //            SecureField(placeholder, text: $text)
-            //                .padding()
-            //                .background(Color.bg)
-            //                .font(.customFont(style: .medium, size: .h16))
-            //                .overlay(RoundedRectangle(cornerRadius: 30)
-            //                    .stroke(Color.lightGray, lineWidth: 2)
-            //                )
-            //                .padding(.horizontal)
-        } else {
-            TextField(
-                placeholder,
-                text: $text
-            )
-            .padding()
-            .autocapitalization(.none)
-            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 550 : .infinity)
-            .background(Color.bg)
-            .font(.customFont(style: .medium, size: .h16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(Color.lightGray, lineWidth: 2)
-            )
-            .padding(.horizontal)
-            .frame(maxWidth: .infinity)
+            
+            if isSecure && !text.isEmpty {
+                Button(action: {
+                    self.showPassword.toggle()
+                }, label: {
+                    Image(systemName: self.showPassword ? "eye.slash.fill" : "eye.fill")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(Color.gray)
+                })
+            }
         }
+        .padding(.horizontal, 20)
+        .frame(maxWidth: sizeClass == .regular ? 450 : .infinity, minHeight: 60)
+        .background(Color.bg)
+        .cornerRadius(30)
+        .overlay(
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(Color.lightGray, lineWidth: 2)
+        )
     }
 
     enum FieldToFocus {
@@ -94,7 +67,11 @@ struct CustomTextField: View {
 }
 
 #Preview {
-    CustomTextField(placeholder: "test", text: .constant("Hello"))
+    VStack {
+        CustomTextField(placeholder: "Email", text: .constant(""))
+        CustomTextField(placeholder: "Password", text: .constant("123456"), isSecure: true)
+    }
+    .padding()
 }
 
 struct TextFieldLimitModifier: ViewModifier {

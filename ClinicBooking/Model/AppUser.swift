@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import FirebaseFirestore
+// import FirebaseFirestore  // DEPRECATED: Migrated to Supabase
 
 struct AppUser: Codable {
-    @DocumentID var id: String?
+    var id: String?  // Changed from @DocumentID for Supabase compatibility
     var password: String?
     var email: String?
     let firstName: String
@@ -37,9 +37,33 @@ struct AppUser: Codable {
     var favoriteDoctorIds: [String]? = []
 
     // Custom keys to match JSON structure, if needed
+    // Custom keys to match JSON structure (Supabase uses snake_case)
     private enum CodingKeys: String, CodingKey {
-        case password, email, firstName, lastName, createdAt, height, weight, age, bloodGroup, phoneNumber, imageURL, address, role, verificationStatus
-        case hospitalName, experienceYears, country, city, specialty, licenseNumber, aboutMe
+        case id
+        case password
+        case email
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case createdAt = "created_at"
+        case height
+        case weight
+        case age
+        case bloodGroup = "blood_group"
+        case phoneNumber = "phone_number"
+        case imageURL = "image_url"
+        case address
+        case role
+        case verificationStatus = "verification_status"
+        
+        // Doctor Specific Fields
+        case hospitalName = "hospital_name"
+        case experienceYears = "experience_years"
+        case country
+        case city
+        case specialty
+        case licenseNumber = "license_number"
+        case aboutMe = "about_me"
+        
         case favoriteDoctorIds = "favorite_doctor_ids"
     }
 }

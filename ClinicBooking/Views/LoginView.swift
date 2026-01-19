@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseAuth
+// import FirebaseAuth  // DEPRECATED: Migrated to Supabase
 
 struct LoginView: View {
     @StateObject private var viewModel = AuthenticationViewModel()
@@ -179,7 +179,7 @@ struct RoleSelectionView: View {
                         Text("I am a Patient")
                             .font(.customFont(style: .bold, size: .h17))
                     }
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     .frame(height: 55)
                     .background(Color.appBlue)
                     .foregroundColor(.white)
@@ -193,7 +193,7 @@ struct RoleSelectionView: View {
                         Text("I am a Doctor")
                             .font(.customFont(style: .bold, size: .h17))
                     }
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     .frame(height: 55)
                     .background(Color.bg)
                     .foregroundColor(.appBlue)
@@ -242,7 +242,7 @@ struct VerificationPendingView: View {
             } label: {
                 Text("Return to Home")
                     .font(.customFont(style: .bold, size: .h17))
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     .frame(height: 55)
                     .background(Color.appBlue.opacity(0.1))
                     .foregroundColor(.appBlue)
@@ -259,6 +259,7 @@ struct DoctorLoginView: View {
     @StateObject private var viewModel = AuthenticationViewModel()
     @State private var licenseNumber = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
         VStack(spacing: 25) {
@@ -310,14 +311,11 @@ struct DoctorLoginView: View {
                         
                         CustomTextField(placeholder: "Medical License Number", text: $licenseNumber)
                         
-                        SecureField("Password", text: $viewModel.password)
-                            .padding()
-                            .frame(height: 55)
-                            .background(Color.bg)
-                            .cornerRadius(10)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                        CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
                     }
                     .padding()
+                    .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
+                    .frame(maxWidth: .infinity)
                     
                     if let error = viewModel.validationMessage {
                         Text(error)
@@ -330,9 +328,10 @@ struct DoctorLoginView: View {
                     } label: {
                         Text("Log In")
                             .font(.customFont(style: .bold, size: .h17))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     }
                     .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
+                    .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
                     .padding(.horizontal)
                     .disabled(viewModel.isLoading)
                     
@@ -367,6 +366,7 @@ struct DoctorLoginView: View {
 
 struct DoctorAuthOverviewView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
         VStack(spacing: 30) {
@@ -411,7 +411,7 @@ struct DoctorAuthOverviewView: View {
                 NavigationLink(destination: DoctorLoginView()) {
                     Text("Log In")
                         .font(.customFont(style: .bold, size: .h17))
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
                         .frame(height: 55)
                         .background(Color.appBlue)
                         .foregroundColor(.white)
@@ -421,7 +421,7 @@ struct DoctorAuthOverviewView: View {
                 NavigationLink(destination: DoctorRegistrationContainerView()) {
                     Text("Join as a Doctor")
                         .font(.customFont(style: .bold, size: .h17))
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
                         .frame(height: 55)
                         .background(Color.white)
                         .foregroundColor(.appBlue)
@@ -463,6 +463,7 @@ class DoctorRegistrationViewModel: ObservableObject {
 struct DoctorRegistrationContainerView: View {
     @StateObject private var regVM = DoctorRegistrationViewModel()
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
         VStack(spacing: 0) {
@@ -496,6 +497,8 @@ struct DoctorRegistrationContainerView: View {
                     else { DoctorRegStep3View(viewModel: regVM) }
                 }
                 .padding()
+                .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
+                .frame(maxWidth: .infinity)
             }
             
             VStack(spacing: 15) {
@@ -508,10 +511,11 @@ struct DoctorRegistrationContainerView: View {
                     else {
                         Text(regVM.currentStep == regVM.totalSteps ? "Submit Application" : "Continue")
                             .font(.customFont(style: .bold, size: .h17))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     }
                 }
                 .buttonStyle(BlueButtonStyle(height: 55, color: .appBlue))
+                .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
                 .disabled(regVM.isLoading)
                 
                 if regVM.currentStep == 1 {
@@ -566,33 +570,44 @@ struct DoctorRegistrationContainerView: View {
     func submitApplication() {
         regVM.isLoading = true
         Task {
-            let authModel = AuthenticationViewModel()
-            authModel.email = regVM.email
-            authModel.password = regVM.password
-            authModel.firstName = regVM.firstName
-            authModel.lastName = regVM.lastName
-            await authModel.signup()
+            let doctorUser = AppUser(
+                password: regVM.password,
+                email: regVM.email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
+                firstName: regVM.firstName,
+                lastName: regVM.lastName,
+                createdAt: Date(),
+                height: "",
+                weight: "",
+                age: "",
+                bloodGroup: "",
+                phoneNumber: regVM.phoneNumber,
+                imageURL: "",
+                address: "\(regVM.selectedCity), \(regVM.selectedCountry)",
+                role: "doctor",
+                verificationStatus: "pending",
+                hospitalName: regVM.hospitalName,
+                experienceYears: regVM.experienceYears,
+                country: regVM.selectedCountry,
+                city: regVM.selectedCity,
+                specialty: regVM.specialty,
+                licenseNumber: regVM.licenseNumber,
+                aboutMe: ""
+            )
             
-            if authModel.shouldNavigateToAdditionalInfo || authModel.validationMessage?.contains("Successful") == true {
-                if let userId = Auth.auth().currentUser?.uid {
-                    let doctorUser = AppUser(
-                        password: regVM.password, email: regVM.email, firstName: regVM.firstName, lastName: regVM.lastName, createdAt: Date(),
-                        height: "", weight: "", age: "", bloodGroup: "", phoneNumber: regVM.phoneNumber, imageURL: "",
-                        address: "\(regVM.selectedCity), \(regVM.selectedCountry)", role: "doctor", verificationStatus: "pending",
-                        hospitalName: regVM.hospitalName, experienceYears: regVM.experienceYears, country: regVM.selectedCountry, city: regVM.selectedCity,
-                        specialty: regVM.specialty, licenseNumber: regVM.licenseNumber, aboutMe: ""
-                    )
-                    await FireStoreManager.shared.updateUserDetails(userId, dataModel: doctorUser) { success in
-                        Task { @MainActor in
-                            regVM.isLoading = false
-                            if success { regVM.navigateToPending = true }
-                            else { regVM.errorMessage = "Failed to save doctor details." }
-                        }
-                    }
+            do {
+                try await SupabaseAuthService.shared.signUp(user: doctorUser)
+                
+                // Cache user details locally to ensure immediate session availability
+                UserDefaults.standard.set(encodable: doctorUser, forKey: "userDetails")
+                if let session = try? await SupabaseManager.shared.client.auth.session {
+                    UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
                 }
-            } else {
+                
                 regVM.isLoading = false
-                regVM.errorMessage = authModel.validationMessage ?? "Registration failed."
+                regVM.navigateToPending = true
+            } catch {
+                regVM.isLoading = false
+                regVM.errorMessage = error.localizedDescription
             }
         }
     }
@@ -607,7 +622,7 @@ struct DoctorRegStep1View: View {
             CustomTextField(placeholder: "Last Name", text: $viewModel.lastName)
             CustomTextField(placeholder: "Phone Number", text: $viewModel.phoneNumber).keyboardType(.phonePad)
             CustomTextField(placeholder: "Email Address", text: $viewModel.email).textInputAutocapitalization(.never).keyboardType(.emailAddress)
-            SecureField("Password", text: $viewModel.password).padding().frame(height: 55).background(Color.bg).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+            CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
         }
     }
 }
@@ -638,6 +653,7 @@ struct DoctorRegStep2View: View {
 
 struct DoctorRegStep3View: View {
     @ObservedObject var viewModel: DoctorRegistrationViewModel
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         VStack(spacing: 20) {
             Text("Verification & Terms").font(.title2).bold().frame(maxWidth: .infinity, alignment: .leading)
@@ -648,6 +664,7 @@ struct DoctorRegStep3View: View {
                     Text("Upload Medical License / ID").font(.subheadline).foregroundColor(.gray)
                 }.frame(maxWidth: .infinity).frame(height: 120).background(Color.appBlue.opacity(0.05)).cornerRadius(10).overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.appBlue, style: StrokeStyle(lineWidth: 1, dash: [5])))
             }
+            .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
             Toggle(isOn: $viewModel.hasAgreedToTerms) {
                 Text("I agree to the Terms & Conditions and certify that the information provided is accurate.").font(.caption).foregroundColor(.gray)
             }.toggleStyle(SwitchToggleStyle(tint: .appBlue))

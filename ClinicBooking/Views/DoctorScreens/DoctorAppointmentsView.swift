@@ -73,6 +73,8 @@ struct DoctorAppointmentsView: View {
                         Spacer()
                     }
                     .background(Color.lightGray.opacity(0.7))
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
+                    .frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("My Appointments")

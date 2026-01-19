@@ -6,9 +6,11 @@
 //
 
 import Foundation
-import Firebase
-import FirebaseAuth
+// DEPRECATED: This file is no longer used. Replaced by SupabaseAuthService.
+// import Firebase
+// import FirebaseAuth
 
+/*
 struct FirebaseService {
 
     var currentUser: User? {
@@ -109,3 +111,4 @@ struct FirebaseService {
         try Auth.auth().signOut()
     }
 }
+*/

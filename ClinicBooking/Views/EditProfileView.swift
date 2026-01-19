@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import iPhoneNumberField
-import FirebaseAuth
+import Supabase
 
 struct EditProfileView: View {
     enum Field: Hashable {
@@ -166,7 +166,7 @@ struct EditProfileView: View {
                             .font(.customFont(style: .bold, size: .h17))
                             .foregroundColor(.white)
                             .padding()
-                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .background(disableForm ? Color.gray.opacity(0.3) : Color.appBlue)
                             .cornerRadius(30)
                     }
@@ -229,21 +229,29 @@ struct EditProfileView: View {
                            phoneNumber: phoneNumber,
                            imageURL: imageURL)
 
-        debugPrint("Family Members == \(String(describing: appuser))")
-        if let user = Auth.auth().currentUser {
-            // Save to Firebase using the authenticated user's UID
-            await FireStoreManager.shared.updateUserDetails(
-                user.uid,
-                dataModel: appuser
-            ) { success in
-                if success {
-                    print("User details saved successfully in Firestore.")
-                } else {
-                    print("Failed to save User details to Firestore.")
+        debugPrint("Updating user profile == \(String(describing: appuser))")
+        Task {
+            // Get user ID safely
+            var userId = UserDefaults.standard.string(forKey: "userID")
+            if userId == nil {
+                if let session = try? await SupabaseManager.shared.client.auth.session {
+                    userId = session.user.id.uuidString
                 }
             }
-        } else {
-            print("No authenticated user found.")
+            
+            if let finalUserId = userId {
+                // Save to Supabase using the bridge FireStoreManager
+                await SupabaseDBManager.shared.updateUserDetails(
+                    finalUserId,
+                    dataModel: appuser
+                ) { success in
+                    if success {
+                        print("User details saved successfully in Supabase.")
+                    }
+                }
+            } else {
+                print("No authenticated user session found.")
+            }
         }
     }
 }

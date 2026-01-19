@@ -72,7 +72,7 @@ struct WalkthroughView: View {
                     Text(currentPage == pages.count - 1 ? "Get Started" : "Next")
                         .font(.headline)
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                         .padding()
                         .background(Color.appBlue)
                         .cornerRadius(12)

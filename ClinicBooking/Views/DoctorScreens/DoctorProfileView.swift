@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseAuth
+import Supabase
 
 struct DoctorProfileView: View {
     @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
@@ -49,6 +49,8 @@ struct DoctorProfileView: View {
                     
                     Spacer()
                 }
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
+                .frame(maxWidth: .infinity)
                 .navigationTitle("Doctor Profile")
                 .navigationBarTitleDisplayMode(.inline)
                 .refreshable {
@@ -63,9 +65,9 @@ struct DoctorProfileView: View {
     }
     
     private func syncUserData() async {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+        guard let userId = UserDefaults.standard.string(forKey: "userID") ?? (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString else { return }
         isSyncing = true
-        await FireStoreManager.shared.getUserDetails(userId: userId) { _ in
+        await SupabaseDBManager.shared.getUserDetails(userId: userId) { _ in
             defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
             isSyncing = false
         }
@@ -144,14 +146,14 @@ struct DoctorProfileView: View {
         let masterCode = "CLINIC-2026-OK"
         if verificationCode.uppercased() == masterCode {
             Task {
-                guard let userId = Auth.auth().currentUser?.uid else { 
+                guard let userId = UserDefaults.standard.string(forKey: "userID") ?? (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString else { 
                     verificationAlertMessage = "Error: User ID not found."
                     showVerificationAlert = true
                     return 
                 }
                 do {
                     isSyncing = true
-                    try await FireStoreManager.shared.updateVerificationStatus(userId: userId, status: "verified")
+                    try await SupabaseDBManager.shared.updateVerificationStatus(userId: userId, status: "verified")
                     await syncUserData()
                     verificationAlertMessage = "Success! Your doctor profile is now verified and visible to patients."
                     showVerificationAlert = true
@@ -209,8 +211,11 @@ struct DoctorProfileView: View {
             }
             .alert("Are you sure you want to sign out?", isPresented: $showSignoutAlert) {
                 Button("Sign Out", role: .destructive) {
-                    viewModel.signOut()
-                    UserDefaults.standard.removeObject(forKey: "userDetails")
+                    Task {
+                        await viewModel.signOut()
+                        UserDefaults.standard.removeObject(forKey: "userDetails")
+                        UserDefaults.standard.removeObject(forKey: "userID")
+                    }
                 }
                 Button("Cancel", role: .cancel) {}
             }

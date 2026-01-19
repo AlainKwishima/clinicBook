@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import FirebaseFirestore
+// import FirebaseFirestore  // DEPRECATED: Migrated to Supabase
 
 struct FamilyMemberModel: Codable {
-    @DocumentID var id: String?
+    var id: String?  // Changed from @DocumentID for Supabase compatibility
     var members: [MemberModel]
 }
 

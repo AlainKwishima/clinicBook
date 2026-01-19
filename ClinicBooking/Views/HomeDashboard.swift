@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
+import Supabase
 
 struct HomeDashboard: View {
     @State private var selectedIndex: Int? = 0
+    @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var isShowServices: Bool = false
     @State private var showDoctorProfile: Bool = false
     @State private var showSearch: Bool = false
@@ -27,8 +27,10 @@ struct HomeDashboard: View {
     var body: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                NavigationSplitView {
+                NavigationSplitView(columnVisibility: $columnVisibility) {
                     SidebarView(role: "patient", selectedIndex: $selectedIndex)
+                        .navigationTitle("")
+                        .toolbar(.hidden, for: .navigationBar)
                 } detail: {
                     detailView
                 }
@@ -63,12 +65,12 @@ struct HomeDashboard: View {
                             .fullScreenCover(isPresented: $showSearch, onDismiss: { selectedSearchCategory = nil }) {
                                 SearchFilterView(initialCategory: selectedSearchCategory)
                             }
+                            .toolbar(UIDevice.current.userInterfaceIdiom == .pad ? .hidden : .visible, for: .navigationBar)
                     }
                     .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
                 case 1:
                     NavigationStack {
                         AppointmentsView()
-                            .navigationTitle("Appointments")
                     }
                     .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
                 case 2:
@@ -79,13 +81,11 @@ struct HomeDashboard: View {
                 case 3:
                     NavigationStack {
                         SavedDoctors()
-                            .navigationTitle("Saved Doctors")
                     }
                     .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
                 case 4:
                     NavigationStack {
                         UserProfileView()
-                            .navigationTitle("Profile")
                     }
                     .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
                 default:
@@ -97,128 +97,12 @@ struct HomeDashboard: View {
     }
 
     var iPadHeader: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(SidebarItem(rawValue: selectedIndex ?? 0)?.title(for: "patient") ?? "Dashboard")
-                    .font(.customFont(style: .bold, size: .h24))
-                Text(Date().formatted(date: .long, time: .omitted))
-                    .font(.customFont(style: .medium, size: .h14))
-                    .foregroundColor(.gray)
-            }
-            
-            Spacer()
-            
-            HStack(spacing: 20) {
-                Button {
-                    showSearch = true
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.text)
-                        .padding(10)
-                        .background(Color.card)
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.05), radius: 5)
-                }
-                
-                Button {
-                    showNotifications = true
-                } label: {
-                    Image(systemName: "bell.fill")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.text)
-                        .padding(10)
-                        .background(Color.card)
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.05), radius: 5)
-                }
-                
-                Divider()
-                    .frame(height: 30)
-                    .padding(.horizontal, 5)
-                
-                Button {
-                    selectedIndex = 4 // Profile
-                } label: {
-                    HStack(spacing: 12) {
-                        VStack(alignment: .trailing, spacing: 2) {
-                            Text("\(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
-                                .font(.customFont(style: .bold, size: .h14))
-                            Text("Patient")
-                                .font(.customFont(style: .medium, size: .h12))
-                                .foregroundColor(.appBlue)
-                        }
-                        
-                        AsyncImage(url: URL(string: defaults?.imageURL ?? "")) { image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Image("user").resizable()
-                        }
-                        .frame(width: 44, height: 44)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.appBlue.opacity(0.2), lineWidth: 1))
-                    }
-                }
-            }
-        }
-        .padding(.horizontal, 30)
-        .padding(.vertical, 20)
-        .background(Color.bg)
+        PatientTopNav(showSearch: $showSearch, showNotifications: $showNotifications, user: defaults)
     }
 
-    var headerView: some View {
-        HStack {
-            Button(action: {
-                // Profile action
-            }, label: {
-                AsyncImage(
-                    url: URL(string: defaults?.imageURL ?? ""),
-                    content: { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(maxWidth: 35, maxHeight: 35)
-                            .clipShape(Circle())
-                    },
-                    placeholder: {
-                        if defaults?.imageURL == "" {
-                            Image("user").resizable()
-                                .frame(width: 35, height: 35)
-                        } else {
-                            ProgressView()
-                        }
-                    })
-            })
-            VStack(alignment: .leading) {
-                Text(Texts.welcomeBack.description)
-                    .font(.customFont(style: .medium, size: .h13))
-                Text("Mr.\(defaults?.firstName ?? "") \(defaults?.lastName ?? "")!")
-                    .font(.customFont(style: .bold, size: .h15))
-            }
-            Spacer()
-            Button(action: {
-                selectedSearchCategory = nil
-                showSearch = true
-            }, label: {
-                Image(systemName: "magnifyingglass.circle")
-                    .font(.customFont(style: .medium, size: .h24))
-                    .foregroundColor(Color.appBlue)
-            })
-            Button(action: {
-                showNotifications = true
-            }, label: {
-                Image(systemName: "bell.circle")
-                    .font(.customFont(style: .medium, size: .h24))
-                    .foregroundColor(Color.appBlue)
-            })
-            .navigationDestination(isPresented: $showNotifications) {
-                NotificationCenterView()
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 60)
-        .padding(.horizontal)
-    }
+    // Removed welcomeSection as it is now integrated into iPadHeader
+
+    // Removed legacy headerView to avoid duplicates
 
     var tabView: some View {
         TabView(selection: Binding(get: { selectedIndex ?? 0 }, set: { selectedIndex = $0 })) {
@@ -238,7 +122,6 @@ struct HomeDashboard: View {
             .tag(0)
             NavigationStack {
                 AppointmentsView()
-                    .navigationTitle("Appointments")
             }
             .tabItem {
                 Image(systemName: "calendar")
@@ -255,7 +138,6 @@ struct HomeDashboard: View {
             .tag(2)
             NavigationStack {
                 SavedDoctors()
-                    .navigationTitle("Saved Doctors")
             }
             .tabItem {
                 Image(systemName: "heart")
@@ -264,7 +146,6 @@ struct HomeDashboard: View {
             .tag(3)
             NavigationStack() {
                 UserProfileView()
-                    .navigationTitle("Profile")
             }
             .tabItem {
                 Label("", systemImage: "person.fill")
@@ -282,10 +163,10 @@ struct HomeDashboard: View {
     var homeContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 25) {
-                headerView
-                    .padding(.top, 10)
+                // Header is now external (iPadHeader), so we just start with the banner
                 
                 searchHeaderView
+                    .padding(.top, 10)
                 
                 servicesView
                     .padding(.bottom, 5)
@@ -302,28 +183,26 @@ struct HomeDashboard: View {
     }
 
     var searchHeaderView: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
+            // Background Gradient
             LinearGradient(
-                gradient: Gradient(colors: [Color.appBlue, Color.appBlue.opacity(0.8), Color.appBlue.opacity(0.6)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                gradient: Gradient(colors: [Color.appBlue, Color.appBlue.opacity(0.85)]),
+                startPoint: .leading,
+                endPoint: .trailing
             )
             .frame(maxWidth: .infinity)
-            .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 200 : 160)
+            .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 240 : 180)
             .cornerRadius(25)
-            .padding(.horizontal)
-            .overlay(
-                RoundedRectangle(cornerRadius: 25)
-                    .stroke(LinearGradient(colors: [.white.opacity(0.4), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                    .padding(.horizontal)
-            )
-            
-            HStack {
-                VStack(alignment: .leading, spacing: 15) {
+            .shadow(color: .appBlue.opacity(0.3), radius: 10, x: 0, y: 5)
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 0 : 16) // Pad on iPhone, flush/handled by parent on iPad
+
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading, spacing: 20) {
                     Text(Texts.lookingForDoctors.description)
-                        .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h24 : .h18))
+                        .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h30 : .h20))
                         .foregroundColor(.white)
                         .fixedSize(horizontal: false, vertical: true)
+                        .lineSpacing(4)
                         .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
                     
                     Button {
@@ -331,31 +210,42 @@ struct HomeDashboard: View {
                     } label: {
                         HStack(spacing: 8) {
                             Text(Texts.searchFor.description)
-                                .font(.customFont(style: .bold, size: .h14))
+                                .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h16 : .h14))
                             Image(systemName: "chevron.right")
                                 .font(.system(size: 12, weight: .bold))
                         }
                         .foregroundColor(.appBlue)
-                        .padding(.horizontal, 25)
-                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 14)
                         .background(Color.white)
                         .clipShape(Capsule())
                         .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                     }
                 }
-                .padding(.leading, UIDevice.current.userInterfaceIdiom == .pad ? 50 : 30)
+                .padding(.leading, UIDevice.current.userInterfaceIdiom == .pad ? 40 : 30)
+                .padding(.bottom, UIDevice.current.userInterfaceIdiom == .pad ? 50 : 30)
                 
                 Spacer()
                 
+                // Doctor Image
                 Image("home-doctor")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 200 : 140)
-                    .padding(.trailing, 30)
-                    .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 15 : 5)
+                    .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 260 : 190) // Slightly taller than container to pop out if needed, or fill well
+                    .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 0 : 10) // Adjustment to sit nicely
             }
-            .padding(.horizontal)
+            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 0 : 16)
+             // Clip content to the rounded rect if desired, OR let the image pop out. 
+             // Reference usually has image contained or flush. Let's try contained for cleanliness first.
+             // But to clip ONLY the background effectively, we put this stack ON TOP of the background.
         }
+        // Ensuring the ZStack overall respects the padding of the parent view which is 40pt or 16pt.
+        // Wait, the parent `homeContent` already adds horizontal padding.
+        // If we want full width banner inside that padding, we just need to fill available space.
+        // But the code above had `.padding(.horizontal)` on the CARD.
+        // The parent `homeContent` has `.padding(.horizontal, ...)`
+        // So `searchHeaderView` is inside that padding.
+        // We should REMOVE the extra `padding(.horizontal)` on the card itself if we want it to fill the parent's width perfectly.
     }
 
     var servicesView: some View {
@@ -440,7 +330,9 @@ struct HomeDashboard: View {
                 .padding(.top, 10)
             
             VStack(alignment: .leading) {
-                let homeResultColumns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
+                let homeResultColumns = [
+                    GridItem(.adaptive(minimum: UIDevice.current.userInterfaceIdiom == .pad ? 420 : 300), spacing: 20)
+                ]
                     
                     LazyVGrid(columns: homeResultColumns, spacing: 15) {
                         ForEach(0..<doctors.count, id: \.self) { index in
@@ -1345,9 +1237,18 @@ struct DoctorProfileView: View {
     }
     
     private func syncUserData() async {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        var userId = UserDefaults.standard.string(forKey: "userID")
+        if userId == nil {
+            if let session = try? await SupabaseManager.shared.client.auth.session {
+                userId = session.user.id.uuidString
+            }
+        }
+        
+        guard let finalUserId = userId else { return }
+        
         isSyncing = true
-        await FireStoreManager.shared.getUserDetails(userId: userId) { _ in
+        await SupabaseDBManager.shared.getUserDetails(userId: finalUserId) { _ in
             defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
             isSyncing = false
         }
@@ -1426,14 +1327,21 @@ struct DoctorProfileView: View {
         let masterCode = "CLINIC-2026-OK"
         if verificationCode.uppercased() == masterCode {
             Task {
-                guard let userId = Auth.auth().currentUser?.uid else {
+                var userId = UserDefaults.standard.string(forKey: "userID")
+                if userId == nil {
+                    if let session = try? await SupabaseManager.shared.client.auth.session {
+                        userId = session.user.id.uuidString
+                    }
+                }
+                
+                guard let finalUserId = userId else {
                     verificationAlertMessage = "Error: User ID not found."
                     showVerificationAlert = true
                     return
                 }
                 do {
                     isSyncing = true
-                    try await FireStoreManager.shared.updateVerificationStatus(userId: userId, status: "verified")
+                    try await SupabaseDBManager.shared.updateVerificationStatus(userId: finalUserId, status: "verified")
                     await syncUserData()
                     verificationAlertMessage = "Success! Your doctor profile is now verified and visible to patients."
                     showVerificationAlert = true
@@ -1491,8 +1399,10 @@ struct DoctorProfileView: View {
             }
             .alert("Are you sure you want to sign out?", isPresented: $showSignoutAlert) {
                 Button("Sign Out", role: .destructive) {
-                    viewModel.signOut()
-                    UserDefaults.standard.removeObject(forKey: "userDetails")
+                    Task {
+                        await viewModel.signOut()
+                        UserDefaults.standard.removeObject(forKey: "userDetails")
+                    }
                 }
                 Button("Cancel", role: .cancel) {}
             }
@@ -2066,7 +1976,26 @@ struct SidebarView: View {
             }
         }
         .listStyle(SidebarListStyle())
-        .navigationTitle("Clinic Booking")
+        .navigationTitle("")
+        .toolbar(.hidden, for: .navigationBar)
+        .safeAreaInset(edge: .top) {
+            HStack(spacing: 12) {
+                Image("logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(8)
+                
+                Text("Clinic Booking")
+                    .font(.customFont(style: .bold, size: .h17))
+                    .foregroundColor(.text)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 20)
+            .padding(.top, 20)
+            .padding(.bottom, 10)
+            .background(Color.bg)
+        }
         .background(Color.bg.ignoresSafeArea())
     }
     
@@ -2121,3 +2050,76 @@ struct SidebarRow: View {
     }
 }
 
+
+struct PatientTopNav: View {
+    @Binding var showSearch: Bool
+    @Binding var showNotifications: Bool
+    let user: AppUser?
+    var showGreeting: Bool = true // Default to true
+    
+    var body: some View {
+        HStack(spacing: 15) {
+            // Left: Avatar and Welcome Text
+            if showGreeting {
+                if let imageURL = user?.imageURL, !imageURL.isEmpty {
+                     AsyncImage(url: URL(string: imageURL)) { image in
+                         image.resizable()
+                             .aspectRatio(contentMode: .fill)
+                     } placeholder: {
+                         Image("user").resizable()
+                     }
+                     .frame(width: 50, height: 50)
+                     .clipShape(Circle())
+                } else {
+                    Image("user")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Welcome Back")
+                        .font(.customFont(style: .medium, size: .h14))
+                        .foregroundColor(.gray)
+                    
+                    Text("Mr. \(user?.firstName ?? "") \(user?.lastName ?? "")!")
+                        .font(.customFont(style: .bold, size: .h18))
+                        .foregroundColor(.text)
+                }
+            } else {
+                Spacer() // Push icons to right if no greeting
+            }
+            
+            Spacer()
+            
+            // Right: Action Buttons
+            HStack(spacing: 15) {
+                Button {
+                    showSearch = true
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.appBlue)
+                        .padding(10)
+                        .background(Color.appBlue.opacity(0.1))
+                        .clipShape(Circle())
+                }
+                
+                Button {
+                    showNotifications = true
+                } label: {
+                    Image(systemName: "bell.fill")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.appBlue)
+                        .padding(10)
+                        .background(Color.appBlue.opacity(0.1))
+                        .clipShape(Circle())
+                }
+            }
+        }
+        .padding(.horizontal, 40)
+        .padding(.vertical, 20)
+        .background(Color.bg)
+    }
+}

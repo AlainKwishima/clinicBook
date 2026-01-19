@@ -124,6 +124,7 @@ struct DoctorProfile: View {
                     .font(.customFont(style: .bold, size: .h17))
             }
             .buttonStyle(BlueButtonStyle(height: 60, color: .appBlue))
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
             .padding(.top, 15)
             .navigationDestination(isPresented: $showBookingFlow) {
                 if let doctor = doctorDetail, let time = selectedTimeState {
@@ -131,7 +132,7 @@ struct DoctorProfile: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
         .padding(.horizontal)
     }
 
@@ -249,7 +250,7 @@ struct PatientSelectionView: View {
                      .font(.customFont(style: .bold, size: .h17))
                      .foregroundColor(.white)
                      .padding()
-                     .frame(maxWidth: .infinity)
+                     .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                      .background(Color.appBlue)
                      .cornerRadius(15)
             }
@@ -330,7 +331,7 @@ struct PatientSelectionView: View {
         guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
         self.isLoading = true
         Task {
-            await FireStoreManager.shared.getFamilyMembers(userId: userId) { success, model in
+            await SupabaseDBManager.shared.getFamilyMembers(userId: userId) { success, model in
                 self.isLoading = false
                 if success {
                     self.familyMembers = model.members
@@ -410,7 +411,7 @@ struct BookingConfirmationView: View {
             NavigationLink(destination: HomeDashboard().navigationBarBackButtonHidden(true)) {
                 Text("Back to Home")
                     .font(.customFont(style: .bold, size: .h17))
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     .frame(height: 55)
                     .background(Color.appBlue)
                     .foregroundColor(.white)
@@ -520,7 +521,7 @@ struct PaymentMethodView: View {
                         .font(.customFont(style: .bold, size: .h17))
                         .foregroundColor(.white)
                         .padding()
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                         .background(isLoading ? Color.gray.opacity(0.3) : Color.appBlue)
                         .cornerRadius(15)
                 }
@@ -571,7 +572,7 @@ struct PaymentMethodView: View {
             )
             
             do {
-                try await FireStoreManager.shared.saveAppointment(appointment: appointment)
+                try await SupabaseDBManager.shared.saveAppointment(appointment: appointment)
                 await MainActor.run {
                     self.isLoading = false
                     self.showSuccess = true

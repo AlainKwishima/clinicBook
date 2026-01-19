@@ -142,7 +142,7 @@ struct SignupView: View {
 //
 
 import SwiftUI
-import FirebaseAuth
+import Supabase
 
 struct AdditionalInfoView: View {
     @StateObject private var viewModel = AuthenticationViewModel() // We might need a shared VM or just use FireStoreManager directly
@@ -154,6 +154,8 @@ struct AdditionalInfoView: View {
     @State private var isLoading = false
     @State private var navigateToSuccess = false
     @State private var errorMessage: String?
+    @State private var defaults: AppUser? // To hold current user details from UserDefaults
+    @State private var isSyncing = false // To manage loading state for data sync
     
     var bloodGroups = ["Blood Group", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"]
     
@@ -198,7 +200,7 @@ struct AdditionalInfoView: View {
                     .cornerRadius(12)
                 }
                 .padding()
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 500 : .infinity)
+                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                 .frame(maxWidth: .infinity)
             }
             
@@ -209,7 +211,9 @@ struct AdditionalInfoView: View {
             }
             
             Button {
-                saveDetails()
+                Task {
+                    await saveDetails()
+                }
             } label: {
                 if isLoading {
                     ProgressView()
@@ -218,7 +222,7 @@ struct AdditionalInfoView: View {
                     Text("Continue")
                         .font(.customFont(style: .bold, size: .h17))
                         .padding()
-                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 500 : .infinity)
+                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                         .background(Color.appBlue)
                         .foregroundColor(.white)
                         .cornerRadius(30)
@@ -231,11 +235,38 @@ struct AdditionalInfoView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            Task {
+                await syncUserData()
+            }
+        }
     }
     
-    func saveDetails() {
-        guard let user = Auth.auth().currentUser else { return }
+    private func syncUserData() async {
+        // Retrieve ID or fetch from session
+        var finalUserId: String? = UserDefaults.standard.string(forKey: "userID")
         
+        if finalUserId == nil || finalUserId?.isEmpty == true {
+             if let session = try? await SupabaseManager.shared.client.auth.session {
+                 finalUserId = session.user.id.uuidString
+                 // Persist for future use
+                 UserDefaults.standard.set(finalUserId, forKey: "userID")
+             }
+        }
+        
+        guard let userId = finalUserId, !userId.isEmpty else { return }
+        
+        isSyncing = true
+        await SupabaseDBManager.shared.getUserDetails(userId: userId) { success in
+            if success {
+                defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
+            }
+            isSyncing = false
+        }
+    }
+    
+    
+    func saveDetails() async {
         if height.isEmpty || weight.isEmpty || age.isEmpty || address.isEmpty || selectedBloodGroup == "Blood Group" {
             errorMessage = "Please fill in all fields."
             return
@@ -243,58 +274,49 @@ struct AdditionalInfoView: View {
         
         self.isLoading = true
         
-        // Fetch existing user details first to merge (optional, but good practice if we don't want to overwrite)
-        // For now, we assume we just update the specific fields. 
-        // Note: AppUser is immutable/struct, so we effectively create a 'patch' or need to fetch-update-save.
-        // Given FireStoreManager.updateUserDetails takes a full AppUser object, we should ideally fetch current local state or create a partial update method.
-        // Let's create a partial update logic or fetch-modify-save pattern relying on what's available.
-        
-        // Since we are in a fresh signup flow, we might not have the full AppUser in memory in this View. 
-        // But we can construct a "partial" AppUser or modify `FireStoreManager` to accept a dictionary for updates.
-        // For simplicity with current architecture: fetch -> update -> save
-        
         Task {
-            // Simplified: We will construct a new AppUser with the known data. 
-            // Better approach: Update `FireStoreManager` to allow partial updates. 
-            // Workaround for now: We will use the existing updateUserDetails but we need to make sure we don't wipe out name/email. 
-            // Ideally, we passed the 'User' object from SignupView to here. 
+            var finalUserId: String? = UserDefaults.standard.string(forKey: "userID")
             
-            // LET'S ASSUME we fetch it first.
-            await FireStoreManager.shared.getUserDetails(userId: user.uid) { success in
-                // The manager updates UserDefaults. let's read from there.
-                if let currentUser = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
-                    
-                    // Creates a new AppUser with updated fields (Manual copy since struct is immutable)
-                    let updatedUser = AppUser(
-                        password: currentUser.password, // Ideally shouldn't be stored/handled this way but adhering to existing model
-                        email: currentUser.email,
-                        firstName: currentUser.firstName,
-                        lastName: currentUser.lastName,
-                        createdAt: currentUser.createdAt,
-                        height: height,
-                        weight: weight,
-                        age: age,
-                        bloodGroup: selectedBloodGroup,
-                        phoneNumber: currentUser.phoneNumber,
-                        imageURL: currentUser.imageURL,
-                        address: address
-                    )
-                    
-                    // Save
-                    Task {
-                        await FireStoreManager.shared.updateUserDetails(user.uid, dataModel: updatedUser) { success in
-                            self.isLoading = false
-                            if success {
-                                self.navigateToSuccess = true
-                            } else {
-                                self.errorMessage = "Failed to save details."
-                            }
-                        }
-                    }
-                } else {
-                    self.isLoading = false
-                    self.errorMessage = "User details not found locally."
+            if finalUserId == nil || finalUserId?.isEmpty == true {
+                if let session = try? await SupabaseManager.shared.client.auth.session {
+                    finalUserId = session.user.id.uuidString
                 }
+            }
+            
+            guard let userId = finalUserId, !userId.isEmpty else {
+                self.isLoading = false
+                self.errorMessage = "User not logged in."
+                return
+            }
+            
+            // Fetch current user and update with additional info
+            if let currentUser = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
+                let updatedUser = AppUser(
+                    password: currentUser.password,
+                    email: currentUser.email,
+                    firstName: currentUser.firstName,
+                    lastName: currentUser.lastName,
+                    createdAt: currentUser.createdAt,
+                    height: height,
+                    weight: weight,
+                    age: age,
+                    bloodGroup: selectedBloodGroup,
+                    phoneNumber: currentUser.phoneNumber,
+                    imageURL: currentUser.imageURL,
+                    address: address
+                )
+                
+                await SupabaseDBManager.shared.updateUserDetails(userId, dataModel: updatedUser) { success in
+                    self.isLoading = false
+                    if success {
+                        self.navigateToSuccess = true
+                    } else {
+                        self.errorMessage = "Failed to save details."
+                    }
+                }
+            } else {
+                self.isLoading = false
+                self.errorMessage = "User details not found locally."
             }
         }
     }
@@ -347,7 +369,7 @@ struct SuccessStateView: View {
                     NavigationLink(destination: HomeDashboard().navigationBarBackButtonHidden(true)) {
                         Text("Go to Home")
                             .font(.customFont(style: .bold, size: .h17))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .frame(height: 55)
                             .background(Color.appBlue)
                             .foregroundColor(.white)

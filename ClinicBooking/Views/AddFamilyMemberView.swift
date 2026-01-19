@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import iPhoneNumberField
-import FirebaseAuth
+import Supabase
 
 struct AddFamilyMemberView: View {
     enum Field: Hashable {
@@ -143,7 +143,7 @@ struct AddFamilyMemberView: View {
                             .font(.customFont(style: .bold, size: .h17))
                             .foregroundColor(.white)
                             .padding()
-                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 600 : .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .background(disableForm ? Color.gray.opacity(0.3) : Color.appBlue)
                             .cornerRadius(30)
                     }
@@ -199,23 +199,30 @@ struct AddFamilyMemberView: View {
             phoneNumber: phoneNumber,
             imageURL: imageURL
         )
+        if userViewModel.familyMembers == nil {
+            userViewModel.familyMembers = FamilyMemberModel(members: [])
+        }
         userViewModel.familyMembers?.members.append(model)
 
         debugPrint("Family Members == \(String(describing: userViewModel.familyMembers))")
-        if let user = Auth.auth().currentUser {
-            // Save to Firebase using the authenticated user's UID
-            FireStoreManager.shared.updateFamilyMembers(
-                user.uid,
-                dataModel: userViewModel.familyMembers!
-            ) { success in
-                if success {
-                    print("Family Members details saved successfully in Firestore.")
-                } else {
-                    print("Failed to save Family Members details to Firestore.")
+        Task {
+            let session = try? await SupabaseManager.shared.client.auth.session
+            if let userId = UserDefaults.standard.string(forKey: "userID") ?? session?.user.id.uuidString,
+               let currentMembers = userViewModel.familyMembers {
+                // Save to Supabase using the bridge FireStoreManager
+                SupabaseDBManager.shared.updateFamilyMembers(
+                    userId,
+                    dataModel: currentMembers
+                ) { success in
+                    if success {
+                        print("Family Members details saved successfully in Supabase.")
+                    } else {
+                        print("Failed to save Family Members details to Supabase.")
+                    }
                 }
+            } else {
+                print("No authenticated user session found or family members missing.")
             }
-        } else {
-            print("No authenticated user found.")
         }
     }
 }

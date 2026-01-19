@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5D71BB92F1BE36000F7219F /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BB82F1BE36000F7219F /* Auth */; };
+		B5D71BBB2F1BE36000F7219F /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBA2F1BE36000F7219F /* Functions */; };
+		B5D71BBD2F1BE36000F7219F /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBC2F1BE36000F7219F /* PostgREST */; };
+		B5D71BBF2F1BE36000F7219F /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBE2F1BE36000F7219F /* Realtime */; };
+		B5D71BC12F1BE36000F7219F /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BC02F1BE36000F7219F /* Storage */; };
+		B5D71BC32F1BE36000F7219F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BC22F1BE36000F7219F /* Supabase */; };
+		B5D71BC72F1BE53C00F7219F /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */; };
+		B5D71BC82F1BE53C00F7219F /* SupabaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */; };
+		B5D71BC92F1BE53C00F7219F /* SupabaseDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */; };
 		EF3D16762C9306850011694A /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16752C9306850011694A /* Firebase.swift */; };
 		EF3D16782C931C410011694A /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16772C931C410011694A /* AppUserDefaults.swift */; };
 		EF3D167B2C932F010011694A /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = EF3D167A2C932F010011694A /* ProgressHUD */; };
@@ -51,6 +60,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SupabaseManager.swift; path = ClinicBooking/Helpers/SupabaseManager.swift; sourceTree = "<group>"; };
+		B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SupabaseAuthService.swift; path = ClinicBooking/Helpers/SupabaseAuthService.swift; sourceTree = "<group>"; };
+		B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SupabaseDBManager.swift; path = ClinicBooking/Helpers/SupabaseDBManager.swift; sourceTree = "<group>"; };
 		EF3D16752C9306850011694A /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		EF3D16772C931C410011694A /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		EF3D16A32C9AFD810011694A /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
@@ -100,6 +112,12 @@
 			files = (
 				EF3D167B2C932F010011694A /* ProgressHUD in Frameworks */,
 				EF3D16A22C9AA9540011694A /* iPhoneNumberField in Frameworks */,
+				B5D71BC12F1BE36000F7219F /* Storage in Frameworks */,
+				B5D71BBB2F1BE36000F7219F /* Functions in Frameworks */,
+				B5D71BC32F1BE36000F7219F /* Supabase in Frameworks */,
+				B5D71BBF2F1BE36000F7219F /* Realtime in Frameworks */,
+				B5D71BB92F1BE36000F7219F /* Auth in Frameworks */,
+				B5D71BBD2F1BE36000F7219F /* PostgREST in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +134,9 @@
 		EFFF3B332C8435C7000C35CC = {
 			isa = PBXGroup;
 			children = (
+				B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */,
+				B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */,
+				B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */,
 				EFFF3B3E2C8435C7000C35CC /* ClinicBooking */,
 				B5D71BB62F1BD10700F7219F /* Frameworks */,
 				EFFF3B3D2C8435C7000C35CC /* Products */,
@@ -267,6 +288,12 @@
 			packageProductDependencies = (
 				EF3D167A2C932F010011694A /* ProgressHUD */,
 				EF3D16A12C9AA9540011694A /* iPhoneNumberField */,
+				B5D71BB82F1BE36000F7219F /* Auth */,
+				B5D71BBA2F1BE36000F7219F /* Functions */,
+				B5D71BBC2F1BE36000F7219F /* PostgREST */,
+				B5D71BBE2F1BE36000F7219F /* Realtime */,
+				B5D71BC02F1BE36000F7219F /* Storage */,
+				B5D71BC22F1BE36000F7219F /* Supabase */,
 			);
 			productName = ClinicBooking;
 			productReference = EFFF3B3C2C8435C7000C35CC /* ClinicBooking.app */;
@@ -299,6 +326,7 @@
 			packageReferences = (
 				EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
+				B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			productRefGroup = EFFF3B3D2C8435C7000C35CC /* Products */;
 			projectDirPath = "";
@@ -328,6 +356,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D71BC72F1BE53C00F7219F /* SupabaseManager.swift in Sources */,
+				B5D71BC82F1BE53C00F7219F /* SupabaseAuthService.swift in Sources */,
+				B5D71BC92F1BE53C00F7219F /* SupabaseDBManager.swift in Sources */,
 				EFFF3B732C86E9AF000C35CC /* AddFamilyMemberView.swift in Sources */,
 				EF3D16AC2C9DA1BF0011694A /* FamilyMemberModel.swift in Sources */,
 				EF3D16762C9306850011694A /* Firebase.swift in Sources */,
@@ -572,6 +603,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
 		EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
@@ -591,6 +630,36 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B5D71BB82F1BE36000F7219F /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		B5D71BBA2F1BE36000F7219F /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		B5D71BBC2F1BE36000F7219F /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		B5D71BBE2F1BE36000F7219F /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		B5D71BC02F1BE36000F7219F /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		B5D71BC22F1BE36000F7219F /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
 		EF3D167A2C932F010011694A /* ProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */;

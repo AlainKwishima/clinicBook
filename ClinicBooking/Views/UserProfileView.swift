@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseAuth
+import Supabase
 
 struct UserProfileView: View {
     @State var addMember: Bool = false
@@ -16,10 +16,14 @@ struct UserProfileView: View {
     @StateObject private var viewModel = AuthenticationViewModel()
     @StateObject private var userViewModel = UserViewModel()
     @State private var showSignoutAlert = false
+
     @State private var isSyncing = false
+    @State private var showSearch = false
+    @State private var showNotifications = false
 
     var body: some View {
-            VStack {
+            VStack(spacing: 0) {
+
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 30) {
                         profileHeaderView
@@ -42,15 +46,32 @@ struct UserProfileView: View {
                 await syncUserData()
             }
         }
+
+        .navigationTitle("Profile")
+        .navigationBarTitleDisplayMode(.inline)
         .refreshable {
             await syncUserData()
+        }
+        .fullScreenCover(isPresented: $showSearch) {
+            SearchFilterView()
+        }
+        .navigationDestination(isPresented: $showNotifications) {
+            NotificationCenterView()
         }
     }
     
     private func syncUserData() async {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+        var userId = UserDefaults.standard.string(forKey: "userID")
+        if userId == nil {
+            if let session = try? await SupabaseManager.shared.client.auth.session {
+                userId = session.user.id.uuidString
+            }
+        }
+        
+        guard let finalUserId = userId else { return }
+        
         isSyncing = true
-        await FireStoreManager.shared.getUserDetails(userId: userId) { _ in
+        await SupabaseDBManager.shared.getUserDetails(userId: finalUserId) { _ in
             defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
             isSyncing = false
         }
@@ -116,6 +137,14 @@ struct UserProfileView: View {
                                 .background(Color.appBlue.opacity(0.1))
                                 .foregroundColor(.appBlue)
                                 .cornerRadius(12)
+                        }
+                        .alert("Sign Out", isPresented: $showSignoutAlert) {
+                            Button("Sign Out", role: .destructive) {
+                                Task { await viewModel.signOut() }
+                            }
+                            Button("Cancel", role: .cancel) { }
+                        } message: {
+                            Text("Are you sure you want to sign out?")
                         }
                     }
                 }
@@ -215,7 +244,7 @@ struct UserProfileView: View {
                 Text("Delete Account")
                     .font(.customFont(style: .bold, size: .h16))
                     .foregroundColor(.red)
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                     .padding()
                     .background(Color.red.opacity(0.1))
                     .cornerRadius(12)
@@ -237,9 +266,9 @@ struct UserProfileView: View {
         guard let userId = UserDefaults.standard.string(forKey: "userID") else { return }
         Task {
             do {
-                try await FireStoreManager.shared.deleteUserAccount(userId: userId)
+                try await SupabaseDBManager.shared.deleteUserAccount(userId: userId)
                 // Sign out locally
-                viewModel.signOut()
+                await viewModel.signOut()
                 UserDefaults.standard.removeObject(forKey: "userDetails")
                 UserDefaults.standard.removeObject(forKey: "userID")
             } catch {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Supabase
 
 @MainActor
 class AuthenticationViewModel: ObservableObject {
@@ -21,7 +21,8 @@ class AuthenticationViewModel: ObservableObject {
     @Published var validationMessage: String?
     @Published var shouldNavigateToSignIn = false
     @Published var isLoading = false
-    private let firebaseService = FirebaseService()
+    private let authService = SupabaseAuthService.shared
+    private let dbManager = SupabaseDBManager.shared
 
     func signIn() async -> Bool {
         let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -34,15 +35,24 @@ class AuthenticationViewModel: ObservableObject {
         }
         isLoading = true
         defer { isLoading = false }
-        let errorMessage = await firebaseService.signIn(email: sanitizedEmail, password: password)
-        validationMessage = errorMessage?.localizedDescription
-        return errorMessage == nil
+        do {
+            try await authService.signIn(email: sanitizedEmail, password: password)
+            validationMessage = nil
+            return true
+        } catch {
+            validationMessage = error.localizedDescription
+            return false
+        }
     }
 
     func getUserDetails() async {
-        if let user = Auth.auth().currentUser {
-            await FireStoreManager.shared.getUserDetails(userId: user.uid) { message in
-                debugPrint(message)
+        if let session = try? await SupabaseManager.shared.client.auth.session {
+            do {
+                let details = try await dbManager.getUserDetails(userId: session.user.id.uuidString)
+                UserDefaults.standard.set(encodable: details, forKey: "userDetails")
+                UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
+            } catch {
+                debugPrint("Error fetching user details from Supabase: \(error)")
             }
         }
     }
@@ -63,39 +73,32 @@ class AuthenticationViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        // 1. Firebase Auth Sign In
-        let errorMessage = await firebaseService.signIn(email: sanitizedEmail, password: password)
-        if let error = errorMessage {
-            validationMessage = error.localizedDescription
-            return false
-        }
-        
-        // 2. Fetch Details & Verify Role
-        if let user = Auth.auth().currentUser {
-            var success = false
-            await FireStoreManager.shared.getUserDetails(userId: user.uid) { msg in
-                success = msg
-            }
+        // 1. Supabase Auth Sign In
+        do {
+            try await authService.signIn(email: sanitizedEmail, password: password)
             
-            if success, let details = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
+            // 2. Fetch Details & Verify Role
+            if let session = try? await SupabaseManager.shared.client.auth.session {
+                let details = try await dbManager.getUserDetails(userId: session.user.id.uuidString)
+                UserDefaults.standard.set(encodable: details, forKey: "userDetails")
+                
                 if details.role != "doctor" {
                     validationMessage = "This account is not registered as a doctor."
-                    signOut()
+                    await signOut()
                     return false
                 }
                 
                 if details.licenseNumber != licenseNumber {
                     validationMessage = "Invalid Medical License Number for this account."
-                    signOut()
+                    await signOut()
                     return false
                 }
                 
                 return true
-            } else {
-                validationMessage = "Failed to fetch user profile."
-                signOut()
-                return false
             }
+        } catch {
+            validationMessage = error.localizedDescription
+            return false
         }
         
         return false
@@ -111,8 +114,12 @@ class AuthenticationViewModel: ObservableObject {
             validationMessage = "Please enter your email."
             return
         }
-        let errorMessage = await firebaseService.resetPassword(email: sanitizedEmail)
-        validationMessage = errorMessage?.localizedDescription
+        do {
+            try await authService.resetPassword(email: sanitizedEmail)
+            validationMessage = "Password reset email sent."
+        } catch {
+            validationMessage = error.localizedDescription
+        }
     }
 
     @Published var shouldNavigateToAdditionalInfo = false
@@ -147,23 +154,29 @@ class AuthenticationViewModel: ObservableObject {
                            imageURL: "",
                            address: ""
         )
-        let result = await firebaseService.signup(user: user)
-        switch result {
-        case .success:
-            // validationMessage = "Sign Up Successful!" // Removed to allow smooth transition
+        do {
+            try await authService.signUp(user: user)
+            
+            // Save locally so the next screen (AdditionalInfoView) can access it
+            UserDefaults.standard.set(encodable: user, forKey: "userDetails")
+            
+            // Also retrieve and save the UserID
+            if let session = try? await SupabaseManager.shared.client.auth.session {
+                UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
+            }
+            
             shouldNavigateToAdditionalInfo = true
-        case .failure(let error):
+        } catch {
             validationMessage = "Failed to sign up: \(error.localizedDescription)"
         }
     }
 
-    func signOut() {
+    func signOut() async {
         do {
-            try firebaseService.signout()
+            try await authService.signOut()
             showSignInView = true
-        } catch let error as NSError {
-            // Update your alert to reflect error if used here
-            print("Error signing out: \(error.localizedDescription)")
+        } catch {
+            print("Error signing out from Supabase: \(error.localizedDescription)")
         }
     }
 }

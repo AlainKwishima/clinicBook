@@ -36,20 +36,45 @@ struct SidebarView: View {
     @Binding var selectedIndex: Int
     
     var body: some View {
-        List(filteredItems, selection: $selectedIndex) { item in
-            NavigationLink(value: item.rawValue) {
-                Label(item.title(for: role), systemImage: item.icon(for: role))
-                    .font(.customFont(style: .medium, size: .h16))
-                    .foregroundColor(selectedIndex == item.rawValue ? .white : .text)
+        VStack(alignment: .leading, spacing: 0) {
+            // Custom Brand Header (Centered)
+            VStack(alignment: .center, spacing: 6) {
+                Image("logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 45, height: 45) // Slightly larger branding
+                    .cornerRadius(10)
+                
+                Text("Clinic Booking")
+                    .font(.customFont(style: .bold, size: .h14))
+                    .foregroundColor(.text)
             }
-            .listRowBackground(
-                selectedIndex == item.rawValue ? Color.appBlue : Color.clear
-            )
-            .cornerRadius(8)
+            .frame(maxWidth: .infinity) // Ensure full width for centering
+            .padding(.top, 25)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 15)
+            .background(Color.bg)
+            
+            // Navigation List
+            List(filteredItems, selection: $selectedIndex) { item in
+                NavigationLink(value: item.rawValue) {
+                    Label(item.title(for: role), systemImage: item.icon(for: role))
+                        .font(.customFont(style: .medium, size: .h16))
+                        .foregroundColor(selectedIndex == item.rawValue ? .white : .text)
+                }
+                .listRowBackground(
+                    selectedIndex == item.rawValue ? Color.appBlue : Color.clear
+                )
+                .cornerRadius(8)
+            }
+            .listStyle(SidebarListStyle())
+            .scrollContentBackground(.hidden) 
         }
-        .listStyle(SidebarListStyle())
-        .navigationTitle("Menu")
         .background(Color.bg.ignoresSafeArea())
+        .navigationTitle("") 
+        .navigationBarTitleDisplayMode(.inline) // Shrink title area
+        .navigationBarHidden(true) // Explicitly hide nav bar (older modifier sometimes works better in split view columns)
+        .toolbar(.hidden, for: .navigationBar) // Newer modifier
     }
     
     private var filteredItems: [SidebarItem] {

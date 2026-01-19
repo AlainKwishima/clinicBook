@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import FirebaseFirestore
+// import FirebaseFirestore  // DEPRECATED: Migrated to Supabase
 
 // MARK: - Clinic
 struct Clinic: Codable, Identifiable {
-    @DocumentID var id: String?
+    var id: String?  // Changed from @DocumentID for Supabase compatibility
     var name: String
     var type: String // "Clinic" or "Hospital"
     var image: String
@@ -31,7 +31,7 @@ struct DoctorsList: Codable {
 
 // MARK: - Doctor
 struct Doctor: Codable, Identifiable {
-    @DocumentID var firestoreID: String?
+    var firestoreID: String?  // Changed from @DocumentID for Supabase compatibility
     var id: String { firestoreID ?? doctorID }
     var doctorID: String
     var name, specialist, degree: String
@@ -80,11 +80,12 @@ extension Doctor {
 //  Created by Assistant on 08/01/26.
 //
 
+
 import Foundation
-import FirebaseFirestore
+// import FirebaseFirestore  // DEPRECATED: Migrated to Supabase
 
 struct Appointment: Codable, Identifiable {
-    @DocumentID var id: String?
+    var id: String?  // Changed from @DocumentID for Supabase compatibility
     var doctorId: String
     var userId: String
     var patientName: String

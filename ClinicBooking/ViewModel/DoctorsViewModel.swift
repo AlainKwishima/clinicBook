@@ -18,49 +18,24 @@ class DoctorsViewModel: ObservableObject {
         self.isLoading = true
         defer { self.isLoading = false }
         
-        var allDoctors: [Doctor] = []
-        
-        // 1. Load from JSON (Legacy) - DISABLE for now to show real doctors only
-        // if let loadedList = loadJson(fileName: "doctors") {
-        //     allDoctors = loadedList.doctors
-        //     print("Successfully loaded \(allDoctors.count) doctors from JSON.")
-        // }
-        
-        // 2. Load from Firestore (Dynamic)
         do {
-            let registeredUsers = try await FireStoreManager.shared.fetchRegisteredDoctors()
-            print("Fetched \(registeredUsers.count) registered doctors from Firestore.")
+            // Fetch registered doctors from Supabase
+            let registeredDoctors = try await SupabaseDBManager.shared.fetchRegisteredDoctors()
+            print("Fetched \(registeredDoctors.count) registered doctors from Supabase.")
             
-            let registeredDoctors = registeredUsers.compactMap { user -> Doctor in
-                // Use the document ID (UID) for a stable identity
-                let stableId = user.id ?? user.email ?? UUID().uuidString
-                return Doctor(from: user, id: stableId)
-            }
-            
-            // Merge lists, avoiding duplicates by id
-            var mergedCount = 0
-            for doc in registeredDoctors {
-                if !allDoctors.contains(where: { $0.id == doc.id || $0.doctorID == doc.doctorID }) {
-                    allDoctors.append(doc)
-                    mergedCount += 1
-                }
-            }
-            print("Merged \(mergedCount) new doctors into the list. Total count: \(allDoctors.count)")
-            
-            print("Merged \(mergedCount) new doctors into the list. Total count: \(allDoctors.count)")
+            self.doctors = registeredDoctors
             
         } catch {
-            print("Failed to fetch doctors from Firestore: \(error)")
+            print("Failed to fetch doctors from Supabase: \(error)")
             self.errorMessage = "Dynamic doctor list could not be refreshed."
-        }
-        
-        self.doctors = allDoctors
-        
-        if self.doctors.isEmpty {
-            print("Using hardcoded fallback.")
-            self.doctors = [
-                Doctor(firestoreID: nil, doctorID: "999", name: "Dr. Fallback", specialist: "General Physician", degree: "MD", image: "user", position: "Specialist", languageSpoken: "English", about: "Fallback Data", contact: "000", address: "Local", rating: "5.0", isPopular: true, isSaved: false, fee: 100.0)
-            ]
+            
+            // Fallback
+            if self.doctors.isEmpty {
+                print("Using hardcoded fallback.")
+                self.doctors = [
+                    Doctor(firestoreID: nil, doctorID: "999", name: "Dr. Fallback", specialist: "General Physician", degree: "MD", image: "user", position: "Specialist", languageSpoken: "English", about: "Fallback Data", contact: "000", address: "Local", rating: "5.0", isPopular: true, isSaved: false, fee: 100.0)
+                ]
+            }
         }
     }
 
@@ -154,12 +129,12 @@ class ClinicsViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            let fetchedClinics = try await FireStoreManager.shared.fetchClinics()
+            let fetchedClinics = try await SupabaseDBManager.shared.fetchClinics()
             if !fetchedClinics.isEmpty {
                 self.clinics = fetchedClinics
             }
         } catch {
-            print("Error fetching clinics: \(error)")
+            print("Error fetching clinics from Supabase: \(error)")
             // Keep existing fallbacks if fetch fails
         }
         

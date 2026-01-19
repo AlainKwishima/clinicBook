@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
+// import FirebaseCore  // DEPRECATED: Migrated to Supabase
+// import FirebaseAuth  // DEPRECATED: Migrated to Supabase
+import Supabase
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
+    // FirebaseApp.configure()  // DEPRECATED: Now using Supabase
     return true
   }
 }
@@ -59,29 +60,30 @@ struct AppRootView: View {
         .onAppear(perform: listenToAuthState)
     }
     
-    @State private var authStateHandle: AuthStateDidChangeListenerHandle?
-
+    // Listens for Supabase auth state changes to handle login/logout reactively
     private func listenToAuthState() {
-        self.authStateHandle = Auth.auth().addStateDidChangeListener { auth, user in
-            if let user = user {
-                print("Auth State Change: User is signed in with \(user.uid)")
-                storedUserID = user.uid
-                Task {
-                    await fetchUserStatus(uid: user.uid)
+        Task {
+            for await state in SupabaseManager.shared.client.auth.authStateChanges {
+                if let session = state.session {
+                    print("Auth state changed: Active session for user: \(session.user.id)")
+                    storedUserID = session.user.id.uuidString
+                    await fetchUserStatus(uid: session.user.id.uuidString)
+                } else {
+                    print("Auth state changed: No active session.")
+                    storedUserID = ""
+                    DispatchQueue.main.async {
+                        self.isAuthenticated = false
+                        self.isPendingVerification = false
+                        self.isLoading = false
+                        self.rootViewId = UUID()
+                    }
                 }
-            } else {
-                print("Auth State Change: No user is signed in.")
-                storedUserID = ""
-                self.isAuthenticated = false
-                self.isPendingVerification = false
-                self.isLoading = false
-                self.rootViewId = UUID()
             }
         }
     }
     
     private func fetchUserStatus(uid: String) async {
-        await FireStoreManager.shared.getUserDetails(userId: uid) { result in
+        await SupabaseDBManager.shared.getUserDetails(userId: uid) { result in
              DispatchQueue.main.async {
                  if let user = UserDefaults.standard.value(AppUser.self, forKey: "userDetails") {
                      self.isAuthenticated = true

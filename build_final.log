@@ -1,0 +1,962 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ClinicBooking.xcodeproj -scheme ClinicBooking -destination "platform=iOS Simulator,name=iPhone 16,OS=18.3.1" clean build
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  Supabase: https://github.com/supabase/supabase-swift @ 2.40.0
+  swift-clocks: https://github.com/pointfreeco/swift-clocks @ 1.0.6
+  iPhoneNumberField: https://github.com/MojtabaHs/iPhoneNumberField.git @ 0.10.4
+  swift-asn1: https://github.com/apple/swift-asn1.git @ 1.5.1
+  xctest-dynamic-overlay: https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.8.1
+  swift-concurrency-extras: https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
+  swift-crypto: https://github.com/apple/swift-crypto.git @ 4.2.0
+  swift-http-types: https://github.com/apple/swift-http-types.git @ 1.5.1
+  PhoneNumberKit: https://github.com/marmelroy/PhoneNumberKit @ 3.8.0
+  ProgressHUD: https://github.com/relatedcode/ProgressHUD.git @ 14.1.3
+
+2026-01-17 17:30:21.568 xcodebuild[29556:313910] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+** CLEAN SUCCEEDED **
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, arch:arm64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (9 targets)
+    Target 'ClinicBooking' in project 'ClinicBooking'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit' (no dependencies)
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview Content/Preview Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: f8335179e9c30c91875a4055a25de5a2
+Build description path: /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/XCBuildData/f8335179e9c30c91875a4055a25de5a2.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking-9570d0f49aac4855f9b781f15a341d07-VFS-iphonesimulator/all-product-headers.yaml
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking-9570d0f49aac4855f9b781f15a341d07-VFS-iphonesimulator/all-product-headers.yaml
+
+CreateBuildDirectory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-create-build-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.DependencyMetadataFileList (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.DependencyStaticMetadataFileList (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.modulemap (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.modulemap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField_const_extract_protocols.json (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.LinkFileList (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.LinkFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftConstValuesFileList (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftFileList (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-OutputFileMap.json (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ProgressHUD_ProgressHUD.DependencyStaticMetadataFileList (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ProgressHUD_ProgressHUD.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/empty-ProgressHUD_ProgressHUD.plist (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/empty-ProgressHUD_ProgressHUD.plist
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.modulemap (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.modulemap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ProgressHUD_ProgressHUD.DependencyMetadataFileList (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ProgressHUD_ProgressHUD.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.DependencyMetadataFileList (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.DependencyStaticMetadataFileList (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.DependencyStaticMetadataFileList
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/iPhoneNumberField.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.modulemap (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/iPhoneNumberField.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_const_extract_protocols.json (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftFileList (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftConstValuesFileList (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.LinkFileList (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.LinkFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-OutputFileMap.json (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/resource_bundle_accessor.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/resource_bundle_accessor.swift
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/ProgressHUD.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.modulemap (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/ProgressHUD.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/empty-PhoneNumberKit_PhoneNumberKit.plist (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/empty-PhoneNumberKit_PhoneNumberKit.plist
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/PhoneNumberKit_PhoneNumberKit.DependencyStaticMetadataFileList (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/PhoneNumberKit_PhoneNumberKit.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/PhoneNumberKit_PhoneNumberKit.DependencyMetadataFileList (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/PhoneNumberKit_PhoneNumberKit.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.modulemap (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.modulemap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.DependencyStaticMetadataFileList (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.DependencyMetadataFileList (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftConstValuesFileList (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit_const_extract_protocols.json (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftFileList (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.LinkFileList (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.LinkFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-OutputFileMap.json (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-OutputFileMap.json
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/PhoneNumberKit.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.modulemap (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/PhoneNumberKit.modulemap /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/resource_bundle_accessor.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/resource_bundle_accessor.swift
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/empty-ClinicBooking.plist (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/empty-ClinicBooking.plist
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftFileList (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking_const_extract_protocols.json (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftConstValuesFileList (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.LinkFileList (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.LinkFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-OutputFileMap.json (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/Entitlements-Simulated.plist (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/Entitlements-Simulated.plist
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.DependencyStaticMetadataFileList (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.DependencyMetadataFileList (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-project-headers.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-project-headers.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-own-target-headers.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-generated-files.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-generated-files.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-all-non-framework-target-headers.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-all-target-headers.hmap (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-DebugDylibPath-normal-arm64.txt (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-DebugDylibInstallName-normal-arm64.txt (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    write-file /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-DebugDylibInstallName-normal-arm64.txt
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ClinicBooking.app (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ClinicBooking.app
+
+GenerateAssetSymbols /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Assets.xcassets (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Assets.xcassets --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator --output-format human-readable-text --notices --warnings --export-dependency-info /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/assetcatalog_dependencies --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/assetcatalog_generated_info.plist --compress-pngs --enable-on-demand-resources NO --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --platform iphonesimulator --bundle-identifier progresshud.ProgressHUD --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CompileXIB /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/ViewController.xib (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module ProgressHUD_ProgressHUD --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ViewController-PartialInfo.plist --auto-activate-custom-fonts --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --output-format human-readable-text --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle/ViewController.nib /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/ViewController.xib
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/unthinned (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/unthinned
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/thinned (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/thinned
+
+CompileStoryboard /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Base.lproj/LaunchScreen.storyboard (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module ProgressHUD_ProgressHUD --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/Base.lproj/LaunchScreen-SBPartialInfo.plist --auto-activate-custom-fonts --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --output-format human-readable-text /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Base.lproj/LaunchScreen.storyboard --compilation-directory /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/Base.lproj
+
+CompileAssetCatalogVariant thinned /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Assets.xcassets (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Assets.xcassets --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist_thinned --compress-pngs --enable-on-demand-resources NO --filter-for-thinning-device-configuration iPhone17,3 --filter-for-device-os-version 18.3.1 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --platform iphonesimulator
+/* com.apple.actool.compilation-results */
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist_thinned
+
+
+ProcessInfoPlistFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle/Info.plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/empty-PhoneNumberKit_PhoneNumberKit.plist (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-infoPlistUtility /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.build/empty-PhoneNumberKit_PhoneNumberKit.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle/Info.plist
+
+CpResource /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle/PrivacyInfo.xcprivacy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Resources/PrivacyInfo.xcprivacy (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Resources/PrivacyInfo.xcprivacy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+CpResource /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle/PhoneNumberMetadata.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Resources/PhoneNumberMetadata.json (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Resources/PhoneNumberMetadata.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+CodeSign /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+RegisterExecutionPolicyException /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-RegisterExecutionPolicyException /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+Touch /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle (in target 'PhoneNumberKit_PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    /usr/bin/touch -c /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit_PhoneNumberKit.bundle
+
+LinkAssetCatalog /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/app/Assets.xcassets (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-linkAssetCatalog --thinned /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/thinned --thinned-dependencies /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist_unthinned --output /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle --plist-output /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist
+
+SwiftDriver ProgressHUD normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name ProgressHUD -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -emit-localized-strings -emit-localized-strings-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+SwiftDriver PhoneNumberKit normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PhoneNumberKit -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ PhoneNumber.swift,\ PhoneNumberFormatter.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumber.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberFormatter.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumber.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberFormatter.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ Formatter.swift,\ MetadataManager.swift,\ MetadataParsing.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Formatter.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataManager.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataParsing.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Formatter.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataManager.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataParsing.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ PartialFormatter.swift,\ PhoneNumber+Codable.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PartialFormatter.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumber+Codable.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PartialFormatter.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumber+Codable.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ Bundle+Resources.swift,\ Constants.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/resource_bundle_accessor.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Bundle+Resources.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Constants.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/resource_bundle_accessor.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Bundle+Resources.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/Constants.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ MetadataTypes.swift,\ NSRegularExpression+Swift.swift,\ ParseManager.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataTypes.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/NSRegularExpression+Swift.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/ParseManager.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/MetadataTypes.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/NSRegularExpression+Swift.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/ParseManager.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ PhoneNumberKit (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+EmitSwiftModule normal arm64 (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ ProgressHUD (in target 'ProgressHUD' from project 'ProgressHUD')
+EmitSwiftModule normal arm64 (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+CircleArcDotSpin.swift,\ ProgressHUD+CircleBarSpinFade.swift,\ ProgressHUD+CircleDotSpinFade.swift,\ ProgressHUD+CirclePulseMultiple.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleArcDotSpin.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleBarSpinFade.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleDotSpinFade.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CirclePulseMultiple.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleArcDotSpin.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleBarSpinFade.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleDotSpinFade.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CirclePulseMultiple.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, Bundle+Resources.swift, Constants.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PhoneNumber.swift, PhoneNumberFormatter.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+Enums.swift,\ ProgressHUD+LiveIcon.swift,\ ProgressHUD+Public.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Enums.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+LiveIcon.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Public.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Enums.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+LiveIcon.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Public.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling Formatter.swift, MetadataManager.swift, MetadataParsing.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ ProgressHUD+ActivityIndicator.swift,\ ProgressHUD+BallVerticalBounce.swift,\ ProgressHUD+BarSweepToggle.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/resource_bundle_accessor.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+ActivityIndicator.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+BallVerticalBounce.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+BarSweepToggle.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/resource_bundle_accessor.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+ActivityIndicator.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+BallVerticalBounce.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+BarSweepToggle.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling MetadataTypes.swift, NSRegularExpression+Swift.swift, ParseManager.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+PacmanProgress.swift,\ ProgressHUD+QuintupleDotDance.swift,\ ProgressHUD+SFSymbolBounce.swift,\ ProgressHUD+SemiRingRotation.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+PacmanProgress.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+QuintupleDotDance.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SFSymbolBounce.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SemiRingRotation.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+PacmanProgress.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+QuintupleDotDance.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SFSymbolBounce.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SemiRingRotation.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling PartialFormatter.swift, PhoneNumber+Codable.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+CirclePulseSingle.swift,\ ProgressHUD+CircleRippleMultiple.swift,\ ProgressHUD+CircleRippleSingle.swift,\ ProgressHUD+CircleRotateChase.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CirclePulseSingle.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRippleMultiple.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRippleSingle.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRotateChase.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CirclePulseSingle.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRippleMultiple.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRippleSingle.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleRotateChase.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for PhoneNumberKit (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftDriver\ Compilation\ Requirements PhoneNumberKit normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PhoneNumberKit -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios12.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+LinkStoryboards (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module ProgressHUD_ProgressHUD --target-device iphone --target-device ipad --minimum-deployment-target 13.0 --output-format human-readable-text --link /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/Base.lproj/LaunchScreen.storyboardc
+
+SwiftMergeGeneratedHeaders /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/PhoneNumberKit-Swift.h /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-Swift.h (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-swiftHeaderTool -arch arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit-Swift.h -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/PhoneNumberKit-Swift.h
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftmodule (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftdoc (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.abi.json (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftsourceinfo (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/PhoneNumberKit.build/Debug-iphonesimulator/PhoneNumberKit.build/Objects-normal/arm64/PhoneNumberKit.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PhoneNumberKit.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+CircleStrokeSpin.swift,\ ProgressHUD+DualDotSidestep.swift,\ ProgressHUD+HorizontalBarScaling.swift,\ ProgressHUD+HorizontalDotScaling.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleStrokeSpin.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+DualDotSidestep.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+HorizontalBarScaling.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+HorizontalDotScaling.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+CircleStrokeSpin.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+DualDotSidestep.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+HorizontalBarScaling.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+HorizontalDotScaling.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD+SquareCircuitSnake.swift,\ ProgressHUD+TriangleDotShift.swift,\ ProgressHUD+Banner.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SquareCircuitSnake.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+TriangleDotShift.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Banner.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+SquareCircuitSnake.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/Animations/ProgressHUD+TriangleDotShift.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD+Banner.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+ProcessInfoPlistFile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle/Info.plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/empty-ProgressHUD_ProgressHUD.plist (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-infoPlistUtility /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/empty-ProgressHUD_ProgressHUD.plist -producttype com.apple.product-type.bundle -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/Base.lproj/LaunchScreen-SBPartialInfo.plist -additionalcontentfile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/ViewController-PartialInfo.plist -additionalcontentfile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD_ProgressHUD.build/assetcatalog_generated_info.plist -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle/Info.plist
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for ProgressHUD (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftDriver\ Compilation\ Requirements ProgressHUD normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name ProgressHUD -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -emit-localized-strings -emit-localized-strings-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal arm64 Compiling\ ProgressHUD.swift,\ ProgressView.swift,\ GeneratedAssetSymbols.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressView.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressHUD.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/ProgressView.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftMergeGeneratedHeaders /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/ProgressHUD-Swift.h /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-Swift.h (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-swiftHeaderTool -arch arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-Swift.h -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/ProgressHUD-Swift.h
+
+SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, ProgressHUD+ActivityIndicator.swift, ProgressHUD+BallVerticalBounce.swift, ProgressHUD+BarSweepToggle.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftdoc (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.abi.json (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftsourceinfo (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal arm64 Compiling\ RegexManager.swift,\ CountryCodePickerOptions.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/RegexManager.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/CountryCodePickerOptions.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/RegexManager.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/CountryCodePickerOptions.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+CirclePulseSingle.swift, ProgressHUD+CircleRippleMultiple.swift, ProgressHUD+CircleRippleSingle.swift, ProgressHUD+CircleRotateChase.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftCompile normal arm64 Compiling\ CountryCodePickerViewController.swift,\ PhoneNumberTextField.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/CountryCodePickerViewController.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/PhoneNumberTextField.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/CountryCodePickerViewController.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:105:1: error: extraneous '}' at top level
+}
+^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: error: Unable to find module dependency: 'Supabase'
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: note: a dependency of main module 'ClinicBooking'
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/Firebase.swift:9:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/SignupView.swift:145:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/AuthenticationViewModel.swift:9:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/UserViewModel.swift:9:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/EditProfileView.swift:11:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:9:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:11:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/UserProfileView.swift:9:8: note: also imported here
+import Supabase
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: error: Unable to find module dependency: 'FirebaseFirestore'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseFirestore
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: error: Unable to find module dependency: 'FirebaseAuth'
+import FirebaseAuth
+       ^
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: note: a dependency of main module 'ClinicBooking'
+import FirebaseAuth
+       ^
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/UI/PhoneNumberTextField.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+PacmanProgress.swift, ProgressHUD+QuintupleDotDance.swift, ProgressHUD+SFSymbolBounce.swift, ProgressHUD+SemiRingRotation.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftCompile normal arm64 Compiling\ PhoneNumberKit.swift,\ PhoneNumberParser.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberKit.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberParser.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberKit.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/PhoneNumberKit/PhoneNumberKit/PhoneNumberParser.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+CircleArcDotSpin.swift, ProgressHUD+CircleBarSpinFade.swift, ProgressHUD+CircleDotSpinFade.swift, ProgressHUD+CirclePulseMultiple.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+Enums.swift, ProgressHUD+LiveIcon.swift, ProgressHUD+Public.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+CircleStrokeSpin.swift, ProgressHUD+DualDotSidestep.swift, ProgressHUD+HorizontalBarScaling.swift, ProgressHUD+HorizontalDotScaling.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+CodeSign /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle
+
+SwiftDriver iPhoneNumberField normal arm64 com.apple.xcode.tools.swift.compiler (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name iPhoneNumberField -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+RegisterExecutionPolicyException /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    builtin-RegisterExecutionPolicyException /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle
+
+Touch /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle (in target 'ProgressHUD_ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /usr/bin/touch -c /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD_ProgressHUD.bundle
+
+SwiftDriverJobDiscovery normal arm64 Compiling RegexManager.swift, CountryCodePickerOptions.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ iPhoneNumberField (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+EmitSwiftModule normal arm64 (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ iPhoneNumberField.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/iPhoneNumberField.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/iPhoneNumberField.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ UIFont+Init.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/UIFont+Init.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/UIFont+Init.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftCompile normal arm64 Compiling\ iPhoneNumberField+ViewModifiers.swift /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/iPhoneNumberField+ViewModifiers.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftCompile normal arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField/Sources/iPhoneNumberField/iPhoneNumberField+ViewModifiers.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD+SquareCircuitSnake.swift, ProgressHUD+TriangleDotShift.swift, ProgressHUD+Banner.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftDriverJobDiscovery normal arm64 Compiling UIFont+Init.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for iPhoneNumberField (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftDriver\ Compilation\ Requirements iPhoneNumberField normal arm64 com.apple.xcode.tools.swift.compiler (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name iPhoneNumberField -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/iPhoneNumberField-Swift.h /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-Swift.h (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-swiftHeaderTool -arch arm64 /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-Swift.h -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/iPhoneNumberField-Swift.h
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftdoc (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftdoc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftmodule (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftmodule /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.abi.json (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.abi.json /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftsourceinfo (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/iPhoneNumberField
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftsourceinfo /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/iPhoneNumberField.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+ProcessProductPackaging "" /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "3CJFK4NUMX.ClinicBooking9090p-----------------------";
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent
+
+ProcessProductPackagingDER /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent.der (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /usr/bin/derq query -f xml -i /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking.app-Simulated.xcent.der --raw
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_output/thinned (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_output/thinned
+
+MkDir /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_output/unthinned (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /bin/mkdir -p /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_output/unthinned
+
+GenerateAssetSymbols /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ClinicBooking.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_dependencies --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_generated_info.plist --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 17.5 --platform iphonesimulator --bundle-identifier ClinicBooking9090p----------------------- --generate-swift-asset-symbols /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CompileAssetCatalogVariant thinned /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ClinicBooking.app /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview\ Content/Preview\ Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets --compile /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone17,3 --filter-for-device-os-version 18.3.1 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 17.5 --platform iphonesimulator
+
+SwiftDriverJobDiscovery normal arm64 Compiling iPhoneNumberField+ViewModifiers.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PhoneNumberKit.swift, PhoneNumberParser.swift (in target 'PhoneNumberKit' from project 'PhoneNumberKit')
+
+SwiftDriver ClinicBooking normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ClinicBooking' from project 'ClinicBooking')
+    cd /Users/Alain/Documents/ClinicBooking
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name ClinicBooking -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios17.5-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking_const_extract_protocols.json -Xcc -iquote -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-generated-files.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-own-target-headers.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking-9570d0f49aac4855f9b781f15a341d07-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/ClinicBooking-project-headers.hmap -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ClinicBooking.build/Debug-iphonesimulator/ClinicBooking.build/Objects-normal/arm64/ClinicBooking-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking -experimental-emit-module-separately -disable-cmo
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:105:1: error: Extraneous '}' at top level
+}
+^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: error: Unable to find module dependency: 'Supabase'
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/AddFamilyMemberView.swift:11:8: note: A dependency of main module 'ClinicBooking'
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/Firebase.swift:9:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Helpers/ImageUploader.swift:10:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/SignupView.swift:145:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/AuthenticationViewModel.swift:9:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/ViewModel/UserViewModel.swift:9:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/EditProfileView.swift:11:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/HomeDashboard.swift:9:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/AppDelegate/ClinicBookingApp.swift:11:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/UserProfileView.swift:9:8: note: Also imported here
+import Supabase
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: error: Unable to find module dependency: 'FirebaseFirestore'
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Model/DoctorsList.swift:84:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseFirestore
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: error: Unable to find module dependency: 'FirebaseAuth'
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+/Users/Alain/Documents/ClinicBooking/ClinicBooking/Views/LoginView.swift:9:8: note: A dependency of main module 'ClinicBooking'
+import FirebaseAuth
+       ^ (in target 'ClinicBooking' from project 'ClinicBooking')
+
+SwiftDriverJobDiscovery normal arm64 Compiling iPhoneNumberField.swift (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+
+SwiftDriver\ Compilation iPhoneNumberField normal arm64 com.apple.xcode.tools.swift.compiler (in target 'iPhoneNumberField' from project 'iPhoneNumberField')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name iPhoneNumberField -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/iPhoneNumberField.build/Debug-iphonesimulator/iPhoneNumberField.build/Objects-normal/arm64/iPhoneNumberField-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProgressHUD.swift, ProgressView.swift, GeneratedAssetSymbols.swift (in target 'ProgressHUD' from project 'ProgressHUD')
+
+SwiftDriver\ Compilation ProgressHUD normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name ProgressHUD -Onone -enforce-exclusivity\=checked @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE -DXcode -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios13.0-simulator -g -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -emit-localized-strings -emit-localized-strings-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/Alain/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C53-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/Alain/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_const_extract_protocols.json -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources-normal/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources/arm64 -Xcc -I/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-Swift.h -working-directory /Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.o normal (in target 'ProgressHUD' from project 'ProgressHUD')
+    cd /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios13.0-simulator -r -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -w -L/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk/Developer/Library/Frameworks -filelist /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.LinkFileList -nostdlib -Xlinker -object_path_lto -Xlinker /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD.swiftmodule @/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/ProgressHUD.build/Debug-iphonesimulator/ProgressHUD.build/Objects-normal/arm64/ProgressHUD-linker-args.resp -o /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Products/Debug-iphonesimulator/ProgressHUD.o
+
+warning: no rule to process file '/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/PrivacyInfo.xcprivacy' of type 'file' for architecture 'arm64' (in target 'ProgressHUD' from project 'ProgressHUD')
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftDriver ClinicBooking normal arm64 com.apple.xcode.tools.swift.compiler (in target 'ClinicBooking' from project 'ClinicBooking')
+	Building project ClinicBooking with scheme ClinicBooking
+(2 failures)

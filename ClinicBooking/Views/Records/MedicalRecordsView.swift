@@ -10,9 +10,13 @@ import SwiftUI
 struct MedicalRecordsView: View {
     @State private var selectedSegment = 0
     let segments = ["Prescriptions", "Lab Reports", "Vaccinations"]
+    @State private var showSearch = false
+    @State private var showNotifications = false
+    @State private var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+
             // Segmented Control
             Picker("Records Type", selection: $selectedSegment) {
                 ForEach(0..<segments.count, id: \.self) { index in
@@ -62,9 +66,14 @@ struct MedicalRecordsView: View {
             }
             
             Spacer()
-        }
         .navigationTitle("Medical Records")
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showSearch) {
+            SearchFilterView()
+        }
+        .navigationDestination(isPresented: $showNotifications) {
+            NotificationCenterView()
+        }
     }
     
     func getIconForSegment(_ index: Int) -> String {

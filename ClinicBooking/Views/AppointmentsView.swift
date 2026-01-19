@@ -11,10 +11,14 @@ struct AppointmentsView: View {
     @State private var upcomingAppointments: [Appointment] = []
     @State private var pastAppointments: [Appointment] = []
     @State private var isLoading = false
+    @State private var showSearch = false
+    @State private var showNotifications = false
+    @State private var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
+
                 if isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -89,6 +93,12 @@ struct AppointmentsView: View {
             }
             .navigationTitle("Appointments")
             .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $showSearch) {
+                SearchFilterView()
+            }
+            .navigationDestination(isPresented: $showNotifications) {
+                NotificationCenterView()
+            }
             .onAppear {
                 fetchAppointments()
             }
@@ -104,7 +114,7 @@ struct AppointmentsView: View {
         self.isLoading = true
         Task {
             do {
-                var appointments = try await FireStoreManager.shared.fetchUserAppointments(userId: userId)
+                var appointments = try await SupabaseDBManager.shared.fetchUserAppointments(userId: userId)
                 
                 if appointments.isEmpty {
                     appointments = getMockAppointments()
@@ -234,7 +244,7 @@ struct AppointmentDetailView: View {
                             .font(.customFont(style: .bold, size: .h17))
                             .foregroundColor(.red)
                             .padding()
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
                             .background(Color.red.opacity(0.1))
                             .cornerRadius(12)
                     }
@@ -265,7 +275,7 @@ struct AppointmentDetailView: View {
         
         Task {
             do {
-                try await FireStoreManager.shared.cancelAppointment(appointmentId: id)
+                try await SupabaseDBManager.shared.cancelAppointment(appointmentId: id)
                 DispatchQueue.main.async {
                     self.isCancelling = false
                     self.dismiss()

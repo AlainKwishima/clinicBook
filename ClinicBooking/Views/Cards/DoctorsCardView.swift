@@ -33,7 +33,7 @@ struct DoctorsCardView: View {
         
         Task {
             do {
-                let _ = try await FireStoreManager.shared.toggleFavoriteDoctor(doctorId: docId, userId: userId)
+                let _ = try await SupabaseDBManager.shared.toggleFavoriteDoctor(doctorId: docId, userId: userId)
             } catch {
                 isSaved.toggle() // Revert on error
                 print("Error toggling favorite: \(error)")

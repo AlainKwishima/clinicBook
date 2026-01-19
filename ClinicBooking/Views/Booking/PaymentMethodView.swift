@@ -143,7 +143,7 @@ struct PaymentMethodView: View {
             
             Task {
                 do {
-                    try await FireStoreManager.shared.saveAppointment(appointment: appointment)
+                    try await SupabaseDBManager.shared.saveAppointment(appointment: appointment)
                     self.isLoading = false
                     self.showSuccess = true
                 } catch {

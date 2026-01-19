@@ -7,23 +7,33 @@
 
 import Foundation
 import SwiftUI
-import FirebaseStorage
+import Supabase
 
 struct ImageUploader {
     static func uploadImage(image: UIImage, completion: @escaping(String) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
         let fileName = NSUUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/profile_images/\(fileName)")
+        let path = "profile_images/\(fileName).jpg"
 
-        ref.putData(imageData, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Err: Failed to upload image \(error.localizedDescription)")
-                return
-            }
-
-            ref.downloadURL { url, error in
-                guard let imageURL = url?.absoluteString else {return}
-                completion(imageURL)
+        Task {
+            do {
+                // Upload to Supabase Storage (Bucket must be public)
+                try await SupabaseManager.shared.client.storage
+                    .from("avatars")
+                    .upload(
+                        path: path,
+                        file: imageData,
+                        options: FileOptions(contentType: "image/jpeg")
+                    )
+                
+                // Get Public URL
+                let publicURL = try SupabaseManager.shared.client.storage
+                    .from("avatars")
+                    .getPublicURL(path: path)
+                
+                completion(publicURL.absoluteString)
+            } catch {
+                print("Supabase Storage Error: \(error.localizedDescription)")
             }
         }
     }

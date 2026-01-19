@@ -11,10 +11,15 @@ struct SavedDoctors: View {
     @StateObject var viewModel: DoctorsViewModel = DoctorsViewModel()
     @State var doctors: [Doctor] = []
     @State var doctorDetail : Doctor?
+
     @State private var showDoctorProfile: Bool = false
+    @State private var showSearch = false
+    @State private var showNotifications = false
+    @State private var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+
             if doctors.isEmpty {
                 VStack(spacing: 20) {
                     Image(systemName: "heart.slash")
@@ -38,8 +43,18 @@ struct SavedDoctors: View {
                 self.doctors = viewModel.doctors.filter { $0.isSaved }
             }
         }
+
+        .navigationTitle("Saved Doctors")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
+        .fullScreenCover(isPresented: $showSearch) {
+            SearchFilterView()
+        }
+        .navigationDestination(isPresented: $showNotifications) {
+            NotificationCenterView()
+        }
     }
+
 
     var savedDoctorsView: some View {
         let columns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
