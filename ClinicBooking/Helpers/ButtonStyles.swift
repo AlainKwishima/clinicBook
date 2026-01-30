@@ -15,7 +15,7 @@ struct BlueButtonStyle: ButtonStyle {
             .font(.subheadline)
             .foregroundColor(.white)
             .frame(height: height)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 400 : .infinity)
             .background(color)
             .cornerRadius(10)
     }
@@ -31,7 +31,7 @@ struct BorderButtonStyle: ButtonStyle {
             .font(.subheadline)
             .foregroundColor(foregroundColor)
             .frame(height: height)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 400 : .infinity)
             .background(background)
             .overlay(RoundedRectangle(cornerRadius: 30)
                 .stroke(borderColor, lineWidth: 2))

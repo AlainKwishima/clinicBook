@@ -193,7 +193,7 @@ struct DoctorProfile: View {
                     Text("Book Appointment")
                         .font(.customFont(style: .bold, size: .h18))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 400 : .infinity)
                         .padding()
                         .background(selectedTimeSlot != nil ? Color.appBlue : Color.gray)
                         .cornerRadius(12)

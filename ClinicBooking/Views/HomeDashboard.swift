@@ -92,6 +92,11 @@ struct HomeDashboard: View {
                         UserProfileView()
                     }
                     .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
+                case 5:
+                    NavigationStack {
+                        MedicalAssistantView()
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .bottom).animation(.spring())))
                 default:
                     homeContent
                 }
@@ -1288,6 +1293,7 @@ enum SidebarItem: Int, CaseIterable, Identifiable {
     case recordsOrHistory = 2
     case saved = 3
     case profile = 4
+    case assistant = 5
     
     var id: Int { self.rawValue }
     
@@ -1296,6 +1302,7 @@ enum SidebarItem: Int, CaseIterable, Identifiable {
         case .home, .appointments: return .general
         case .recordsOrHistory: return .medical
         case .saved, .profile: return .personal
+        case .assistant: return .medical
         }
     }
     
@@ -1306,6 +1313,7 @@ enum SidebarItem: Int, CaseIterable, Identifiable {
         case .recordsOrHistory: return role == "doctor" ? "History" : "Medical Records"
         case .saved: return "Saved"
         case .profile: return "Profile"
+        case .assistant: return "AI Assistant"
         }
     }
     
@@ -1316,6 +1324,7 @@ enum SidebarItem: Int, CaseIterable, Identifiable {
         case .recordsOrHistory: return role == "doctor" ? "clock.arrow.circlepath" : "text.book.closed.fill"
         case .saved: return "heart"
         case .profile: return "person.fill"
+        case .assistant: return "sparkles"
         }
     }
 }
