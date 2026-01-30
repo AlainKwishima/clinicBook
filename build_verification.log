@@ -1,0 +1,368 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project ClinicBooking.xcodeproj -scheme ClinicBooking -configuration Debug clean build
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  swift-clocks: https://github.com/pointfreeco/swift-clocks @ 1.0.6
+  xctest-dynamic-overlay: https://github.com/pointfreeco/xctest-dynamic-overlay @ 1.8.1
+  ProgressHUD: https://github.com/relatedcode/ProgressHUD.git @ 14.1.3
+  PhoneNumberKit: https://github.com/marmelroy/PhoneNumberKit @ 3.8.0
+  swift-concurrency-extras: https://github.com/pointfreeco/swift-concurrency-extras @ 1.3.2
+  swift-asn1: https://github.com/apple/swift-asn1.git @ 1.5.1
+  swift-crypto: https://github.com/apple/swift-crypto.git @ 4.2.0
+  swift-http-types: https://github.com/apple/swift-http-types.git @ 1.5.1
+  Supabase: https://github.com/supabase/supabase-swift @ 2.40.0
+  iPhoneNumberField: https://github.com/MojtabaHs/iPhoneNumberField.git @ 0.10.4
+
+2026-01-27 10:21:06.177 xcodebuild[14841:158816] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:00008122-0002648E0E00001C, name:My Mac }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS Simulator, arch:arm64, id:86E9A85F-1E57-43F5-8FE6-6B9F9A61634C, OS:18.1, name:iPad (10th generation) }
+{ platform:iOS Simulator, arch:x86_64, id:86E9A85F-1E57-43F5-8FE6-6B9F9A61634C, OS:18.1, name:iPad (10th generation) }
+{ platform:iOS Simulator, arch:arm64, id:493972CD-295B-4557-A914-BD988D319F53, OS:18.3.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:x86_64, id:493972CD-295B-4557-A914-BD988D319F53, OS:18.3.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:2D901D3D-D21E-4976-9FEE-1FADF0DC4DC3, OS:26.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:269089AD-3E14-44CC-81EA-80AF7CF30825, OS:26.2, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:4D2445DE-995B-4A44-B368-5706CC7BF799, OS:18.1, name:iPad Air 11-inch (M2) }
+{ platform:iOS Simulator, arch:x86_64, id:4D2445DE-995B-4A44-B368-5706CC7BF799, OS:18.1, name:iPad Air 11-inch (M2) }
+{ platform:iOS Simulator, arch:arm64, id:16EF131E-3F0C-4977-8B9E-761BAF6184BC, OS:18.3.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:x86_64, id:16EF131E-3F0C-4977-8B9E-761BAF6184BC, OS:18.3.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:0FEF9644-F132-4822-9C0C-26944E0BE45D, OS:26.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:C2000DD3-528E-455E-9BA9-3FDEEF56EFB4, OS:26.2, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:6F0C630E-7C67-40E3-95FD-9FDCC10D477B, OS:18.1, name:iPad Air 13-inch (M2) }
+{ platform:iOS Simulator, arch:x86_64, id:6F0C630E-7C67-40E3-95FD-9FDCC10D477B, OS:18.1, name:iPad Air 13-inch (M2) }
+{ platform:iOS Simulator, arch:arm64, id:A9882BB2-62BE-44F3-A7AF-EEBA5B09CE7C, OS:18.3.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:x86_64, id:A9882BB2-62BE-44F3-A7AF-EEBA5B09CE7C, OS:18.3.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:108F0957-B60D-4A1A-A74F-8186A5D7BB9B, OS:26.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:1AD19E2A-2347-452A-A837-16C19308CC2F, OS:26.2, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:036E90CC-DF20-4BD3-8621-C73A7F91C4A0, OS:18.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:036E90CC-DF20-4BD3-8621-C73A7F91C4A0, OS:18.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:39F7D4BE-8755-4765-BB36-DE922CE7FD97, OS:18.3.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:39F7D4BE-8755-4765-BB36-DE922CE7FD97, OS:18.3.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:67190058-CF80-490F-97DB-7554295BD968, OS:26.1, name:iPad Pro 11-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:3116A05A-2B60-474D-B751-8D430C76248A, OS:26.2, name:iPad Pro 11-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:FFF36645-B599-4BC2-8F13-3050260213A3, OS:18.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:FFF36645-B599-4BC2-8F13-3050260213A3, OS:18.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:A64C7172-DC4D-40F9-99BA-57C438394E21, OS:18.3.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:A64C7172-DC4D-40F9-99BA-57C438394E21, OS:18.3.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:F19AA5A6-ABC3-401A-825A-E0BF0C85B4C7, OS:26.1, name:iPad Pro 13-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:1466A33F-5C5A-403C-8365-78D96B37807E, OS:26.2, name:iPad Pro 13-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:5A1ED235-3C42-440C-A6C3-C6C5FA560627, OS:18.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:x86_64, id:5A1ED235-3C42-440C-A6C3-C6C5FA560627, OS:18.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:C9EAC559-A85A-434B-AE84-04624F093496, OS:18.3.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:x86_64, id:C9EAC559-A85A-434B-AE84-04624F093496, OS:18.3.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:B97DC087-56F0-4E0A-856F-26D2B5BE92CA, OS:26.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:F8996A96-3BAF-45CD-A35A-5AE64D05CC2A, OS:26.2, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:28F5AC70-F4CF-4D4A-8BDD-817F966F2EFA, OS:18.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:28F5AC70-F4CF-4D4A-8BDD-817F966F2EFA, OS:18.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:arm64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:arm64, id:99BD1AD5-51C9-4969-9F0A-D792EDB6D2C2, OS:18.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:x86_64, id:99BD1AD5-51C9-4969-9F0A-D792EDB6D2C2, OS:18.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:arm64, id:8BDD5345-7DCE-436A-93F2-E67EE5AE94C1, OS:18.3.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:x86_64, id:8BDD5345-7DCE-436A-93F2-E67EE5AE94C1, OS:18.3.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:arm64, id:9FE375A5-969B-4E6D-9131-790333602A76, OS:18.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:9FE375A5-969B-4E6D-9131-790333602A76, OS:18.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:arm64, id:3E3DBF94-F98A-47AC-ACD1-3EB8190D369E, OS:18.3.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:3E3DBF94-F98A-47AC-ACD1-3EB8190D369E, OS:18.3.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:arm64, id:EC539AB7-9301-4454-9B4E-E2933B4DDD07, OS:18.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:x86_64, id:EC539AB7-9301-4454-9B4E-E2933B4DDD07, OS:18.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:2BA593D0-69A7-41B7-BB0C-D6AE40282A38, OS:18.3.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:x86_64, id:2BA593D0-69A7-41B7-BB0C-D6AE40282A38, OS:18.3.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:AD31B7FC-5447-4B77-A62C-706DE9F810C6, OS:18.3.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:x86_64, id:AD31B7FC-5447-4B77-A62C-706DE9F810C6, OS:18.3.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:5CCEEFBD-80FD-4E05-90EA-003C68A0BCCD, OS:26.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:10C15B85-8746-4EFD-8E60-C0104623FE79, OS:26.2, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:3997C3AB-F83D-4E81-AA2D-E62CF3FB9530, OS:26.1, name:iPhone 17 }
+{ platform:iOS Simulator, arch:arm64, id:FCF9C4AF-FD7A-4EFB-AB8E-E31C240EB845, OS:26.2, name:iPhone 17 }
+{ platform:iOS Simulator, arch:arm64, id:9BA0983C-8324-4F60-B3D6-2CFD6BA4687F, OS:26.1, name:iPhone 17 Pro }
+{ platform:iOS Simulator, arch:arm64, id:4C21FC1B-3AC5-4177-9DC7-530943A04004, OS:26.2, name:iPhone 17 Pro }
+{ platform:iOS Simulator, arch:arm64, id:83E736EC-2580-4801-BA55-51046D658D6A, OS:26.1, name:iPhone 17 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:3B008B6C-C8A0-440D-A001-7CB114F55522, OS:26.2, name:iPhone 17 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:99EE4141-CAA3-4896-94E8-668BB0A86EF8, OS:26.1, name:iPhone Air }
+{ platform:iOS Simulator, arch:arm64, id:6CFA51AB-65CE-4296-8AA0-22ABEFF0F219, OS:26.2, name:iPhone Air }
+{ platform:iOS Simulator, arch:arm64, id:FB7524BF-1936-4EA7-84C7-496D7170D9CC, OS:18.1, name:iPhone SE (3rd generation) }
+{ platform:iOS Simulator, arch:x86_64, id:FB7524BF-1936-4EA7-84C7-496D7170D9CC, OS:18.1, name:iPhone SE (3rd generation) }
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+** CLEAN SUCCEEDED **
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:00008122-0002648E0E00001C, name:My Mac }
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
+{ platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
+{ platform:iOS Simulator, arch:arm64, id:86E9A85F-1E57-43F5-8FE6-6B9F9A61634C, OS:18.1, name:iPad (10th generation) }
+{ platform:iOS Simulator, arch:x86_64, id:86E9A85F-1E57-43F5-8FE6-6B9F9A61634C, OS:18.1, name:iPad (10th generation) }
+{ platform:iOS Simulator, arch:arm64, id:493972CD-295B-4557-A914-BD988D319F53, OS:18.3.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:x86_64, id:493972CD-295B-4557-A914-BD988D319F53, OS:18.3.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:2D901D3D-D21E-4976-9FEE-1FADF0DC4DC3, OS:26.1, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:269089AD-3E14-44CC-81EA-80AF7CF30825, OS:26.2, name:iPad (A16) }
+{ platform:iOS Simulator, arch:arm64, id:4D2445DE-995B-4A44-B368-5706CC7BF799, OS:18.1, name:iPad Air 11-inch (M2) }
+{ platform:iOS Simulator, arch:x86_64, id:4D2445DE-995B-4A44-B368-5706CC7BF799, OS:18.1, name:iPad Air 11-inch (M2) }
+{ platform:iOS Simulator, arch:arm64, id:16EF131E-3F0C-4977-8B9E-761BAF6184BC, OS:18.3.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:x86_64, id:16EF131E-3F0C-4977-8B9E-761BAF6184BC, OS:18.3.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:0FEF9644-F132-4822-9C0C-26944E0BE45D, OS:26.1, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:C2000DD3-528E-455E-9BA9-3FDEEF56EFB4, OS:26.2, name:iPad Air 11-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:6F0C630E-7C67-40E3-95FD-9FDCC10D477B, OS:18.1, name:iPad Air 13-inch (M2) }
+{ platform:iOS Simulator, arch:x86_64, id:6F0C630E-7C67-40E3-95FD-9FDCC10D477B, OS:18.1, name:iPad Air 13-inch (M2) }
+{ platform:iOS Simulator, arch:arm64, id:A9882BB2-62BE-44F3-A7AF-EEBA5B09CE7C, OS:18.3.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:x86_64, id:A9882BB2-62BE-44F3-A7AF-EEBA5B09CE7C, OS:18.3.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:108F0957-B60D-4A1A-A74F-8186A5D7BB9B, OS:26.1, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:1AD19E2A-2347-452A-A837-16C19308CC2F, OS:26.2, name:iPad Air 13-inch (M3) }
+{ platform:iOS Simulator, arch:arm64, id:036E90CC-DF20-4BD3-8621-C73A7F91C4A0, OS:18.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:036E90CC-DF20-4BD3-8621-C73A7F91C4A0, OS:18.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:39F7D4BE-8755-4765-BB36-DE922CE7FD97, OS:18.3.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:39F7D4BE-8755-4765-BB36-DE922CE7FD97, OS:18.3.1, name:iPad Pro 11-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:67190058-CF80-490F-97DB-7554295BD968, OS:26.1, name:iPad Pro 11-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:3116A05A-2B60-474D-B751-8D430C76248A, OS:26.2, name:iPad Pro 11-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:FFF36645-B599-4BC2-8F13-3050260213A3, OS:18.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:FFF36645-B599-4BC2-8F13-3050260213A3, OS:18.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:A64C7172-DC4D-40F9-99BA-57C438394E21, OS:18.3.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:x86_64, id:A64C7172-DC4D-40F9-99BA-57C438394E21, OS:18.3.1, name:iPad Pro 13-inch (M4) }
+{ platform:iOS Simulator, arch:arm64, id:F19AA5A6-ABC3-401A-825A-E0BF0C85B4C7, OS:26.1, name:iPad Pro 13-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:1466A33F-5C5A-403C-8365-78D96B37807E, OS:26.2, name:iPad Pro 13-inch (M5) }
+{ platform:iOS Simulator, arch:arm64, id:5A1ED235-3C42-440C-A6C3-C6C5FA560627, OS:18.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:x86_64, id:5A1ED235-3C42-440C-A6C3-C6C5FA560627, OS:18.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:C9EAC559-A85A-434B-AE84-04624F093496, OS:18.3.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:x86_64, id:C9EAC559-A85A-434B-AE84-04624F093496, OS:18.3.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:B97DC087-56F0-4E0A-856F-26D2B5BE92CA, OS:26.1, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:F8996A96-3BAF-45CD-A35A-5AE64D05CC2A, OS:26.2, name:iPad mini (A17 Pro) }
+{ platform:iOS Simulator, arch:arm64, id:28F5AC70-F4CF-4D4A-8BDD-817F966F2EFA, OS:18.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:28F5AC70-F4CF-4D4A-8BDD-817F966F2EFA, OS:18.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:arm64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:x86_64, id:6FA054DC-1B27-489A-B7AD-4198AE738E43, OS:18.3.1, name:iPhone 16 }
+{ platform:iOS Simulator, arch:arm64, id:99BD1AD5-51C9-4969-9F0A-D792EDB6D2C2, OS:18.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:x86_64, id:99BD1AD5-51C9-4969-9F0A-D792EDB6D2C2, OS:18.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:arm64, id:8BDD5345-7DCE-436A-93F2-E67EE5AE94C1, OS:18.3.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:x86_64, id:8BDD5345-7DCE-436A-93F2-E67EE5AE94C1, OS:18.3.1, name:iPhone 16 Plus }
+{ platform:iOS Simulator, arch:arm64, id:9FE375A5-969B-4E6D-9131-790333602A76, OS:18.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:9FE375A5-969B-4E6D-9131-790333602A76, OS:18.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:arm64, id:3E3DBF94-F98A-47AC-ACD1-3EB8190D369E, OS:18.3.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:x86_64, id:3E3DBF94-F98A-47AC-ACD1-3EB8190D369E, OS:18.3.1, name:iPhone 16 Pro }
+{ platform:iOS Simulator, arch:arm64, id:EC539AB7-9301-4454-9B4E-E2933B4DDD07, OS:18.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:x86_64, id:EC539AB7-9301-4454-9B4E-E2933B4DDD07, OS:18.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:2BA593D0-69A7-41B7-BB0C-D6AE40282A38, OS:18.3.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:x86_64, id:2BA593D0-69A7-41B7-BB0C-D6AE40282A38, OS:18.3.1, name:iPhone 16 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:AD31B7FC-5447-4B77-A62C-706DE9F810C6, OS:18.3.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:x86_64, id:AD31B7FC-5447-4B77-A62C-706DE9F810C6, OS:18.3.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:5CCEEFBD-80FD-4E05-90EA-003C68A0BCCD, OS:26.1, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:10C15B85-8746-4EFD-8E60-C0104623FE79, OS:26.2, name:iPhone 16e }
+{ platform:iOS Simulator, arch:arm64, id:3997C3AB-F83D-4E81-AA2D-E62CF3FB9530, OS:26.1, name:iPhone 17 }
+{ platform:iOS Simulator, arch:arm64, id:FCF9C4AF-FD7A-4EFB-AB8E-E31C240EB845, OS:26.2, name:iPhone 17 }
+{ platform:iOS Simulator, arch:arm64, id:9BA0983C-8324-4F60-B3D6-2CFD6BA4687F, OS:26.1, name:iPhone 17 Pro }
+{ platform:iOS Simulator, arch:arm64, id:4C21FC1B-3AC5-4177-9DC7-530943A04004, OS:26.2, name:iPhone 17 Pro }
+{ platform:iOS Simulator, arch:arm64, id:83E736EC-2580-4801-BA55-51046D658D6A, OS:26.1, name:iPhone 17 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:3B008B6C-C8A0-440D-A001-7CB114F55522, OS:26.2, name:iPhone 17 Pro Max }
+{ platform:iOS Simulator, arch:arm64, id:99EE4141-CAA3-4896-94E8-668BB0A86EF8, OS:26.1, name:iPhone Air }
+{ platform:iOS Simulator, arch:arm64, id:6CFA51AB-65CE-4296-8AA0-22ABEFF0F219, OS:26.2, name:iPhone Air }
+{ platform:iOS Simulator, arch:arm64, id:FB7524BF-1936-4EA7-84C7-496D7170D9CC, OS:18.1, name:iPhone SE (3rd generation) }
+{ platform:iOS Simulator, arch:x86_64, id:FB7524BF-1936-4EA7-84C7-496D7170D9CC, OS:18.1, name:iPhone SE (3rd generation) }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (36 targets)
+    Target 'ClinicBooking' in project 'ClinicBooking'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'Supabase' in project 'Supabase'
+        ➜ Explicit dependency on target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'PostgREST' in project 'Supabase'
+    Target 'PostgREST' in project 'Supabase'
+        ➜ Explicit dependency on target 'PostgREST' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+    Target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Supabase' in project 'Supabase'
+        ➜ Explicit dependency on target 'Supabase' in project 'Supabase'
+        ➜ Explicit dependency on target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'PostgREST' in project 'Supabase'
+        ➜ Explicit dependency on target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Supabase' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'PostgREST' in project 'Supabase'
+        ➜ Explicit dependency on target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Realtime' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'PostgREST' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Auth' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+    Target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'swift-crypto_Crypto' in project 'swift-crypto'
+    Target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'swift-crypto_Crypto' in project 'swift-crypto'
+    Target 'swift-crypto_Crypto' in project 'swift-crypto' (no dependencies)
+    Target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Functions' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Storage' in project 'Supabase'
+        ➜ Explicit dependency on target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'Helpers' in project 'Supabase'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+    Target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'XCTestDynamicOverlay' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'Clocks' in project 'swift-clocks'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+    Target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+    Target 'IssueReporting' in project 'xctest-dynamic-overlay'
+        ➜ Explicit dependency on target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay'
+    Target 'IssueReportingPackageSupport' in project 'xctest-dynamic-overlay' (no dependencies)
+    Target 'HTTPTypes' in project 'swift-http-types'
+        ➜ Explicit dependency on target 'HTTPTypes' in project 'swift-http-types'
+    Target 'HTTPTypes' in project 'swift-http-types' (no dependencies)
+    Target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+        ➜ Explicit dependency on target 'ConcurrencyExtras' in project 'swift-concurrency-extras'
+    Target 'ConcurrencyExtras' in project 'swift-concurrency-extras' (no dependencies)
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'iPhoneNumberField' in project 'iPhoneNumberField'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit' in project 'PhoneNumberKit'
+        ➜ Explicit dependency on target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit'
+    Target 'PhoneNumberKit_PhoneNumberKit' in project 'PhoneNumberKit' (no dependencies)
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD' in project 'ProgressHUD'
+        ➜ Explicit dependency on target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD'
+    Target 'ProgressHUD_ProgressHUD' in project 'ProgressHUD' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/Alain/Documents/ClinicBooking/ClinicBooking/Preview Content/Preview Assets.xcassets /Users/Alain/Documents/ClinicBooking/ClinicBooking/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ReadFileContents /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/docc/features.json
+
+Build description signature: 600f0c0eba96a99384b860aff8717749
+Build description path: /Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/Build/Intermediates.noindex/XCBuildData/600f0c0eba96a99384b860aff8717749.xcbuilddata
+/Users/Alain/Documents/ClinicBooking/ClinicBooking.xcodeproj: error: Provisioning profile "iOS Team Provisioning Profile: ClinicBooking9090p-----------------------" doesn't include the currently selected device "RCA’s iMac (8)" (identifier 00008122-0002648E0E00001C). (in target 'ClinicBooking' from project 'ClinicBooking')
+warning: no rule to process file '/Users/Alain/Library/Developer/Xcode/DerivedData/ClinicBooking-bbupatzfiweotuhjsgeizdkdlhag/SourcePackages/checkouts/ProgressHUD/ProgressHUD/Sources/PrivacyInfo.xcprivacy' of type 'file' for architecture 'arm64' (in target 'ProgressHUD' from project 'ProgressHUD')
+** BUILD FAILED **
+
+
+The following build commands failed:
+	Building project ClinicBooking with scheme ClinicBooking and configuration Debug
+(1 failure)

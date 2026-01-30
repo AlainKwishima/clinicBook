@@ -9,11 +9,13 @@ import SwiftUI
 // import FirebaseAuth  // DEPRECATED: Migrated to Supabase
 
 struct LoginView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @ObservedObject var viewModel: AuthenticationViewModel
+    
     enum Field: Hashable {
         case emailField
         case passwordField
     }
+    @Environment(\.dismiss) var dismiss
     @FocusState private var focusedField: Field?
 
     var body: some View {
@@ -30,17 +32,40 @@ struct LoginView: View {
                     .zIndex(1)
             }
             VStack {
+                // Header with Back Button
                 HStack {
-                    Image("logo").resizable()
-                        .frame(width: 90, height: 90)
-                        .aspectRatio(contentMode: .fit)
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(Texts.medClinic.description)
-                            .font(.customFont(style: .bold, size: .h24))
-                        Text(Texts.bookDoctor.description)
-                            .font(.customFont(style: .medium, size: .h15))
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .padding(10)
+                            .contentShape(Rectangle())
                     }
+                    .padding(.leading, 5)
+                    
+                    Spacer()
+                    
+                    HStack {
+                        Image("logo").resizable()
+                            .frame(width: 70, height: 70)
+                            .aspectRatio(contentMode: .fit)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(Texts.medClinic.description)
+                                .font(.customFont(style: .bold, size: .h18))
+                            Text(Texts.bookDoctor.description)
+                                .font(.customFont(style: .medium, size: .h12))
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.left").opacity(0)
+                        .padding(.trailing)
                 }
+                .padding(.top, 10)
                 Spacer()
                 VStack(spacing: 25) {
                     if let message = viewModel.validationMessage {
@@ -107,7 +132,9 @@ struct LoginView: View {
                     .padding(.bottom, 10)
                     
                     Button {
-                        print("Sigup tapped!")
+                        print("Signup tapped!")
+                        // Notify AppRootView to disable auth listener during signup
+                        NotificationCenter.default.post(name: NSNotification.Name("SignupFlowStarted"), object: nil)
                         viewModel.isShowingSignUpScreen = true
                     } label: {
                         HStack(spacing: 10) {
@@ -129,29 +156,22 @@ struct LoginView: View {
             .scrollDismissesKeyboard(.interactively)
         }
         .ignoresSafeArea(.keyboard)
-        .navigationDestination(isPresented: $viewModel.isShowingSignUpScreen) {
-            SignupView()
-        }
-        .navigationDestination(isPresented: $viewModel.isShowingHomeView) {
-            HomeDashboard()
-                .navigationBarBackButtonHidden(true)
-        }
-        .sheet(isPresented: $viewModel.showingResetPasswordSheet) {
-            ForgotPasswordView()
-                .presentationDetents([.medium])
-        }
         .onAppear {
-
+            print("🔵 LoginView appeared")
         }
     }
 }
 
+       
+
 #Preview {
-    LoginView()
+    LoginView(viewModel: AuthenticationViewModel())
 }
 // MARK: - Appended Views for Project Scope
 
 struct RoleSelectionView: View {
+    @StateObject private var viewModel = AuthenticationViewModel()
+    
     var body: some View {
         VStack(spacing: 30) {
             Spacer()
@@ -163,7 +183,6 @@ struct RoleSelectionView: View {
             
             Text("Welcome to ClinicBooking")
                 .font(.customFont(style: .bold, size: .h24))
-                .padding(.bottom, 10)
             
             Text("Please select your role to continue")
                 .font(.customFont(style: .medium, size: .h15))
@@ -172,7 +191,7 @@ struct RoleSelectionView: View {
             Spacer()
             
             VStack(spacing: 20) {
-                NavigationLink(destination: LoginView()) {
+                NavigationLink(destination: LoginView(viewModel: viewModel)) {
                     HStack {
                         Image(systemName: "person.fill")
                             .font(.title2)
@@ -186,7 +205,7 @@ struct RoleSelectionView: View {
                     .cornerRadius(15)
                 }
                 
-                NavigationLink(destination: DoctorAuthOverviewView()) {
+                NavigationLink(destination: DoctorAuthOverviewView(authViewModel: viewModel)) {
                     HStack {
                         Image(systemName: "stethoscope")
                             .font(.title2)
@@ -205,6 +224,17 @@ struct RoleSelectionView: View {
             }
             .padding(.horizontal, 30)
             .padding(.bottom, 50)
+        }
+        .navigationDestination(isPresented: $viewModel.isShowingSignUpScreen) {
+            SignupView(viewModel: viewModel)
+        }
+        .navigationDestination(isPresented: $viewModel.isShowingHomeView) {
+            HomeDashboard()
+                .navigationBarBackButtonHidden(true)
+        }
+        .sheet(isPresented: $viewModel.showingResetPasswordSheet) {
+            ForgotPasswordView()
+                .presentationDetents([.medium])
         }
     }
 }
@@ -256,7 +286,7 @@ struct VerificationPendingView: View {
 }
 
 struct DoctorLoginView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @ObservedObject var viewModel: AuthenticationViewModel
     @State private var licenseNumber = ""
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
@@ -270,14 +300,18 @@ struct DoctorLoginView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.title2)
+                        .fontWeight(.bold)
                         .foregroundColor(.black)
+                        .padding(10)
+                        .contentShape(Rectangle())
                 }
                 Spacer()
                 Text("Doctor Login")
                     .font(.customFont(style: .bold, size: .h18))
                 Spacer()
-                Image(systemName: "chevron.left").opacity(0)
+                Image(systemName: "chevron.left").opacity(0).padding(10)
             }
+            .padding(.horizontal, 5)
             .padding()
             
             if viewModel.isLoading {
@@ -363,8 +397,8 @@ struct DoctorLoginView: View {
         }
     }
 }
-
 struct DoctorAuthOverviewView: View {
+    @ObservedObject var authViewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var sizeClass
     
@@ -376,15 +410,18 @@ struct DoctorAuthOverviewView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.title2)
+                        .fontWeight(.bold)
                         .foregroundColor(.black)
+                        .padding(10)
+                        .contentShape(Rectangle())
                 }
                 Spacer()
                 Text("Doctor Portal")
                     .font(.customFont(style: .bold, size: .h18))
                 Spacer()
-                Image(systemName: "chevron.left").opacity(0)
+                Image(systemName: "chevron.left").opacity(0).padding(10)
             }
-            .padding()
+            .padding(.horizontal, 5)
             
             Spacer()
             
@@ -408,7 +445,7 @@ struct DoctorAuthOverviewView: View {
             Spacer()
             
             VStack(spacing: 20) {
-                NavigationLink(destination: DoctorLoginView()) {
+                NavigationLink(destination: DoctorLoginView(viewModel: authViewModel)) {
                     Text("Log In")
                         .font(.customFont(style: .bold, size: .h17))
                         .frame(maxWidth: sizeClass == .regular ? 450 : .infinity)
@@ -452,6 +489,11 @@ class DoctorRegistrationViewModel: ObservableObject {
     @Published var selectedCountry = ""
     @Published var selectedCity = ""
     @Published var licenseNumber = ""
+    @Published var gender = "Select Gender"
+    @Published var aboutMe = ""
+    @Published var dob = Calendar.current.date(byAdding: .year, value: -30, to: Date()) ?? Date()
+    @Published var insuranceProvider = "None"
+    @Published var insuranceNumber = ""
     @Published var hasAgreedToTerms = false
     @Published var currentStep = 1
     @Published var totalSteps = 3
@@ -472,7 +514,12 @@ struct DoctorRegistrationContainerView: View {
                     if regVM.currentStep > 1 { regVM.currentStep -= 1 }
                     else { dismiss() }
                 }) {
-                    Image(systemName: "chevron.left").font(.title2).foregroundColor(.black)
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .padding(10)
+                        .contentShape(Rectangle())
                 }
                 Spacer()
                 Text("Doctor Registration").font(.customFont(style: .bold, size: .h18))
@@ -533,7 +580,7 @@ struct DoctorRegistrationContainerView: View {
         .animation(.easeInOut, value: regVM.currentStep)
         .navigationBarHidden(true)
         .navigationDestination(isPresented: $regVM.navigateToPending) {
-            VerificationPendingView()
+            DoctorVerificationView()
                 .navigationBarBackButtonHidden(true)
         }
     }
@@ -583,6 +630,12 @@ struct DoctorRegistrationContainerView: View {
                 phoneNumber: regVM.phoneNumber,
                 imageURL: "",
                 address: "\(regVM.selectedCity), \(regVM.selectedCountry)",
+                gender: regVM.gender,
+                dob: {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    return formatter.string(from: regVM.dob)
+                }(),
                 role: "doctor",
                 verificationStatus: "pending",
                 hospitalName: regVM.hospitalName,
@@ -591,23 +644,54 @@ struct DoctorRegistrationContainerView: View {
                 city: regVM.selectedCity,
                 specialty: regVM.specialty,
                 licenseNumber: regVM.licenseNumber,
-                aboutMe: ""
+                aboutMe: regVM.aboutMe,
+                insuranceProvider: regVM.insuranceProvider,
+                insuranceNumber: regVM.insuranceNumber
             )
             
+            
             do {
-                try await SupabaseAuthService.shared.signUp(user: doctorUser)
+                print("🔵 Starting doctor registration for: \(doctorUser.email ?? "")")
+                
+                // Set signup flag to prevent premature auth listener reaction
+                SupabaseAuthService.shared.isSignUpFlowInProgress = true
+                
+                // Race the signUp call against a 30-second timeout
+                try await withThrowingTaskGroup(of: Void.self) { group in
+                    group.addTask {
+                        _ = try await SupabaseAuthService.shared.signUp(user: doctorUser)
+                    }
+                    group.addTask {
+                        try await Task.sleep(nanoseconds: 30 * 1_000_000_000) // 30 seconds
+                        throw URLError(.timedOut)
+                    }
+                    try await group.next()
+                }
+
+                print("✅ Doctor registration successful!")
                 
                 // Cache user details locally to ensure immediate session availability
                 UserDefaults.standard.set(encodable: doctorUser, forKey: "userDetails")
-                if let session = try? await SupabaseManager.shared.client.auth.session {
-                    UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
-                }
                 
-                regVM.isLoading = false
-                regVM.navigateToPending = true
+                // Note: userID will be picked up by AppRootView listener from session/storedUserID
+                
+                // Update UI on main thread
+                await MainActor.run {
+                    print("🟢 Registration finished - navigating to verification")
+                    regVM.isLoading = false
+                    regVM.navigateToPending = true
+                }
+
             } catch {
-                regVM.isLoading = false
-                regVM.errorMessage = error.localizedDescription
+                print("❌ Registration error: \(error.localizedDescription)")
+                await MainActor.run {
+                    regVM.isLoading = false
+                    if let urlError = error as? URLError, urlError.code == .timedOut {
+                         regVM.errorMessage = "Registration timed out. Please check your internet connection."
+                    } else {
+                         regVM.errorMessage = error.localizedDescription
+                    }
+                }
             }
         }
     }
@@ -617,12 +701,40 @@ struct DoctorRegStep1View: View {
     @ObservedObject var viewModel: DoctorRegistrationViewModel
     var body: some View {
         VStack(spacing: 20) {
-            Text("Personal Details").font(.title2).bold().frame(maxWidth: .infinity, alignment: .leading)
+            Text("Personal Details").font(.title2).frame(maxWidth: .infinity, alignment: .leading)
             CustomTextField(placeholder: "First Name", text: $viewModel.firstName)
             CustomTextField(placeholder: "Last Name", text: $viewModel.lastName)
             CustomTextField(placeholder: "Phone Number", text: $viewModel.phoneNumber).keyboardType(.phonePad)
             CustomTextField(placeholder: "Email Address", text: $viewModel.email).textInputAutocapitalization(.never).keyboardType(.emailAddress)
             CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Gender").font(.subheadline).foregroundColor(.gray)
+                Menu {
+                    ForEach(AppConstants.genders, id: \.self) { g in
+                        Button(g) { viewModel.gender = g }
+                    }
+                } label: {
+                    HStack {
+                        Text(viewModel.gender == "Select Gender" ? "Select Gender" : viewModel.gender)
+                            .foregroundColor(viewModel.gender == "Select Gender" ? .gray : .text)
+                        Spacer(); Image(systemName: "chevron.down").foregroundColor(.gray)
+                    }
+                    .padding().frame(height: 55).background(Color.bg).cornerRadius(10)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Date of Birth").font(.subheadline).foregroundColor(.gray)
+                DatePicker("", selection: $viewModel.dob, displayedComponents: .date)
+                    .datePickerStyle(.compact)
+                    .labelsHidden()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding().frame(height: 55).background(Color.bg).cornerRadius(10)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+            }
+            .padding(.top, 5)
         }
     }
 }
@@ -632,7 +744,7 @@ struct DoctorRegStep2View: View {
     let specialties = AppConstants.specializations.map { $0.0 }
     var body: some View {
         VStack(spacing: 20) {
-            Text("Professional Info").font(.title2).bold().frame(maxWidth: .infinity, alignment: .leading)
+            Text("Professional Info").font(.title2).frame(maxWidth: .infinity, alignment: .leading)
             CustomTextField(placeholder: "Hospital / Clinic Name", text: $viewModel.hospitalName)
             Menu {
                 ForEach(specialties, id: \.self) { spec in Button(spec) { viewModel.specialty = spec } }
@@ -644,8 +756,29 @@ struct DoctorRegStep2View: View {
             }
             CustomTextField(placeholder: "Years of Experience", text: $viewModel.experienceYears).keyboardType(.numberPad)
             HStack(spacing: 15) {
-                CustomTextField(placeholder: "Country", text: $viewModel.selectedCountry)
-                CustomTextField(placeholder: "City", text: $viewModel.selectedCity)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Country").font(.caption).foregroundColor(.gray)
+                    Menu {
+                        ForEach(AppConstants.countries, id: \.self) { c in
+                            Button(c) { viewModel.selectedCountry = c }
+                        }
+                    } label: {
+                        HStack {
+                            Text(viewModel.selectedCountry.isEmpty ? "Select Country" : viewModel.selectedCountry)
+                                .font(.system(size: 14))
+                                .foregroundColor(viewModel.selectedCountry.isEmpty ? .gray : .text)
+                                .lineLimit(1)
+                            Spacer(); Image(systemName: "chevron.down").font(.caption).foregroundColor(.gray)
+                        }
+                        .padding(.horizontal, 10).frame(height: 55).background(Color.bg).cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                    }
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("City").font(.caption).foregroundColor(.gray)
+                    CustomTextField(placeholder: "City", text: $viewModel.selectedCity)
+                }
             }
         }
     }
@@ -656,8 +789,40 @@ struct DoctorRegStep3View: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View {
         VStack(spacing: 20) {
-            Text("Verification & Terms").font(.title2).bold().frame(maxWidth: .infinity, alignment: .leading)
+            Text("Professional Details").font(.title2).frame(maxWidth: .infinity, alignment: .leading)
             CustomTextField(placeholder: "Medical License Number", text: $viewModel.licenseNumber)
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Insurance Information (Optional)").font(.subheadline).foregroundColor(.gray)
+                Menu {
+                    ForEach(AppConstants.insuranceProviders, id: \.self) { p in
+                        Button(p) { viewModel.insuranceProvider = p }
+                    }
+                } label: {
+                    HStack {
+                        Text("Provider: \(viewModel.insuranceProvider)")
+                            .foregroundColor(.text)
+                        Spacer(); Image(systemName: "chevron.down").foregroundColor(.gray)
+                    }
+                    .padding().frame(height: 55).background(Color.bg).cornerRadius(10)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                }
+                
+                if viewModel.insuranceProvider != "None" {
+                    CustomTextField(placeholder: "Insurance Number / ID", text: $viewModel.insuranceNumber)
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: 10) {
+                Text("About Me / Biography").font(.subheadline).foregroundColor(.gray)
+                TextEditor(text: $viewModel.aboutMe)
+                    .frame(height: 100)
+                    .padding(8)
+                    .background(Color.bg)
+                    .cornerRadius(10)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+            }
+
             Button { } label: {
                 VStack(spacing: 10) {
                     Image(systemName: "doc.text.viewfinder").font(.largeTitle).foregroundColor(.appBlue)

@@ -59,7 +59,11 @@ struct HomeDashboard: View {
                 case 0:
                     NavigationStack {
                         homeContent
-                            .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
+                            .navigationDestination(isPresented: $showDoctorProfile) {
+                                if let doctor = doctorDetail {
+                                    DoctorProfile(doctorDetail: doctor)
+                                }
+                            }
                             .navigationDestination(isPresented: $showClinicProfile, destination: { if let clinic = selectedClinic { ClinicProfileView(clinic: clinic) } })
                             .navigationDestination(isPresented: $isShowServices, destination: { ServicesView() })
                             .fullScreenCover(isPresented: $showSearch, onDismiss: { selectedSearchCategory = nil }) {
@@ -108,7 +112,11 @@ struct HomeDashboard: View {
         TabView(selection: Binding(get: { selectedIndex ?? 0 }, set: { selectedIndex = $0 })) {
             NavigationStack() {
                 homeContent
-                    .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
+                    .navigationDestination(isPresented: $showDoctorProfile) {
+                        if let doctor = doctorDetail {
+                            DoctorProfile(doctorDetail: doctor)
+                        }
+                    }
                     .navigationDestination(isPresented: $showClinicProfile, destination: { if let clinic = selectedClinic { ClinicProfileView(clinic: clinic) } })
                     .navigationDestination(isPresented: $isShowServices, destination: { ServicesView() })
                     .fullScreenCover(isPresented: $showSearch, onDismiss: { selectedSearchCategory = nil }) {
@@ -165,8 +173,18 @@ struct HomeDashboard: View {
             VStack(spacing: 25) {
                 // Header is now external (iPadHeader), so we just start with the banner
                 
-                searchHeaderView
-                    .padding(.top, 10)
+                // Add header here (only for iPhone, checking idiom)
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    VStack(spacing: 5) {
+                        mobileHeader
+                            .padding(.bottom, 0)
+                        searchHeaderView
+                            .padding(.top, 0)
+                    }
+                } else {
+                    searchHeaderView
+                        .padding(.top, 10)
+                }
                 
                 servicesView
                     .padding(.bottom, 5)
@@ -182,6 +200,63 @@ struct HomeDashboard: View {
         }
     }
 
+    var mobileHeader: some View {
+        HStack(spacing: 15) {
+            // Avatar Section
+            if let imageURL = defaults?.imageURL, !imageURL.isEmpty {
+                 AsyncImage(url: URL(string: imageURL)) { image in
+                     image.resizable()
+                         .aspectRatio(contentMode: .fill)
+                 } placeholder: {
+                     Image("user").resizable()
+                 }
+                 .frame(width: 50, height: 50)
+                 .clipShape(Circle())
+            } else {
+                Image("user")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle())
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Welcome Back,")
+                    .font(.customFont(style: .medium, size: .h14))
+                    .foregroundColor(.gray)
+                Text("Mr. \(defaults?.lastName ?? "")!")
+                    .font(.customFont(style: .bold, size: .h18))
+                    .foregroundColor(.text)
+            }
+            Spacer()
+            
+            HStack(spacing: 12) {
+                Button {
+                    showSearch = true
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.appBlue)
+                        .padding(10)
+                        .background(Color.appBlue.opacity(0.1))
+                        .clipShape(Circle())
+                }
+                
+                Button {
+                    showNotifications = true
+                } label: {
+                    Image(systemName: "bell.fill")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundColor(.appBlue)
+                        .padding(10)
+                        .background(Color.appBlue.opacity(0.1))
+                        .clipShape(Circle())
+                }
+            }
+        }
+        .padding(.bottom, 10)
+    }
+
     var searchHeaderView: some View {
         ZStack(alignment: .bottom) {
             // Background Gradient
@@ -194,12 +269,12 @@ struct HomeDashboard: View {
             .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 240 : 180)
             .cornerRadius(25)
             .shadow(color: .appBlue.opacity(0.3), radius: 10, x: 0, y: 5)
-            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 0 : 16) // Pad on iPhone, flush/handled by parent on iPad
+            .padding(.horizontal, 0) // Flush with parent container
 
             HStack(alignment: .bottom) {
                 VStack(alignment: .leading, spacing: 20) {
                     Text(Texts.lookingForDoctors.description)
-                        .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h30 : .h20))
+                        .font(.customFont(style: .bold, size: UIDevice.current.userInterfaceIdiom == .pad ? .h24 : .h16))
                         .foregroundColor(.white)
                         .fixedSize(horizontal: false, vertical: true)
                         .lineSpacing(4)
@@ -234,7 +309,7 @@ struct HomeDashboard: View {
                     .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 260 : 190) // Slightly taller than container to pop out if needed, or fill well
                     .offset(y: UIDevice.current.userInterfaceIdiom == .pad ? 0 : 10) // Adjustment to sit nicely
             }
-            .padding(.horizontal, UIDevice.current.userInterfaceIdiom == .pad ? 0 : 16)
+            .padding(.horizontal, 0)
              // Clip content to the rounded rect if desired, OR let the image pop out. 
              // Reference usually has image contained or flush. Let's try contained for cleanliness first.
              // But to clip ONLY the background effectively, we put this stack ON TOP of the background.
@@ -354,7 +429,7 @@ struct HomeDashboard: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 0)
                 }
                 .padding(.top, 10)
 //            NavigationLink(destination: DoctorProfile(), isActive: $showDoctorProfile) { EmptyView() }
@@ -380,7 +455,7 @@ struct SearchFilterView: View {
     @State private var showDoctorProfile = false
     @State private var selectedDoctor: Doctor?
     @State private var showClinicProfileFromSearch = false
-    @State private var selectedClinicForSearch: Clinic?
+    @State private var selectedSearchClinic: Clinic?
     var initialCategory: String? = nil
     
     init(initialCategory: String? = nil) {
@@ -545,11 +620,21 @@ struct SearchFilterView: View {
                                 } else {
                                     LazyVGrid(columns: resultColumns, spacing: 15) {
                                         ForEach(filteredDoctors) { doctor in
-                                            Button {
+                                            DoctorsCardView(
+                                                id: doctor.doctorID,
+                                                name: doctor.name,
+                                                speciality: doctor.specialist,
+                                                rating: doctor.rating,
+                                                fee: doctor.fee != nil ? "$\(String(format: "%.2f", doctor.fee!))" : "$50.99",
+                                                image: doctor.image,
+                                                btnAction: {
+                                                    selectedDoctor = doctor
+                                                    showDoctorProfile = true
+                                                }
+                                            )
+                                            .onTapGesture {
                                                 selectedDoctor = doctor
                                                 showDoctorProfile = true
-                                            } label: {
-                                                DoctorRowView(doctor: doctor)
                                             }
                                         }
                                     }
@@ -558,7 +643,7 @@ struct SearchFilterView: View {
                                 // Clinic Results
                                 ForEach(clinicsVM.clinics) { clinic in
                                     Button {
-                                        selectedClinicForSearch = clinic
+                                        selectedSearchClinic = clinic
                                         showClinicProfileFromSearch = true
                                     } label: {
                                         ClinicRowView(clinic: clinic)
@@ -582,13 +667,13 @@ struct SearchFilterView: View {
                     }
                 }
             }
-            .fullScreenCover(isPresented: $showDoctorProfile) {
+            .navigationDestination(isPresented: $showDoctorProfile) {
                 if let doctor = selectedDoctor {
                     DoctorProfile(doctorDetail: doctor)
                 }
             }
-            .fullScreenCover(isPresented: $showClinicProfileFromSearch) {
-                if let clinic = selectedClinicForSearch {
+            .navigationDestination(isPresented: $showClinicProfileFromSearch) {
+                if let clinic = selectedSearchClinic {
                     ClinicProfileView(clinic: clinic)
                 }
             }
@@ -600,65 +685,14 @@ struct SearchFilterView: View {
                     await viewModel.fetchDoctors()
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("DismissSearch"))) { _ in
+                dismiss()
+            }
         }
     }
 }
 
-struct DoctorRowView: View {
-    let doctor: Doctor
-    
-    var body: some View {
-        NavigationLink(destination: DoctorProfile(doctorDetail: doctor)) {
-            HStack {
-                if doctor.image.hasPrefix("http") {
-                    AsyncImage(url: URL(string: doctor.image)) { image in
-                        image.resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 60, height: 60)
-                    }
-                } else {
-                    Image(doctor.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(doctor.name)
-                        .font(.headline)
-                        .foregroundColor(.text)
-                    Text(doctor.specialist)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    HStack {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
-                        Text(doctor.rating)
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
-                }
-                
-                Spacer()
-                
-                Text(doctor.fee != nil ? "$\(String(format: "%.2f", doctor.fee!))" : "N/A")
-                    .font(.headline)
-                    .foregroundColor(.appBlue)
-            }
-            .padding()
-            .background(Color.card)
-            .cornerRadius(12)
-            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
-            .padding(.bottom, 8)
-        }
-    }
-}
+// End SearchFilterView
 
 struct ClinicRowView: View {
     let clinic: Clinic
@@ -768,669 +802,7 @@ struct NotificationItem: Identifiable {
 #Preview {
     NotificationCenterView()
 }
-// MARK: - Doctor Module Views
 
-struct DoctorHomeDashboard: View {
-    @State private var selectedIndex: Int = 0
-    
-    var body: some View {
-        TabView(selection: $selectedIndex) {
-            NavigationStack {
-                DoctorHomeTab()
-            }
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
-            }
-            .tag(0)
-            
-            NavigationStack {
-                DoctorAppointmentsView()
-            }
-            .tabItem {
-                Image(systemName: "calendar")
-                Text("Appointments")
-            }
-            .tag(1)
-            
-            NavigationStack {
-                PatientHistoryView()
-            }
-            .tabItem {
-                Image(systemName: "clock.arrow.circlepath")
-                Text("History")
-            }
-            .tag(2)
-            
-            NavigationStack {
-                DoctorProfileView()
-            }
-            .tabItem {
-                Image(systemName: "person.fill")
-                Text("Profile")
-            }
-            .tag(3)
-        }
-        .accentColor(.appBlue)
-        .navigationBarBackButtonHidden(true)
-    }
-}
-
-struct DoctorHomeTab: View {
-    @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-    @State var todayAppointments: [Appointment] = []
-    
-    var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            headerView
-            
-            if defaults?.verificationStatus == "pending" {
-                VStack(spacing: 15) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.appBlue.opacity(0.7))
-                    Text("Account Under Review")
-                        .font(.title3)
-                        .bold()
-                    Text("Your account is currently pending verification. You cannot receive appointments or view patient data until your license has been verified by our team.")
-                        .multilineTextAlignment(.center)
-                        .font(.body)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal)
-                }
-                .padding(.top, 50)
-            } else {
-                // Stats Overview - AppBlue variants
-                HStack(spacing: 12) {
-                    StatCard(title: "Pending", count: "3", color: .appBlue.opacity(0.9), icon: "clock.arrow.circlepath")
-                    StatCard(title: "Confirmed", count: "8", color: .appBlue.opacity(0.7), icon: "checkmark.seal")
-                    StatCard(title: "Completed", count: "12", color: .appBlue.opacity(0.5), icon: "checkmark.circle")
-                }
-                .padding(.horizontal)
-                .padding(.top, 20)
-                .padding(.bottom, 10)
-                
-                // Quick Insights Panel
-                quickInsightsView
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                
-                // Today's Schedule
-                VStack(alignment: .leading, spacing: 15) {
-                    Text("Today's Schedule")
-                        .font(.customFont(style: .bold, size: .h18))
-                        .padding(.horizontal)
-                    
-                    if todayAppointments.isEmpty {
-                        // Premium empty state
-                        VStack(spacing: 15) {
-                            Image(systemName: "calendar.badge.clock")
-                                .font(.system(size: 50))
-                                .foregroundColor(.appBlue.opacity(0.4))
-                            Text("No appointments for today")
-                                .font(.customFont(style: .bold, size: .h16))
-                                .foregroundColor(.text)
-                            Text("Enjoy your free time or catch up on patient notes")
-                                .font(.customFont(style: .medium, size: .h14))
-                                .foregroundColor(.gray)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 40)
-                        .background(Color.appBlue.opacity(0.05))
-                        .cornerRadius(12)
-                        .padding(.horizontal)
-                    } else {
-                        ForEach(todayAppointments) { appointment in
-                            UpcomingAppointmentCardView(
-                                address: "",
-                                date: appointment.time,
-                                time: appointment.time,
-                                name: appointment.doctorName,
-                                speciality: "General Checkup",
-                                image: "user"
-                            )
-                            .padding(.horizontal)
-                        }
-                    }
-                }
-                .padding(.bottom, 20)
-            }
-        }
-    }
-    
-    var headerView: some View {
-        HStack {
-            AsyncImage(
-                url: URL(string: defaults?.imageURL ?? ""),
-                content: { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-                        .overlay(
-                            Circle().stroke(Color.appBlue.opacity(0.3), lineWidth: 2)
-                        )
-                },
-                placeholder: {
-                    if defaults?.imageURL == "" {
-                        Image("user").resizable()
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                    } else {
-                        ProgressView()
-                    }
-                })
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Hello Dr. \(defaults?.lastName ?? "")")
-                    .font(.customFont(style: .bold, size: .h17))
-                    .foregroundColor(.text)
-                Text("Have a great day at work!")
-                    .font(.customFont(style: .medium, size: .h13))
-                    .foregroundColor(.gray)
-            }
-            Spacer()
-            
-            Button(action: {
-                // Notification action
-            }, label: {
-                Image(systemName: "bell.badge")
-                    .font(.system(size: 24))
-                    .foregroundColor(Color.appBlue)
-            })
-        }
-        .padding()
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.appBlue.opacity(0.08), Color.appBlue.opacity(0.02)]),
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-        )
-        .cornerRadius(12)
-        .padding(.horizontal)
-        .padding(.top, 10)
-    }
-    
-    var quickInsightsView: some View {
-        HStack(spacing: 15) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "calendar.badge.clock")
-                        .foregroundColor(.white.opacity(0.9))
-                    Text("This Week")
-                        .font(.customFont(style: .medium, size: .h14))
-                        .foregroundColor(.white.opacity(0.9))
-                }
-                Text("23")
-                    .font(.customFont(style: .bold, size: .h24))
-                    .foregroundColor(.white)
-                Text("Total Appointments")
-                    .font(.customFont(style: .medium, size: .h12))
-                    .foregroundColor(.white.opacity(0.8))
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Divider()
-                .frame(height: 60)
-                .background(Color.white.opacity(0.3))
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "person.2")
-                        .foregroundColor(.white.opacity(0.9))
-                    Text("Patients")
-                        .font(.customFont(style: .medium, size: .h14))
-                        .foregroundColor(.white.opacity(0.9))
-                }
-                Text("18")
-                    .font(.customFont(style: .bold, size: .h24))
-                    .foregroundColor(.white)
-                Text("Seen This Week")
-                    .font(.customFont(style: .medium, size: .h12))
-                    .foregroundColor(.white.opacity(0.8))
-            }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.appBlue, Color.appBlue.opacity(0.85)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
-        .cornerRadius(15)
-        .shadow(color: Color.appBlue.opacity(0.3), radius: 8, x: 0, y: 4)
-    }
-}
-
-struct StatCard: View {
-    let title: String
-    let count: String
-    let color: Color
-    let icon: String
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.system(size: 24))
-                .foregroundColor(.white.opacity(0.9))
-            Text(count)
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.white)
-            Text(title)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(.white.opacity(0.9))
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 100)
-        .background(color)
-        .cornerRadius(15)
-        .shadow(color: color.opacity(0.3), radius: 5, x: 0, y: 3)
-    }
-}
-
-struct DoctorAppointmentsView: View {
-    @State private var upcomingAppointments: [Appointment] = []
-    @State private var pastAppointments: [Appointment] = []
-    @State private var isLoading = false
-    @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-    
-    var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading) {
-                if defaults?.verificationStatus == "pending" {
-                    VStack(spacing: 15) {
-                        Spacer()
-                        Image(systemName: "lock.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .foregroundColor(.gray)
-                        Text("Appointments Locked")
-                            .font(.title2)
-                            .bold()
-                        Text("You must be verified to accept appointments.")
-                            .foregroundColor(.gray)
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity)
-                } else if isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else if upcomingAppointments.isEmpty && pastAppointments.isEmpty {
-                    VStack {
-                        Image(systemName: "calendar")
-                            .font(.system(size: 60))
-                            .foregroundColor(.gray)
-                        Text("No appointments yet")
-                            .font(.headline)
-                            .padding(.top)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    ScrollView(.vertical) {
-                        if !upcomingAppointments.isEmpty {
-                            VStack(alignment: .leading) {
-                                Text("Upcoming")
-                                    .font(.customFont(style: .bold, size: .h16))
-                                    .padding(.horizontal, 16)
-                                ForEach(upcomingAppointments) { appointment in
-                                    UpcomingAppointmentCardView(
-                                        address: "",
-                                        date: appointment.date.formatted(date: .abbreviated, time: .omitted),
-                                        time: appointment.time,
-                                        name: "Patient Name",
-                                        speciality: "Consultation",
-                                        image: "user"
-                                    )
-                                    .padding([.leading, .trailing], 16)
-                                    .padding(.bottom, 10)
-                                }
-                            }
-                            .padding([.top, .bottom], 10)
-                        }
-                        
-                        if !pastAppointments.isEmpty {
-                            VStack(alignment: .leading) {
-                                Text("Past")
-                                    .font(.customFont(style: .bold, size: .h16))
-                                    .padding(.horizontal, 16)
-                                ForEach(pastAppointments) { appointment in
-                                    PastAppointmetsCard(
-                                        image: "user",
-                                        name: "Patient Name",
-                                        speciality: "Checkup",
-                                        date: appointment.date.formatted(date: .abbreviated, time: .omitted),
-                                        time: appointment.time
-                                    )
-                                    .padding([.leading, .trailing], 16)
-                                    .padding(.bottom, 5)
-                                }
-                            }
-                        }
-                        Spacer()
-                    }
-                    .background(Color.lightGray.opacity(0.7))
-                }
-            }
-            .navigationTitle("My Appointments")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                fetchAppointments()
-            }
-        }
-    }
-    
-    func fetchAppointments() {
-        self.isLoading = false
-    }
-}
-
-struct PatientHistoryView: View {
-    struct PatientRecord: Identifiable {
-        let id = UUID()
-        let name: String
-        let lastVisit: String
-        let diagnosis: String
-        let image: String
-    }
-    
-    let patients = [
-        PatientRecord(name: "John Doe", lastVisit: "Oct 24, 2024", diagnosis: "Flu", image: "user"),
-        PatientRecord(name: "Jane Smith", lastVisit: "Oct 20, 2024", diagnosis: "Migraine", image: "user"),
-        PatientRecord(name: "Robert Brown", lastVisit: "Sep 15, 2024", diagnosis: "Checkup", image: "user")
-    ]
-    
-    var body: some View {
-        NavigationStack {
-            List(patients) { patient in
-                HStack {
-                    Image(patient.image)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-                    
-                    VStack(alignment: .leading) {
-                        Text(patient.name)
-                            .font(.headline)
-                        Text("Last Visit: \(patient.lastVisit)")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Spacer()
-                    
-                    Text(patient.diagnosis)
-                        .font(.subheadline)
-                        .foregroundColor(.appBlue)
-                        .padding(6)
-                        .background(Color.appBlue.opacity(0.1))
-                        .cornerRadius(8)
-                }
-                .padding(.vertical, 5)
-            }
-            .listStyle(PlainListStyle())
-            .navigationTitle("Patient History")
-        }
-    }
-}
-
-// MARK: - Doctor Profile View
-struct DoctorProfileView: View {
-    @State var defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-    @StateObject private var viewModel = AuthenticationViewModel()
-    @State private var showSignoutAlert = false
-    @State private var isSyncing = false
-    @State private var verificationCode = ""
-    @State private var showVerificationAlert = false
-    @State private var verificationAlertMessage = ""
-    
-    var body: some View {
-        VStack {
-            ScrollView {
-                // PROMINENT DEBUG HEADER
-                if defaults?.role == "doctor" && defaults?.verificationStatus != "verified" {
-                    verifyAccountSection
-                }
-                
-                profileHeaderView
-                
-                // Professional Details Section
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Professional Info")
-                        .font(.headline)
-                        .padding(.horizontal)
-                    
-                    VStack(spacing: 0) {
-                        ProfileDetailRow(icon: "cross.case.fill", title: "Hospital", value: defaults?.hospitalName ?? "N/A")
-                        Divider()
-                        ProfileDetailRow(icon: "star.fill", title: "Specialty", value: defaults?.specialty ?? "N/A")
-                        Divider()
-                        ProfileDetailRow(icon: "clock.fill", title: "Experience", value: "\(defaults?.experienceYears ?? "0") Years")
-                        Divider()
-                        ProfileDetailRow(icon: "doc.text.fill", title: "License", value: defaults?.licenseNumber ?? "N/A")
-                    }
-                    .background(Color.card)
-                    .cornerRadius(12)
-                    .padding()
-                    .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
-                }
-                
-                Spacer()
-            }
-            .navigationTitle("Doctor Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .refreshable {
-                await syncUserData()
-            }
-        }
-        .onAppear {
-            Task {
-                await syncUserData()
-            }
-        }
-    }
-    
-    private func syncUserData() async {
-        
-        var userId = UserDefaults.standard.string(forKey: "userID")
-        if userId == nil {
-            if let session = try? await SupabaseManager.shared.client.auth.session {
-                userId = session.user.id.uuidString
-            }
-        }
-        
-        guard let finalUserId = userId else { return }
-        
-        isSyncing = true
-        await SupabaseDBManager.shared.getUserDetails(userId: finalUserId) { _ in
-            defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
-            isSyncing = false
-        }
-    }
-    
-    var verifyAccountSection: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.title2)
-                    .foregroundColor(.white)
-                Text("Registry Verification")
-                    .font(.customFont(style: .bold, size: .h18))
-                    .foregroundColor(.white)
-            }
-            .padding(.horizontal)
-            .padding(.top, 20)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Your professional profile is currently in 'Registry Pending' mode. To activate your visibility to all patients, please enter your institution's registration key.")
-                    .font(.customFont(style: .medium, size: .h14))
-                    .foregroundColor(.white.opacity(0.9))
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                HStack(spacing: 12) {
-                    TextField("", text: $verificationCode, prompt: Text("Enter Registration Key").foregroundColor(.white.opacity(0.6)))
-                        .padding()
-                        .background(Color.white.opacity(0.15))
-                        .cornerRadius(12)
-                        .foregroundColor(.white)
-                        .textInputAutocapitalization(.characters)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                    
-                    Button(action: { verifyCode() }) {
-                        if isSyncing {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .appBlue))
-                                .frame(width: 80, height: 50)
-                                .background(Color.white)
-                                .cornerRadius(12)
-                        } else {
-                            Text("Activate")
-                                .font(.customFont(style: .bold, size: .h14))
-                                .foregroundColor(.appBlue)
-                                .frame(width: 80, height: 50)
-                                .background(Color.white)
-                                .cornerRadius(12)
-                                .shadow(color: .black.opacity(0.1), radius: 5)
-                        }
-                    }
-                }
-            }
-            .padding([.horizontal, .bottom], 20)
-        }
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.appBlue, Color.appBlue.opacity(0.8)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
-        .cornerRadius(20)
-        .padding()
-        .shadow(color: Color.appBlue.opacity(0.3), radius: 10, x: 0, y: 5)
-        .alert("Registry Status", isPresented: $showVerificationAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(verificationAlertMessage)
-        }
-    }
-    
-    private func verifyCode() {
-        let masterCode = "CLINIC-2026-OK"
-        if verificationCode.uppercased() == masterCode {
-            Task {
-                var userId = UserDefaults.standard.string(forKey: "userID")
-                if userId == nil {
-                    if let session = try? await SupabaseManager.shared.client.auth.session {
-                        userId = session.user.id.uuidString
-                    }
-                }
-                
-                guard let finalUserId = userId else {
-                    verificationAlertMessage = "Error: User ID not found."
-                    showVerificationAlert = true
-                    return
-                }
-                do {
-                    isSyncing = true
-                    try await SupabaseDBManager.shared.updateVerificationStatus(userId: finalUserId, status: "verified")
-                    await syncUserData()
-                    verificationAlertMessage = "Success! Your doctor profile is now verified and visible to patients."
-                    showVerificationAlert = true
-                    verificationCode = ""
-                } catch {
-                    verificationAlertMessage = "Error: \(error.localizedDescription)"
-                    showVerificationAlert = true
-                }
-                isSyncing = false
-            }
-        } else {
-            verificationAlertMessage = "Invalid verification code. Please contact your administrator."
-            showVerificationAlert = true
-        }
-    }
-    
-    var profileHeaderView: some View {
-        VStack {
-            ZStack(alignment: .center) {
-                Color(Color.appBlue.opacity(0.2))
-                VStack(spacing: 15) {
-                    AsyncImage(
-                        url: URL(string: defaults?.imageURL ?? ""),
-                        content: { image in
-                            image.resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(maxWidth: 120, maxHeight: 120)
-                                .clipShape(Circle())
-                        },
-                        placeholder: {
-                            if defaults?.imageURL == "" {
-                                Image("user").resizable()
-                                    .frame(width: 120, height: 120)
-                            } else {
-                                ProgressView()
-                            }
-                        })
-                    Text("Dr. \(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
-                        .foregroundColor(.text)
-                        .font(.customFont(style: .bold, size: .h17))
-                    Text("\(defaults?.email?.lowercased() ?? "")")
-                        .foregroundColor(.text)
-                        .font(.customFont(style: .medium, size: .h15))
-                    
-                    Button {
-                        showSignoutAlert = true
-                    } label: {
-                        Label("Sign Out", systemImage: "power")
-                            .font(.customFont(style: .bold, size: .h14))
-                    }
-                    .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .text, height: 50, background: .clear))
-                    .padding(.horizontal, 50)
-                }
-                .padding(.vertical, 30)
-            }
-            .alert("Are you sure you want to sign out?", isPresented: $showSignoutAlert) {
-                Button("Sign Out", role: .destructive) {
-                    Task {
-                        await viewModel.signOut()
-                        UserDefaults.standard.removeObject(forKey: "userDetails")
-                    }
-                }
-                Button("Cancel", role: .cancel) {}
-            }
-        }
-    }
-}
-
-struct ProfileDetailRow: View {
-    let icon: String
-    let title: String
-    let value: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .foregroundColor(.appBlue)
-                .frame(width: 30)
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            Spacer()
-            Text(value)
-                .font(.subheadline)
-                .bold()
-        }
-        .padding()
-    }
-}
 
 // MARK: - Medical Records View
 struct MedicalRecordsView: View {

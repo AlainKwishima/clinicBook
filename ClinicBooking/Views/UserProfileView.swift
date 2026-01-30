@@ -139,9 +139,11 @@ struct UserProfileView: View {
                                 .cornerRadius(12)
                         }
                         .alert("Sign Out", isPresented: $showSignoutAlert) {
-                            Button("Sign Out", role: .destructive) {
-                                Task { await viewModel.signOut() }
-                            }
+                                Button("Sign Out", role: .destructive) {
+                                    Task {
+                                        await viewModel.signOut()
+                                    }
+                                }
                             Button("Cancel", role: .cancel) { }
                         } message: {
                             Text("Are you sure you want to sign out?")

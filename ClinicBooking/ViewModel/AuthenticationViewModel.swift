@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Supabase
 
 @MainActor
@@ -23,6 +24,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var isLoading = false
     private let authService = SupabaseAuthService.shared
     private let dbManager = SupabaseDBManager.shared
+    @AppStorage("userID") var storedUserID: String = ""
 
     func signIn() async -> Bool {
         let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -50,7 +52,9 @@ class AuthenticationViewModel: ObservableObject {
             do {
                 let details = try await dbManager.getUserDetails(userId: session.user.id.uuidString)
                 UserDefaults.standard.set(encodable: details, forKey: "userDetails")
-                UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
+                let userIdString = session.user.id.uuidString
+                UserDefaults.standard.set(userIdString, forKey: "userID")
+                storedUserID = userIdString
             } catch {
                 debugPrint("Error fetching user details from Supabase: \(error)")
             }
@@ -123,60 +127,53 @@ class AuthenticationViewModel: ObservableObject {
     }
 
     @Published var shouldNavigateToAdditionalInfo = false
-
-    func signup() async {
+    @Published var role: String = "patient"
+    @Published var licenseNumber: String = ""
+    @Published var specialty: String = ""
+    @Published var experienceYears: String = ""
+    @Published var aboutMe: String = ""
+    @Published var hospitalName: String = ""
+    
+    func signup() -> Bool {
         let sanitizedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if password.isEmpty {
-            validationMessage = "Please enter your password."
-            return
-        } else if sanitizedEmail.isEmpty {
-            validationMessage = "Please enter your email."
-            return
-        } else if firstName.isEmpty {
+        if firstName.isEmpty {
             validationMessage = "Please enter your First Name."
-            return
+            return false
         } else if lastName.isEmpty {
             validationMessage = "Please enter your Last Name."
-            return
+            return false
+        } else if sanitizedEmail.isEmpty {
+            validationMessage = "Please enter your email."
+            return false
+        } else if password.isEmpty {
+            validationMessage = "Please enter your password."
+            return false
         }
-        isLoading = true
-        defer { isLoading = false }
-        let user = AppUser(password: password,
-                           email: sanitizedEmail,
-                           firstName: firstName,
-                           lastName: lastName,
-                           createdAt: Date(),
-                           height: "",
-                           weight: "",
-                           age: "",
-                           bloodGroup: "",
-                           phoneNumber: "",
-                           imageURL: "",
-                           address: ""
-        )
-        do {
-            try await authService.signUp(user: user)
-            
-            // Save locally so the next screen (AdditionalInfoView) can access it
-            UserDefaults.standard.set(encodable: user, forKey: "userDetails")
-            
-            // Also retrieve and save the UserID
-            if let session = try? await SupabaseManager.shared.client.auth.session {
-                UserDefaults.standard.set(session.user.id.uuidString, forKey: "userID")
-            }
-            
-            shouldNavigateToAdditionalInfo = true
-        } catch {
-            validationMessage = "Failed to sign up: \(error.localizedDescription)"
+        
+        // Ensure role is set (defaults to patient for regular signup)
+        if role.isEmpty {
+            role = "patient"
         }
+        
+        // Set flag BEFORE navigation to prevent auth listener interference
+        SupabaseAuthService.shared.isSignUpFlowInProgress = true
+        NotificationCenter.default.post(name: NSNotification.Name("SignupFlowStarted"), object: nil)
+        
+        validationMessage = nil
+        shouldNavigateToAdditionalInfo = true
+        return true
     }
 
     func signOut() async {
         do {
             try await authService.signOut()
             showSignInView = true
+            // Post notification for force logout to ensure all views react
+            NotificationCenter.default.post(name: NSNotification.Name("AppLogout"), object: nil)
         } catch {
             print("Error signing out from Supabase: \(error.localizedDescription)")
+            // Still force local logout if remote fails
+            NotificationCenter.default.post(name: NSNotification.Name("AppLogout"), object: nil)
         }
     }
 }

@@ -42,6 +42,15 @@ struct AppConstants {
         ("Psychologist", "person.text.rectangle", true),
         ("General Physician", "stethoscope", true)
     ]
+
+    static let genders = ["Male", "Female", "Other"]
+    
+    static let insuranceProviders = ["RSSB", "Radiant", "Mutuel", "None"]
+    
+    static let countries = [
+        "Rwanda", "Burundi", "Kenya", "Uganda", "Tanzania", 
+        "USA", "UK", "Canada", "France", "Germany", "Other"
+    ]
 }
 
 enum Texts: String, CustomStringConvertible {

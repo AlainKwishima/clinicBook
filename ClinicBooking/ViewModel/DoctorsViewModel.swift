@@ -18,19 +18,46 @@ class DoctorsViewModel: ObservableObject {
         self.isLoading = true
         defer { self.isLoading = false }
         
+        var allDoctors: [Doctor] = []
+        
+        // 1. Load mock data from JSON
+        if let mockData = loadJson(fileName: "doctors") {
+            allDoctors.append(contentsOf: mockData.doctors)
+            print("Loaded \(mockData.doctors.count) mock doctors from JSON.")
+        }
+        
         do {
-            // Fetch registered doctors from Supabase
-            let registeredDoctors = try await SupabaseDBManager.shared.fetchRegisteredDoctors()
-            print("Fetched \(registeredDoctors.count) registered doctors from Supabase.")
+            // 2. Fetch doctor profiles from Supabase (Source of Truth)
+            let doctorProfiles = try await SupabaseDBManager.shared.fetchAllDoctorProfiles()
+            print("Fetched \(doctorProfiles.count) doctor profiles from Supabase.")
             
-            self.doctors = registeredDoctors
+            // 3. Convert AppUser profiles to Doctor objects and merge
+            for profile in doctorProfiles {
+                // Determine ID (use id or uuid fallback)
+                let docId = profile.id ?? UUID().uuidString
+                
+                // Check for duplicates in mock data (by Name or ID)
+                let isDuplicate = allDoctors.contains { existingDoc in
+                    existingDoc.name == "Dr. \(profile.firstName) \(profile.lastName)" || existingDoc.doctorID == docId
+                }
+                
+                if !isDuplicate {
+                    // Create Doctor object from AppUser (mapping fields)
+                    let newDoctor = Doctor(from: profile, id: docId)
+                    allDoctors.append(newDoctor)
+                }
+            }
+            
+            self.doctors = allDoctors
             
         } catch {
             print("Failed to fetch doctors from Supabase: \(error)")
             self.errorMessage = "Dynamic doctor list could not be refreshed."
             
-            // Fallback
-            if self.doctors.isEmpty {
+            // Use whatever we have (mock data)
+            if !allDoctors.isEmpty {
+                self.doctors = allDoctors
+            } else if self.doctors.isEmpty {
                 print("Using hardcoded fallback.")
                 self.doctors = [
                     Doctor(firestoreID: nil, doctorID: "999", name: "Dr. Fallback", specialist: "General Physician", degree: "MD", image: "user", position: "Specialist", languageSpoken: "English", about: "Fallback Data", contact: "000", address: "Local", rating: "5.0", isPopular: true, isSaved: false, fee: 100.0)

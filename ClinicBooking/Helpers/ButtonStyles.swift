@@ -12,7 +12,7 @@ struct BlueButtonStyle: ButtonStyle {
     var color: Color
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.subheadline.bold())
+            .font(.subheadline)
             .foregroundColor(.white)
             .frame(height: height)
             .frame(maxWidth: .infinity)
@@ -28,7 +28,7 @@ struct BorderButtonStyle: ButtonStyle {
     var background: Color
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.subheadline.bold())
+            .font(.subheadline)
             .foregroundColor(foregroundColor)
             .frame(height: height)
             .frame(maxWidth: .infinity)

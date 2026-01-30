@@ -1,0 +1,724 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B5814A382F20C21400C8EB71 /* OpenRouterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5814A372F20C21400C8EB71 /* OpenRouterService.swift */; };
+		B5814A3A2F20C25B00C8EB71 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5814A392F20C25B00C8EB71 /* ChatMessage.swift */; };
+		B5814A3C2F20C28400C8EB71 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5814A3B2F20C28400C8EB71 /* ChatViewModel.swift */; };
+		B5814A3E2F20C29E00C8EB71 /* OpenRouterConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5814A3D2F20C29E00C8EB71 /* OpenRouterConfig.plist */; };
+		B5814A402F20C2C100C8EB71 /* MedicalAssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5814A3F2F20C2C100C8EB71 /* MedicalAssistantView.swift */; };
+		B5814A422F20C2DB00C8EB71 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5814A412F20C2DB00C8EB71 /* ChatBubble.swift */; };
+		B5ACD3CF2F27F41E00BB521E /* PatientSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACD3CE2F27F41D00BB521E /* PatientSelectionView.swift */; };
+		B5ACD3D02F27F41E00BB521E /* DoctorHomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACD3CD2F27F41D00BB521E /* DoctorHomeDashboard.swift */; };
+		B5ACD3D22F27F44F00BB521E /* PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ACD3D12F27F44F00BB521E /* PaymentMethodView.swift */; };
+		B5D71BB92F1BE36000F7219F /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BB82F1BE36000F7219F /* Auth */; };
+		B5D71BBB2F1BE36000F7219F /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBA2F1BE36000F7219F /* Functions */; };
+		B5D71BBD2F1BE36000F7219F /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBC2F1BE36000F7219F /* PostgREST */; };
+		B5D71BBF2F1BE36000F7219F /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BBE2F1BE36000F7219F /* Realtime */; };
+		B5D71BC12F1BE36000F7219F /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BC02F1BE36000F7219F /* Storage */; };
+		B5D71BC32F1BE36000F7219F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = B5D71BC22F1BE36000F7219F /* Supabase */; };
+		B5D71BC72F1BE53C00F7219F /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */; };
+		B5D71BC82F1BE53C00F7219F /* SupabaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */; };
+		B5D71BC92F1BE53C00F7219F /* SupabaseDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */; };
+		EF3D16762C9306850011694A /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16752C9306850011694A /* Firebase.swift */; };
+		EF3D16782C931C410011694A /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16772C931C410011694A /* AppUserDefaults.swift */; };
+		EF3D167B2C932F010011694A /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = EF3D167A2C932F010011694A /* ProgressHUD */; };
+		EF3D16A22C9AA9540011694A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = EF3D16A12C9AA9540011694A /* iPhoneNumberField */; };
+		EF3D16A42C9AFD810011694A /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16A32C9AFD810011694A /* ImageUploader.swift */; };
+		EF3D16A82C9BFBD90011694A /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16A72C9BFBD90011694A /* UserViewModel.swift */; };
+		EF3D16AA2C9BFFF30011694A /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16A92C9BFFF30011694A /* ButtonStyles.swift */; };
+		EF3D16AC2C9DA1BF0011694A /* FamilyMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16AB2C9DA1BF0011694A /* FamilyMemberModel.swift */; };
+		EF3D16B02CA181A60011694A /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16AF2CA181A60011694A /* EditProfileView.swift */; };
+		EF3D16B22CA568130011694A /* AppointmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16B12CA568120011694A /* AppointmentsView.swift */; };
+		EF3D16DE2CA56813001169AA /* BookingConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3D16DD2CA56812001169AA /* BookingConfirmationView.swift */; };
+		EF92A7202CF78124000B9AFC /* SplashViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92A71F2CF78124000B9AFC /* SplashViewCoordinator.swift */; };
+		EF92A7222CF781A0000B9AFC /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92A7212CF781A0000B9AFC /* SplashScreen.swift */; };
+		EF92A7242CF78529000B9AFC /* SavedDoctors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF92A7232CF78529000B9AFC /* SavedDoctors.swift */; };
+		EFF4A4DD2CA70123003BBF8A /* UpcomingAppointmentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4A4DC2CA70123003BBF8A /* UpcomingAppointmentCardView.swift */; };
+		EFF4A4DF2CA70C46003BBF8A /* PastAppointmentsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF4A4DE2CA70C46003BBF8A /* PastAppointmentsCard.swift */; };
+		EFFF3B402C8435C7000C35CC /* ClinicBookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B3F2C8435C7000C35CC /* ClinicBookingApp.swift */; };
+		EFFF3B422C8435C7000C35CC /* HomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B412C8435C7000C35CC /* HomeDashboard.swift */; };
+		EFFF3B442C8435C9000C35CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B432C8435C9000C35CC /* Assets.xcassets */; };
+		EFFF3B472C8435C9000C35CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B462C8435C9000C35CC /* Preview Assets.xcassets */; };
+		EFFF3B522C84474C000C35CC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B512C84474C000C35CC /* LoginView.swift */; };
+		EFFF3B542C844DE5000C35CC /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B532C844DE5000C35CC /* AuthenticationViewModel.swift */; };
+		EFFF3B572C845018000C35CC /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B562C845018000C35CC /* UIColor+Extension.swift */; };
+		EFFF3B5A2C8450D4000C35CC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B592C8450D4000C35CC /* AppConstants.swift */; };
+		EFFF3B5C2C8456AA000C35CC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B5B2C8456AA000C35CC /* CustomTextField.swift */; };
+		EFFF3B5E2C8468B4000C35CC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B5D2C8468B4000C35CC /* UIFont+Extension.swift */; };
+		EFFF3B602C846C6B000C35CC /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B5F2C846C6B000C35CC /* SignupView.swift */; };
+		EFFF3B642C85A398000C35CC /* ImageCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B632C85A398000C35CC /* ImageCircle.swift */; };
+		EFFF3B672C85A3E5000C35CC /* DoctorsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B662C85A3E4000C35CC /* DoctorsCardView.swift */; };
+		EFFF3B692C85A42D000C35CC /* ServicesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B682C85A42D000C35CC /* ServicesCardView.swift */; };
+		EFFF3B6B2C85A4A8000C35CC /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B6A2C85A4A8000C35CC /* ServicesView.swift */; };
+		EFFF3B6D2C85AA71000C35CC /* DoctorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B6C2C85AA71000C35CC /* DoctorProfile.swift */; };
+		EFFF3B6F2C85E990000C35CC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B6E2C85E990000C35CC /* UserProfileView.swift */; };
+		EFFF3B712C86E95A000C35CC /* UserDetailsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B702C86E95A000C35CC /* UserDetailsCardView.swift */; };
+		EFFF3B732C86E9AF000C35CC /* AddFamilyMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B722C86E9AF000C35CC /* AddFamilyMemberView.swift */; };
+		EFFF3B752C871221000C35CC /* DoctorsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B742C871221000C35CC /* DoctorsList.swift */; };
+		EFFF3B772C8712AE000C35CC /* DoctorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B762C8712AE000C35CC /* DoctorsViewModel.swift */; };
+		EFFF3B782C8717A4000C35CC /* doctors.json in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B622C84BFBA000C35CC /* doctors.json */; };
+		EFFF3B892C874E97000C35CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFFF3B882C874E97000C35CC /* GoogleService-Info.plist */; };
+		EFFF3B8B2C874FEF000C35CC /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B8A2C874FEF000C35CC /* FirebaseService.swift */; };
+		EFFF3B8D2C8751A5000C35CC /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B8C2C8751A5000C35CC /* AppUser.swift */; };
+		EFFF3B8F2C87611C000C35CC /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF3B8E2C87611C000C35CC /* ForgotPasswordView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B5814A372F20C21400C8EB71 /* OpenRouterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRouterService.swift; sourceTree = "<group>"; };
+		B5814A392F20C25B00C8EB71 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		B5814A3B2F20C28400C8EB71 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		B5814A3D2F20C29E00C8EB71 /* OpenRouterConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OpenRouterConfig.plist; sourceTree = "<group>"; };
+		B5814A3F2F20C2C100C8EB71 /* MedicalAssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalAssistantView.swift; sourceTree = "<group>"; };
+		B5814A412F20C2DB00C8EB71 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		B5ACD3CD2F27F41D00BB521E /* DoctorHomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeDashboard.swift; sourceTree = "<group>"; };
+		B5ACD3CE2F27F41D00BB521E /* PatientSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSelectionView.swift; sourceTree = "<group>"; };
+		B5ACD3D12F27F44F00BB521E /* PaymentMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodView.swift; sourceTree = "<group>"; };
+		B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
+		B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseAuthService.swift; sourceTree = "<group>"; };
+		B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseDBManager.swift; sourceTree = "<group>"; };
+		EF3D16752C9306850011694A /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		EF3D16772C931C410011694A /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
+		EF3D16A32C9AFD810011694A /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
+		EF3D16A72C9BFBD90011694A /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		EF3D16A92C9BFFF30011694A /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		EF3D16AB2C9DA1BF0011694A /* FamilyMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberModel.swift; sourceTree = "<group>"; };
+		EF3D16AF2CA181A60011694A /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		EF3D16B12CA568120011694A /* AppointmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentsView.swift; sourceTree = "<group>"; };
+		EF3D16DD2CA56812001169AA /* BookingConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationView.swift; sourceTree = "<group>"; };
+		EF92A71F2CF78124000B9AFC /* SplashViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewCoordinator.swift; sourceTree = "<group>"; };
+		EF92A7212CF781A0000B9AFC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		EF92A7232CF78529000B9AFC /* SavedDoctors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDoctors.swift; sourceTree = "<group>"; };
+		EFF4A4DC2CA70123003BBF8A /* UpcomingAppointmentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingAppointmentCardView.swift; sourceTree = "<group>"; };
+		EFF4A4DE2CA70C46003BBF8A /* PastAppointmentsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAppointmentsCard.swift; sourceTree = "<group>"; };
+		EFFF3B3C2C8435C7000C35CC /* ClinicBooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicBooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFFF3B3F2C8435C7000C35CC /* ClinicBookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicBookingApp.swift; sourceTree = "<group>"; };
+		EFFF3B412C8435C7000C35CC /* HomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboard.swift; sourceTree = "<group>"; };
+		EFFF3B432C8435C9000C35CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EFFF3B462C8435C9000C35CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EFFF3B512C84474C000C35CC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		EFFF3B532C844DE5000C35CC /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		EFFF3B562C845018000C35CC /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		EFFF3B592C8450D4000C35CC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		EFFF3B5B2C8456AA000C35CC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		EFFF3B5D2C8468B4000C35CC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		EFFF3B5F2C846C6B000C35CC /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EFFF3B622C84BFBA000C35CC /* doctors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = doctors.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		EFFF3B632C85A398000C35CC /* ImageCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCircle.swift; sourceTree = "<group>"; };
+		EFFF3B662C85A3E4000C35CC /* DoctorsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsCardView.swift; sourceTree = "<group>"; };
+		EFFF3B682C85A42D000C35CC /* ServicesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCardView.swift; sourceTree = "<group>"; };
+		EFFF3B6A2C85A4A8000C35CC /* ServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
+		EFFF3B6C2C85AA71000C35CC /* DoctorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileView.swift; sourceTree = "<group>"; };
+		EFFF3B6E2C85E990000C35CC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		EFFF3B702C86E95A000C35CC /* UserDetailsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsCardView.swift; sourceTree = "<group>"; };
+		EFFF3B722C86E9AF000C35CC /* AddFamilyMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberView.swift; sourceTree = "<group>"; };
+		EFFF3B742C871221000C35CC /* DoctorsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsList.swift; sourceTree = "<group>"; };
+		EFFF3B762C8712AE000C35CC /* DoctorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorsViewModel.swift; sourceTree = "<group>"; };
+		EFFF3B882C874E97000C35CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		EFFF3B8A2C874FEF000C35CC /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		EFFF3B8C2C8751A5000C35CC /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		EFFF3B8E2C87611C000C35CC /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EFFF3B392C8435C7000C35CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF3D167B2C932F010011694A /* ProgressHUD in Frameworks */,
+				EF3D16A22C9AA9540011694A /* iPhoneNumberField in Frameworks */,
+				B5D71BC12F1BE36000F7219F /* Storage in Frameworks */,
+				B5D71BBB2F1BE36000F7219F /* Functions in Frameworks */,
+				B5D71BC32F1BE36000F7219F /* Supabase in Frameworks */,
+				B5D71BBF2F1BE36000F7219F /* Realtime in Frameworks */,
+				B5D71BB92F1BE36000F7219F /* Auth in Frameworks */,
+				B5D71BBD2F1BE36000F7219F /* PostgREST in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B5D71BB62F1BD10700F7219F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EFFF3B332C8435C7000C35CC = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B3E2C8435C7000C35CC /* ClinicBooking */,
+				B5D71BB62F1BD10700F7219F /* Frameworks */,
+				EFFF3B3D2C8435C7000C35CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EFFF3B3D2C8435C7000C35CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B3C2C8435C7000C35CC /* ClinicBooking.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EFFF3B3E2C8435C7000C35CC /* ClinicBooking */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B612C84BF89000C35CC /* Resources */,
+				EFFF3B582C8450C6000C35CC /* Helpers */,
+				EFFF3B552C84500B000C35CC /* Extensions */,
+				EFFF3B4D2C843626000C35CC /* Model */,
+				EFFF3B4E2C84362C000C35CC /* Views */,
+				EFFF3B4F2C843638000C35CC /* ViewModel */,
+				EFFF3B502C84364C000C35CC /* AppDelegate */,
+				B5814A3D2F20C29E00C8EB71 /* OpenRouterConfig.plist */,
+				EFFF3B432C8435C9000C35CC /* Assets.xcassets */,
+				EFFF3B452C8435C9000C35CC /* Preview Content */,
+			);
+			path = ClinicBooking;
+			sourceTree = "<group>";
+		};
+		EFFF3B452C8435C9000C35CC /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B462C8435C9000C35CC /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EFFF3B4D2C843626000C35CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B742C871221000C35CC /* DoctorsList.swift */,
+				EFFF3B8C2C8751A5000C35CC /* AppUser.swift */,
+				EF3D16AB2C9DA1BF0011694A /* FamilyMemberModel.swift */,
+				B5814A392F20C25B00C8EB71 /* ChatMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EFFF3B4E2C84362C000C35CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B652C85A3C3000C35CC /* Cards */,
+				B5814A432F20C30000C8EB71 /* Components */,
+				EF3D16DD2CA56812001169AA /* BookingConfirmationView.swift */,
+				EFFF3B412C8435C7000C35CC /* HomeDashboard.swift */,
+				B5ACD3CD2F27F41D00BB521E /* DoctorHomeDashboard.swift */,
+				EFFF3B512C84474C000C35CC /* LoginView.swift */,
+				EFFF3B5F2C846C6B000C35CC /* SignupView.swift */,
+				EFFF3B6A2C85A4A8000C35CC /* ServicesView.swift */,
+				EFFF3B6C2C85AA71000C35CC /* DoctorProfile.swift */,
+				EFFF3B6E2C85E990000C35CC /* UserProfileView.swift */,
+				EFFF3B722C86E9AF000C35CC /* AddFamilyMemberView.swift */,
+				EF3D16AF2CA181A60011694A /* EditProfileView.swift */,
+				EFFF3B8E2C87611C000C35CC /* ForgotPasswordView.swift */,
+				EF3D16B12CA568120011694A /* AppointmentsView.swift */,
+				EF92A71F2CF78124000B9AFC /* SplashViewCoordinator.swift */,
+				EF92A7212CF781A0000B9AFC /* SplashScreen.swift */,
+				EF92A7232CF78529000B9AFC /* SavedDoctors.swift */,
+				B5ACD3CE2F27F41D00BB521E /* PatientSelectionView.swift */,
+				B5ACD3D12F27F44F00BB521E /* PaymentMethodView.swift */,
+				B5814A3F2F20C2C100C8EB71 /* MedicalAssistantView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EFFF3B4F2C843638000C35CC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B532C844DE5000C35CC /* AuthenticationViewModel.swift */,
+				EFFF3B762C8712AE000C35CC /* DoctorsViewModel.swift */,
+				EF3D16A72C9BFBD90011694A /* UserViewModel.swift */,
+				B5814A3B2F20C28400C8EB71 /* ChatViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFFF3B502C84364C000C35CC /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B3F2C8435C7000C35CC /* ClinicBookingApp.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		EFFF3B552C84500B000C35CC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B562C845018000C35CC /* UIColor+Extension.swift */,
+				EFFF3B5D2C8468B4000C35CC /* UIFont+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EFFF3B582C8450C6000C35CC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B592C8450D4000C35CC /* AppConstants.swift */,
+				EFFF3B5B2C8456AA000C35CC /* CustomTextField.swift */,
+				EFFF3B632C85A398000C35CC /* ImageCircle.swift */,
+				EFFF3B8A2C874FEF000C35CC /* FirebaseService.swift */,
+				EF3D16752C9306850011694A /* Firebase.swift */,
+				EF3D16772C931C410011694A /* AppUserDefaults.swift */,
+				EF3D16A32C9AFD810011694A /* ImageUploader.swift */,
+				EF3D16A92C9BFFF30011694A /* ButtonStyles.swift */,
+				B5814A372F20C21400C8EB71 /* OpenRouterService.swift */,
+				B5D71BC42F1BE53C00F7219F /* SupabaseManager.swift */,
+				B5D71BC52F1BE53C00F7219F /* SupabaseAuthService.swift */,
+				B5D71BC62F1BE53C00F7219F /* SupabaseDBManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EFFF3B612C84BF89000C35CC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B882C874E97000C35CC /* GoogleService-Info.plist */,
+				EFFF3B622C84BFBA000C35CC /* doctors.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EFFF3B652C85A3C3000C35CC /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				EFFF3B662C85A3E4000C35CC /* DoctorsCardView.swift */,
+				EFFF3B682C85A42D000C35CC /* ServicesCardView.swift */,
+				EFFF3B702C86E95A000C35CC /* UserDetailsCardView.swift */,
+				EFF4A4DC2CA70123003BBF8A /* UpcomingAppointmentCardView.swift */,
+				EFF4A4DE2CA70C46003BBF8A /* PastAppointmentsCard.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		B5814A432F20C30000C8EB71 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B5814A412F20C2DB00C8EB71 /* ChatBubble.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EFFF3B3B2C8435C7000C35CC /* ClinicBooking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EFFF3B4A2C8435C9000C35CC /* Build configuration list for PBXNativeTarget "ClinicBooking" */;
+			buildPhases = (
+				EFFF3B382C8435C7000C35CC /* Sources */,
+				EFFF3B392C8435C7000C35CC /* Frameworks */,
+				EFFF3B3A2C8435C7000C35CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClinicBooking;
+			packageProductDependencies = (
+				EF3D167A2C932F010011694A /* ProgressHUD */,
+				EF3D16A12C9AA9540011694A /* iPhoneNumberField */,
+				B5D71BB82F1BE36000F7219F /* Auth */,
+				B5D71BBA2F1BE36000F7219F /* Functions */,
+				B5D71BBC2F1BE36000F7219F /* PostgREST */,
+				B5D71BBE2F1BE36000F7219F /* Realtime */,
+				B5D71BC02F1BE36000F7219F /* Storage */,
+				B5D71BC22F1BE36000F7219F /* Supabase */,
+			);
+			productName = ClinicBooking;
+			productReference = EFFF3B3C2C8435C7000C35CC /* ClinicBooking.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EFFF3B342C8435C7000C35CC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					EFFF3B3B2C8435C7000C35CC = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = EFFF3B372C8435C7000C35CC /* Build configuration list for PBXProject "ClinicBooking" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EFFF3B332C8435C7000C35CC;
+			packageReferences = (
+				EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
+				B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			productRefGroup = EFFF3B3D2C8435C7000C35CC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EFFF3B3B2C8435C7000C35CC /* ClinicBooking */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EFFF3B3A2C8435C7000C35CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5814A3E2F20C29E00C8EB71 /* OpenRouterConfig.plist in Resources */,
+				EFFF3B472C8435C9000C35CC /* Preview Assets.xcassets in Resources */,
+				EFFF3B892C874E97000C35CC /* GoogleService-Info.plist in Resources */,
+				EFFF3B782C8717A4000C35CC /* doctors.json in Resources */,
+				EFFF3B442C8435C9000C35CC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EFFF3B382C8435C7000C35CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5D71BC72F1BE53C00F7219F /* SupabaseManager.swift in Sources */,
+				B5D71BC82F1BE53C00F7219F /* SupabaseAuthService.swift in Sources */,
+				B5D71BC92F1BE53C00F7219F /* SupabaseDBManager.swift in Sources */,
+				EFFF3B732C86E9AF000C35CC /* AddFamilyMemberView.swift in Sources */,
+				EF3D16AC2C9DA1BF0011694A /* FamilyMemberModel.swift in Sources */,
+				EF3D16762C9306850011694A /* Firebase.swift in Sources */,
+				EF3D16A42C9AFD810011694A /* ImageUploader.swift in Sources */,
+				B5ACD3CF2F27F41E00BB521E /* PatientSelectionView.swift in Sources */,
+				B5ACD3D22F27F44F00BB521E /* PaymentMethodView.swift in Sources */,
+				B5ACD3D02F27F41E00BB521E /* DoctorHomeDashboard.swift in Sources */,
+				B5814A422F20C2DB00C8EB71 /* ChatBubble.swift in Sources */,
+				EFFF3B602C846C6B000C35CC /* SignupView.swift in Sources */,
+				EFFF3B752C871221000C35CC /* DoctorsList.swift in Sources */,
+				EFFF3B5C2C8456AA000C35CC /* CustomTextField.swift in Sources */,
+				EFFF3B692C85A42D000C35CC /* ServicesCardView.swift in Sources */,
+				EFFF3B542C844DE5000C35CC /* AuthenticationViewModel.swift in Sources */,
+				EFF4A4DF2CA70C46003BBF8A /* PastAppointmentsCard.swift in Sources */,
+				EFFF3B8B2C874FEF000C35CC /* FirebaseService.swift in Sources */,
+				EF3D16A82C9BFBD90011694A /* UserViewModel.swift in Sources */,
+				EFFF3B8D2C8751A5000C35CC /* AppUser.swift in Sources */,
+				EFFF3B5A2C8450D4000C35CC /* AppConstants.swift in Sources */,
+				EFFF3B522C84474C000C35CC /* LoginView.swift in Sources */,
+				EF3D16B22CA568130011694A /* AppointmentsView.swift in Sources */,
+				EF3D16DE2CA56813001169AA /* BookingConfirmationView.swift in Sources */,
+				EF92A7242CF78529000B9AFC /* SavedDoctors.swift in Sources */,
+				EF3D16B02CA181A60011694A /* EditProfileView.swift in Sources */,
+				B5814A402F20C2C100C8EB71 /* MedicalAssistantView.swift in Sources */,
+				EFFF3B422C8435C7000C35CC /* HomeDashboard.swift in Sources */,
+				B5814A382F20C21400C8EB71 /* OpenRouterService.swift in Sources */,
+				EFFF3B402C8435C7000C35CC /* ClinicBookingApp.swift in Sources */,
+				EFFF3B8F2C87611C000C35CC /* ForgotPasswordView.swift in Sources */,
+				EFFF3B672C85A3E5000C35CC /* DoctorsCardView.swift in Sources */,
+				EFFF3B772C8712AE000C35CC /* DoctorsViewModel.swift in Sources */,
+				EFF4A4DD2CA70123003BBF8A /* UpcomingAppointmentCardView.swift in Sources */,
+				EF92A7202CF78124000B9AFC /* SplashViewCoordinator.swift in Sources */,
+				EF3D16782C931C410011694A /* AppUserDefaults.swift in Sources */,
+				EFFF3B6B2C85A4A8000C35CC /* ServicesView.swift in Sources */,
+				EF92A7222CF781A0000B9AFC /* SplashScreen.swift in Sources */,
+				EFFF3B6F2C85E990000C35CC /* UserProfileView.swift in Sources */,
+				B5814A3A2F20C25B00C8EB71 /* ChatMessage.swift in Sources */,
+				EFFF3B6D2C85AA71000C35CC /* DoctorProfile.swift in Sources */,
+				EF3D16AA2C9BFFF30011694A /* ButtonStyles.swift in Sources */,
+				EFFF3B642C85A398000C35CC /* ImageCircle.swift in Sources */,
+				EFFF3B5E2C8468B4000C35CC /* UIFont+Extension.swift in Sources */,
+				EFFF3B712C86E95A000C35CC /* UserDetailsCardView.swift in Sources */,
+				B5814A3C2F20C28400C8EB71 /* ChatViewModel.swift in Sources */,
+				EFFF3B572C845018000C35CC /* UIColor+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EFFF3B482C8435C9000C35CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EFFF3B492C8435C9000C35CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EFFF3B4B2C8435C9000C35CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClinicBooking/Preview Content\"";
+				DEVELOPMENT_TEAM = 3CJFK4NUMX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "ClinicBooking9090p-----------------------";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EFFF3B4C2C8435C9000C35CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClinicBooking/Preview Content\"";
+				DEVELOPMENT_TEAM = 3CJFK4NUMX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "ClinicBooking9090p-----------------------";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EFFF3B372C8435C7000C35CC /* Build configuration list for PBXProject "ClinicBooking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFFF3B482C8435C9000C35CC /* Debug */,
+				EFFF3B492C8435C9000C35CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFFF3B4A2C8435C9000C35CC /* Build configuration list for PBXNativeTarget "ClinicBooking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFFF3B4B2C8435C9000C35CC /* Debug */,
+				EFFF3B4C2C8435C9000C35CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.3;
+			};
+		};
+		EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MojtabaHs/iPhoneNumberField.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B5D71BB82F1BE36000F7219F /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		B5D71BBA2F1BE36000F7219F /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		B5D71BBC2F1BE36000F7219F /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		B5D71BBE2F1BE36000F7219F /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		B5D71BC02F1BE36000F7219F /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		B5D71BC22F1BE36000F7219F /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5D71BB72F1BDF9000F7219F /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		EF3D167A2C932F010011694A /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF3D16792C932F010011694A /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		EF3D16A12C9AA9540011694A /* iPhoneNumberField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF3D16A02C9AA9540011694A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
+			productName = iPhoneNumberField;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = EFFF3B342C8435C7000C35CC /* Project object */;
+}

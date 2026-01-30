@@ -28,7 +28,7 @@ struct AddFamilyMemberView: View {
     @State var phoneNumber: String = ""
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     var bloodGroups = ["Blood Group", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"]
     @State private var selectedBloodGroup : String = "Blood Group"
     @FocusState private var focusedField: Field?
@@ -44,7 +44,29 @@ struct AddFamilyMemberView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            // Header with Back Button
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .padding(10)
+                        .contentShape(Rectangle())
+                }
+                Spacer()
+                Text("Add Family Member")
+                    .font(.customFont(style: .bold, size: .h18))
+                Spacer()
+                Image(systemName: "chevron.left").opacity(0).padding(10)
+            }
+            .padding(.horizontal, 5)
+            .padding(.top, 10)
+            .background(Color.white)
+            
             ScrollView(.vertical) {
                 VStack(spacing: 25) {
                     PhotosPicker(selection: $avatarItem, matching: .images) {
@@ -137,7 +159,7 @@ struct AddFamilyMemberView: View {
                     
                     Button {
                         uploadDetails()
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } label: {
                         Label(Texts.addMember.description, systemImage: "person.crop.circle.fill.badge.plus")
                             .font(.customFont(style: .bold, size: .h17))
@@ -151,35 +173,33 @@ struct AddFamilyMemberView: View {
                     .padding()
                 }
                 .frame(maxWidth: .infinity)
-                .padding()
                 .onTapGesture {
                     self.hideKeyboard()
                 }
             }
-            .navigationTitle(Texts.addMember.description)
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                Task {
-                   await userViewModel.getFamilyMembers()
-                }
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            Task {
+               await userViewModel.getFamilyMembers()
             }
-            .onChange(of: avatarItem) {
-                Task {
-                    if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                        selectedPhotoData = data
-                        if let selectedPhotoData,
-                           let image = UIImage(data: selectedPhotoData) {
-                            ImageUploader.uploadImage(image: image) { response in
-                                imageURL = response
-                                print("Image URL= \(imageURL)")
-                            }
+        }
+        .onChange(of: avatarItem) {
+            Task {
+                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
+                    selectedPhotoData = data
+                    if let selectedPhotoData,
+                       let image = UIImage(data: selectedPhotoData) {
+                        ImageUploader.uploadImage(image: image) { response in
+                            imageURL = response
+                            print("Image URL= \(imageURL)")
                         }
                     }
-                    if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
-                        avatarImage = loaded
-                    } else {
-                        print("Failed to pick image")
-                    }
+                }
+                if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
+                    avatarImage = loaded
+                } else {
+                    print("Failed to pick image")
                 }
             }
         }

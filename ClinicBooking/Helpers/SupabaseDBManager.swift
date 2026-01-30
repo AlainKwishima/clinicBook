@@ -20,18 +20,59 @@ class SupabaseDBManager {
             throw NSError(domain: "SupabaseDBManager", code: 400, userInfo: [NSLocalizedDescriptionKey: "User ID cannot be empty."])
         }
         
-        let response: AppUser = try await client.from("profiles")
+        // Use a retry mechanism as the background trigger might take a moment to create the profile
+        var attempts = 0
+        let maxAttempts = 3
+        
+        while attempts < maxAttempts {
+            do {
+                let response: [AppUser] = try await client.from("profiles")
+                    .select()
+                    .eq("id", value: userId)
+                    .execute()
+                    .value
+                    
+                if let user = response.first {
+                    // Cache locally to match legacy FireStoreManager behavior
+                    UserDefaults.standard.set(encodable: user, forKey: "userDetails")
+                    UserDefaults.standard.set(userId, forKey: "userID")
+                    return user
+                }
+            } catch {
+                print("Retry attempt \(attempts + 1) failed: \(error.localizedDescription)")
+            }
+            
+            attempts += 1
+            if attempts < maxAttempts {
+                try await Task.sleep(nanoseconds: 1_000_000_000) // Wait 1 second before retry
+            }
+        }
+        
+        throw NSError(domain: "SupabaseDBManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "User profile not found after retries."])
+    }
+    
+    /// Fetches user profile for the logged in user (includes local caching)
+    func fetchUserProfile(userId: String) async throws -> AppUser {
+        return try await getUserDetails(userId: userId)
+    }
+    
+    /// Fetches a user's profile WITHOUT side effects (no UserDefaults caching)
+    func fetchPublicProfile(userId: String) async throws -> AppUser {
+        guard !userId.isEmpty else {
+            throw NSError(domain: "SupabaseDBManager", code: 400, userInfo: [NSLocalizedDescriptionKey: "User ID cannot be empty."])
+        }
+        
+        let response: [AppUser] = try await client.from("profiles")
             .select()
             .eq("id", value: userId)
-            .single()
             .execute()
             .value
             
-        // Cache locally to match legacy FireStoreManager behavior
-        UserDefaults.standard.set(encodable: response, forKey: "userDetails")
-        UserDefaults.standard.set(userId, forKey: "userID")
+        if let user = response.first {
+            return user
+        }
         
-        return response
+        throw NSError(domain: "SupabaseDBManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "User profile not found."])
     }
     
     /// Legacy wrapper for completion handlers
@@ -54,6 +95,23 @@ class SupabaseDBManager {
             .update(user)
             .eq("id", value: userId)
             .execute()
+            
+        // If user is a doctor, sync the doctors table as well
+        if user.role == "doctor" {
+            let doctorData: [String: AnyJSON] = [
+                "name": .string("Dr. \(user.firstName) \(user.lastName)"),
+                "image": .string(user.imageURL ?? ""),
+                "specialist": .string(user.specialty ?? "Medical Specialist"),
+                "about": .string(user.aboutMe ?? "No bio available."),
+                "hospital_name": .string(user.hospitalName ?? ""),
+                "experience_years": .string(user.experienceYears ?? "0")
+            ]
+            
+            try? await client.from("doctors")
+                .update(doctorData)
+                .eq("id", value: userId)
+                .execute()
+        }
             
         // Refresh cache
         _ = try? await getUserDetails(userId: userId)
@@ -115,16 +173,21 @@ class SupabaseDBManager {
 
     func getFamilyMembers(userId: String, completion: @escaping(Bool, FamilyMemberModel) -> Void) async {
         do {
-            let members: [MemberModel] = try await client.from("family_members")
-                .select()
-                .eq("user_id", value: userId)
-                .execute()
-                .value
-            completion(true, FamilyMemberModel(members: members))
+            let model = try await getFamilyMembersAsync(userId: userId)
+            completion(true, FamilyMemberModel(members: model))
         } catch {
             print("Error fetching family members: \(error)")
             completion(false, FamilyMemberModel(members: []))
         }
+    }
+    
+    func getFamilyMembersAsync(userId: String) async throws -> [MemberModel] {
+        let members: [MemberModel] = try await client.from("family_members")
+            .select()
+            .eq("user_id", value: userId)
+            .execute()
+            .value
+        return members
     }
     
     // MARK: - Doctors & Clinics
@@ -229,5 +292,22 @@ class SupabaseDBManager {
             .delete()
             .eq("id", value: appointmentId)
             .execute()
+    }
+    
+    func markAppointmentAsPaid(appointmentId: String) async throws {
+        try await client.from("appointments")
+            .update(["is_paid": true])
+            .eq("id", value: appointmentId)
+            .execute()
+    }
+    
+    func fetchDoctorAppointments(doctorId: String) async throws -> [Appointment] {
+        let response: [Appointment] = try await client.from("appointments")
+            .select()
+            .eq("doctor_id", value: doctorId)
+            .order("date", ascending: true)
+            .execute()
+            .value
+        return response
     }
 }

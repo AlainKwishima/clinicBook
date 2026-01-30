@@ -46,7 +46,11 @@ struct SavedDoctors: View {
 
         .navigationTitle("Saved Doctors")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(isPresented: $showDoctorProfile, destination: { DoctorProfile(doctorDetail: doctorDetail) })
+        .navigationDestination(isPresented: $showDoctorProfile) {
+            if let doctor = doctorDetail {
+                DoctorProfile(doctorDetail: doctor)
+            }
+        }
         .fullScreenCover(isPresented: $showSearch) {
             SearchFilterView()
         }

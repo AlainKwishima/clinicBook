@@ -42,65 +42,92 @@ struct DoctorsCardView: View {
     }
 
     var body: some View {
-            HStack(spacing: 15) {
+            HStack(alignment: .top, spacing: 15) {
                 ZStack(alignment: .bottomTrailing) {
-                    ImageCircle(icon: image, radius: 40, circleColor: Color.doctorBG)
+                    if image.hasPrefix("http") {
+                        AsyncImage(url: URL(string: image)) { img in
+                            img.resizable()
+                                .aspectRatio(1.0, contentMode: .fill)
+                                .frame(width: 70, height: 70)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 6))
+                        } placeholder: {
+                            ProgressView()
+                                .frame(width: 70, height: 70)
+                                .background(Color.doctorBG)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 6))
+                        }
+                    } else {
+                        ImageCircle(icon: image, radius: 35, circleColor: Color.doctorBG)
+                    }
                     
                     Button {
                         toggleFavorite()
                     } label: {
                         Image(systemName: isSaved ? "heart.fill" : "heart")
+                            .font(.system(size: 12))
                             .foregroundColor(isSaved ? .red : .gray)
                             .padding(6)
-                            .background(Color.bg)
+                            .background(Color.white)
                             .clipShape(Circle())
-                            .shadow(radius: 2)
+                            .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
                     }
-                    .offset(x: 5, y: 5)
+                    .offset(x: 2, y: 2)
                 }
                 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(name)
                         .font(.customFont(style: .bold, size: .h16))
                         .foregroundColor(.text)
+                        .lineLimit(1)
+                    
                     Text(speciality)
-                        .font(.customFont(style: .medium, size: .h14))
+                        .font(.customFont(style: .medium, size: .h13))
                         .foregroundColor(.gray)
+                        .lineLimit(1)
+                        
                     HStack(spacing: 4) {
                         Image(systemName: "star.fill")
-                            .renderingMode(.template)
                             .resizable()
-                            .frame(width: 14, height: 14)
-                            .foregroundColor(.yellow)
+                            .frame(width: 12, height: 12)
+                            .foregroundColor(.orange)
                         Text(rating)
-                            .font(.customFont(style: .medium, size: .h14))
+                            .font(.customFont(style: .medium, size: .h13))
                             .foregroundColor(.text.opacity(0.8))
                     }
+                    .padding(.top, 2)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
-                
-                VStack(alignment: .trailing, spacing: 8) {
+                VStack(alignment: .trailing, spacing: 0) {
                     Text("Fee \(fee)")
                         .font(.customFont(style: .bold, size: .h14))
                         .foregroundColor(.text)
+                        .padding(.top, 2)
+                    
+                    Spacer()
                     
                     Button {
                         btnAction()
                     } label: {
                         Text(Texts.bookNow.description)
-                            .font(.customFont(style: .bold, size: .h13))
+                            .font(.customFont(style: .bold, size: .h12))
                             .foregroundColor(.white)
-                            .frame(width: 90, height: 38)
-                            .background(colorScheme == .dark ? Color.appGreen : Color.appBlue)
-                            .cornerRadius(10)
+                            .frame(width: 85, height: 32)
+                            .background(Color.appBlue)
+                            .cornerRadius(16) // More rounded
                     }
                 }
             }
-            .padding(15)
+            .padding(12)
             .background(Color.card)
-            .cornerRadius(18)
-            .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
+            .cornerRadius(16)
+            .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.gray.opacity(0.1), lineWidth: 1)
+            )
             .contextMenu {
                 Button {
                     btnAction()

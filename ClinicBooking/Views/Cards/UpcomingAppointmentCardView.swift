@@ -29,7 +29,22 @@ struct UpcomingAppointmentCardView: View {
             }
             .padding(.bottom, 15)
             HStack(spacing: 15) {
-                ImageCircle(icon: image, radius: 40, circleColor: Color.doctorBG)
+                if image.hasPrefix("http") {
+                    AsyncImage(url: URL(string: image)) { img in
+                        img.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        ProgressView()
+                            .frame(width: 40, height: 40)
+                            .background(Color.doctorBG)
+                            .clipShape(Circle())
+                    }
+                } else {
+                    ImageCircle(icon: image, radius: 20, circleColor: Color.doctorBG)
+                }
+                
                 VStack(alignment: .leading, spacing: 8) {
                     Text(name)
                         .font(.customFont(style: .bold, size: .h14))

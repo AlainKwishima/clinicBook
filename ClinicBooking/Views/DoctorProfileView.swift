@@ -16,63 +16,83 @@ struct DoctorProfileView: View {
     @State private var verificationCode = ""
     @State private var showVerificationAlert = false
     @State private var verificationAlertMessage = ""
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-            VStack {
-                ScrollView {
-                    if defaults?.verificationStatus != "verified" {
-                        verifyAccountSection
-                    }
-                    
-                    profileHeaderView
-                    
-                    // Professional Details Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Professional Info")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        VStack(spacing: 0) {
-                            ProfileDetailRow(icon: "cross.case.fill", title: "Hospital", value: defaults?.hospitalName ?? "N/A")
-                            Divider()
-                            ProfileDetailRow(icon: "star.fill", title: "Specialty", value: defaults?.specialty ?? "N/A")
-                            Divider()
-                            ProfileDetailRow(icon: "clock.fill", title: "Experience", value: "\(defaults?.experienceYears ?? "0") Years")
-                            Divider()
-                            ProfileDetailRow(icon: "doc.text.fill", title: "License", value: defaults?.licenseNumber ?? "N/A")
+        VStack {
+            ScrollView {
+                if defaults?.verificationStatus != "verified" {
+                    verifyAccountSection
+                }
+                
+                profileHeaderView
+                    .overlay(alignment: .topTrailing) {
+                        NavigationLink {
+                            EditProfileView()
+                        } label: {
+                            Text("Edit")
+                                .font(.customFont(style: .bold, size: .h14))
+                                .foregroundColor(.appBlue)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.white)
+                                .clipShape(Capsule())
+                                .shadow(color: .black.opacity(0.1), radius: 5)
                         }
-                        .background(Color.white)
-                        .cornerRadius(12)
-                        .padding()
-                        .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        .padding(.trailing, 20)
+                        .padding(.top, 20)
                     }
+                
+                // Professional Details Section
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Professional Info")
+                        .font(.headline)
+                        .padding(.horizontal)
                     
-                    Spacer()
+                    VStack(spacing: 0) {
+                        ProfileDetailRow(icon: "cross.case.fill", title: "Hospital", value: defaults?.hospitalName ?? "N/A")
+                        Divider()
+                        ProfileDetailRow(icon: "star.fill", title: "Specialty", value: defaults?.specialty ?? "N/A")
+                        Divider()
+                        ProfileDetailRow(icon: "clock.fill", title: "Experience", value: "\(defaults?.experienceYears ?? "0") Years")
+                        Divider()
+                        ProfileDetailRow(icon: "doc.text.fill", title: "License", value: defaults?.licenseNumber ?? "N/A")
+                    }
+                    .background(Color.card)
+                    .cornerRadius(12)
+                    .padding()
+                    .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 }
-                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 850 : .infinity)
-                .frame(maxWidth: .infinity)
-                .navigationTitle("Doctor Profile")
-                .navigationBarTitleDisplayMode(.inline)
-                .refreshable {
-                    await syncUserData()
-                }
+                
+                Spacer()
             }
+            .navigationTitle("Doctor Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .refreshable {
+                await syncUserData()
+            }
+        }
         .onAppear {
-             Task {
-                 await syncUserData()
-             }
+            Task {
+                await syncUserData()
+            }
         }
     }
     
     private func syncUserData() async {
-        guard let userId = UserDefaults.standard.string(forKey: "userID") ?? (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString else { return }
+        var currentUserId = UserDefaults.standard.string(forKey: "userID")
+        if currentUserId == nil {
+            currentUserId = (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString
+        }
+        
+        guard let userId = currentUserId else { return }
         isSyncing = true
         await SupabaseDBManager.shared.getUserDetails(userId: userId) { _ in
             defaults = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
             isSyncing = false
         }
     }
-
+    
     var verifyAccountSection: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -135,38 +155,28 @@ struct DoctorProfileView: View {
         .cornerRadius(20)
         .padding()
         .shadow(color: Color.appBlue.opacity(0.3), radius: 10, x: 0, y: 5)
-        .alert("Registry Status", isPresented: $showVerificationAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(verificationAlertMessage)
-        }
     }
-
+    
     private func verifyCode() {
         let masterCode = "CLINIC-2026-OK"
         if verificationCode.uppercased() == masterCode {
             Task {
-                guard let userId = UserDefaults.standard.string(forKey: "userID") ?? (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString else { 
-                    verificationAlertMessage = "Error: User ID not found."
-                    showVerificationAlert = true
-                    return 
+                var currentUserId = UserDefaults.standard.string(forKey: "userID")
+                if currentUserId == nil {
+                    currentUserId = (try? await SupabaseManager.shared.client.auth.session)?.user.id.uuidString
                 }
+                
+                guard let userId = currentUserId else { return }
                 do {
                     isSyncing = true
                     try await SupabaseDBManager.shared.updateVerificationStatus(userId: userId, status: "verified")
                     await syncUserData()
-                    verificationAlertMessage = "Success! Your doctor profile is now verified and visible to patients."
-                    showVerificationAlert = true
                     verificationCode = ""
                 } catch {
-                    verificationAlertMessage = "Error: \(error.localizedDescription)"
-                    showVerificationAlert = true
+                    print(error)
                 }
                 isSyncing = false
             }
-        } else {
-            verificationAlertMessage = "Invalid verification code. Please contact your administrator."
-            showVerificationAlert = true
         }
     }
     
@@ -184,18 +194,15 @@ struct DoctorProfileView: View {
                                 .clipShape(Circle())
                         },
                         placeholder: {
-                            if defaults?.imageURL == "" {
-                                Image("user").resizable()
-                                    .frame(width: 120, height: 120)
-                            } else {
-                                ProgressView()
-                            }
+                            Image("user").resizable()
+                                .frame(width: 120, height: 120)
+                                .clipShape(Circle())
                         })
                     Text("Dr. \(defaults?.firstName ?? "") \(defaults?.lastName ?? "")")
-                        .foregroundColor(.black)
+                        .foregroundColor(.text)
                         .font(.customFont(style: .bold, size: .h17))
                     Text("\(defaults?.email?.lowercased() ?? "")")
-                        .foregroundColor(.black)
+                        .foregroundColor(.text)
                         .font(.customFont(style: .medium, size: .h15))
                     
                     Button {
@@ -204,7 +211,7 @@ struct DoctorProfileView: View {
                         Label("Sign Out", systemImage: "power")
                             .font(.customFont(style: .bold, size: .h14))
                     }
-                    .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .black, height: 50, background: .clear))
+                    .buttonStyle(BorderButtonStyle(borderColor: Color.appBlue, foregroundColor: .text, height: 50, background: .clear))
                     .padding(.horizontal, 50)
                 }
                 .padding(.vertical, 30)
@@ -213,8 +220,6 @@ struct DoctorProfileView: View {
                 Button("Sign Out", role: .destructive) {
                     Task {
                         await viewModel.signOut()
-                        UserDefaults.standard.removeObject(forKey: "userDetails")
-                        UserDefaults.standard.removeObject(forKey: "userID")
                     }
                 }
                 Button("Cancel", role: .cancel) {}
@@ -239,7 +244,6 @@ struct ProfileDetailRow: View {
             Spacer()
             Text(value)
                 .font(.subheadline)
-                .bold()
         }
         .padding()
     }

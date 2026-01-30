@@ -12,88 +12,51 @@ class SupabaseAuthService {
     static let shared = SupabaseAuthService()
     private let client = SupabaseManager.shared.client
     
+    /// Flag to indicate if a signup flow is in progress to prevent auth state listeners 
+    /// from prematurely navigating away from signup views.
+    var isSignUpFlowInProgress: Bool = false
+    
     /// Sign in with email and password
     func signIn(email: String, password: String) async throws {
         try await client.auth.signIn(email: email, password: password)
     }
     
     /// Sign up a new user and create their profile in the database
-    func signUp(user: AppUser) async throws {
-        // 1. Create Auth Entry
-        _ = try await client.auth.signUp(
-            email: user.email ?? "",
-            password: user.password ?? ""
-        )
+    func signUp(user: AppUser) async throws -> User? {
+        var metadata: [String: AnyJSON] = [
+            "first_name": .string(user.firstName),
+            "last_name": .string(user.lastName),
+            "role": .string(user.role ?? "patient"),
+            "gender": .string(user.gender ?? ""),
+            "country": .string(user.country ?? ""),
+            "dob": .string(user.dob ?? ""),
+            "insurance_provider": .string(user.insuranceProvider ?? "None"),
+            "insurance_number": .string(user.insuranceNumber ?? ""),
+            "phone_number": .string(user.phoneNumber ?? ""),
+            "address": .string(user.address ?? "")
+        ]
         
-        // Note: Supabase can automatically create profiles via Postgres triggers,
-        // but for manual parity with the Firebase implementation:
-        guard let session = try? await client.auth.session else { return }
-        let userId = session.user.id
-        
-        struct ProfileData: Encodable {
-            let id, firstName, lastName, email, role, verificationStatus: String
-            let phoneNumber, imageURL, address, hospitalName, specialty: String
-            
-            enum CodingKeys: String, CodingKey {
-                case id
-                case firstName = "first_name"
-                case lastName = "last_name"
-                case email, role
-                case verificationStatus = "verification_status"
-                case phoneNumber = "phone_number"
-                case imageURL = "image_url"
-                case address
-                case hospitalName = "hospital_name"
-                case specialty
-            }
-        }
-        
-        let profileData = ProfileData(
-            id: userId.uuidString,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email ?? "",
-            role: user.role ?? "patient",
-            verificationStatus: (user.role == "doctor") ? "pending" : (user.verificationStatus ?? "none"),
-            phoneNumber: user.phoneNumber ?? "",
-            imageURL: user.imageURL ?? "",
-            address: user.address ?? "",
-            hospitalName: user.hospitalName ?? "",
-            specialty: user.specialty ?? ""
-        )
-        
-        try await client.from("profiles")
-            .insert(profileData)
-            .execute()
-            
-        // 2. Mirror doctor data if applicable
         if user.role == "doctor" {
-            struct DoctorData: Encodable {
-                let id, specialist: String
-                let isPopular: Bool
-                let rating: String
-                
-                enum CodingKeys: String, CodingKey {
-                    case id, specialist
-                    case isPopular = "is_popular"
-                    case rating
-                }
-            }
-            
-            let doctorData = DoctorData(
-                id: userId.uuidString,
-                specialist: user.specialty ?? "General Physician",
-                isPopular: true,
-                rating: "5.0"
-            )
-            try await client.from("doctors")
-                .insert(doctorData)
-                .execute()
+            metadata["license_number"] = .string(user.licenseNumber ?? "")
+            metadata["specialty"] = .string(user.specialty ?? "")
+            metadata["experience_years"] = .string(user.experienceYears ?? "")
+            metadata["hospital_name"] = .string(user.hospitalName ?? "")
+            metadata["city"] = .string(user.city ?? "")
+            metadata["about"] = .string(user.aboutMe ?? "")
         }
+        
+        let response = try await client.auth.signUp(
+            email: user.email ?? "",
+            password: user.password ?? "",
+            data: metadata
+        )
+        
+        return response.user
     }
     
     /// Sign out the current user
     func signOut() async throws {
+        isSignUpFlowInProgress = false
         try await client.auth.signOut()
     }
     

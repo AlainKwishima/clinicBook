@@ -29,26 +29,27 @@ enum FontStyle: String {
 }
 
 enum FontSize: CGFloat {
-    case h11 = 11.0
-    case h12 = 12.0
-    case h13 = 13.0
-    case h14 = 14.0
-    case h15 = 15.0
-    case h16 = 16.0
-    case h17 = 17.0
-    case h18 = 18.0
-    case h20 = 20.0
-    case h22 = 22.0
-    case h24 = 24.0
-    case h26 = 26.0
-    case h28 = 28.0
-    case h30 = 30.0
-    case h31 = 31.0
-    case h32 = 32.0
-    case h33 = 33.0
-    case h34 = 34.0
-    case h35 = 35.0
-    case h36 = 36.0
-    case h37 = 37.0
-    case h38 = 38.0
+    case h11 = 10.0
+    case h12 = 11.0
+    case h13 = 12.0
+    case h14 = 13.0
+    case h15 = 14.0
+    case h16 = 15.0
+    case h17 = 16.0
+    case h18 = 17.0
+    case h20 = 19.0
+    case h22 = 21.0
+    case h24 = 23.0
+    case h26 = 25.0
+    case h27 = 26.0
+    case h28 = 27.0
+    case h30 = 29.0
+    case h31 = 30.0
+    case h32 = 31.0
+    case h33 = 32.0
+    case h34 = 33.0
+    case h35 = 34.0
+    case h36 = 35.0
+    case h37 = 36.0
+    case h38 = 37.0
 }

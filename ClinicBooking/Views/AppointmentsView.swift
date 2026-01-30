@@ -233,23 +233,44 @@ struct AppointmentDetailView: View {
                     .padding()
                 
                 // Cancel Button
-                Button(action: {
-                    showCancelAlert = true
-                }) {
-                    if isCancelling {
-                        ProgressView()
-                            .tint(.red)
-                    } else {
-                        Text("Cancel Appointment")
-                            .font(.customFont(style: .bold, size: .h17))
-                            .foregroundColor(.red)
-                            .padding()
-                            .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
-                            .background(Color.red.opacity(0.1))
-                            .cornerRadius(12)
+                VStack(spacing: 15) {
+                    if appointment.status == "completed" && !appointment.isPaid {
+                        NavigationLink(destination: PaymentMethodView(
+                            doctor: Doctor(doctorID: appointment.doctorId, name: appointment.doctorName, specialist: appointment.doctorSpeciality, degree: "", image: appointment.doctorImage, position: "", languageSpoken: "", about: "", contact: "", address: appointment.location, rating: "5.0", isPopular: false, isSaved: false, fee: 50.00), // Reconstruct doctor for payment
+                            date: appointment.date,
+                            time: appointment.time,
+                            patientName: appointment.patientName,
+                            patientId: appointment.userId,
+                            appointmentId: appointment.id
+                        )) {
+                            Text("Pay Consultation Fee")
+                                .font(.customFont(style: .bold, size: .h17))
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
+                                .background(Color.appBlue)
+                                .cornerRadius(12)
+                        }
                     }
+
+                    Button(action: {
+                        showCancelAlert = true
+                    }) {
+                        if isCancelling {
+                            ProgressView()
+                                .tint(.red)
+                        } else {
+                            Text("Cancel Appointment")
+                                .font(.customFont(style: .bold, size: .h17))
+                                .foregroundColor(.red)
+                                .padding()
+                                .frame(maxWidth: UIDevice.current.userInterfaceIdiom == .pad ? 450 : .infinity)
+                                .background(Color.red.opacity(0.1))
+                                .cornerRadius(12)
+                        }
+                    }
+                    .disabled(isCancelling)
                 }
-                .disabled(isCancelling)
                 .padding(.bottom, 20)
             }
             .padding()

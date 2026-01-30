@@ -89,6 +89,7 @@ struct Appointment: Codable, Identifiable {
     var doctorId: String
     var userId: String
     var patientName: String
+    var patientImage: String?
     var doctorName: String
     var doctorImage: String
     var doctorSpeciality: String
@@ -96,6 +97,7 @@ struct Appointment: Codable, Identifiable {
     var time: String
     var status: String // "upcoming", "completed", "cancelled"
     var location: String
+    var isPaid: Bool = false
     var createdAt: Date
 
     enum CodingKeys: String, CodingKey {
@@ -103,6 +105,7 @@ struct Appointment: Codable, Identifiable {
         case doctorId = "doctor_id"
         case userId = "user_id"
         case patientName = "patient_name"
+        case patientImage = "patient_image"
         case doctorName = "doctor_name"
         case doctorImage = "doctor_image"
         case doctorSpeciality = "doctor_speciality"
@@ -110,6 +113,7 @@ struct Appointment: Codable, Identifiable {
         case time
         case status
         case location
+        case isPaid = "is_paid"
         case createdAt = "created_at"
     }
 }

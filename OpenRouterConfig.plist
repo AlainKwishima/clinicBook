@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>API_KEY</key>
+    <string>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</string>
+    <key>MODEL</key>
+    <string>anthropic/claude-3.5-sonnet</string>
+    <key>API_URL</key>
+    <string>https://openrouter.ai/api/v1/chat/completions</string>
+    <key>APP_NAME</key>
+    <string>ClinicBooking</string>
+    <key>SITE_URL</key>
+    <string>https://clinicbooking.app</string>
+</dict>
+</plist>
