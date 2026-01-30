@@ -56,7 +56,11 @@ class ChatViewModel: ObservableObject {
         
         Task {
             do {
-                let response = try await service.sendMessage(trimmedInput, conversationHistory: messages)
+                // Get current user ID and profile for tracking and context
+                let userId = UserDefaults.standard.string(forKey: "userID")
+                let user: AppUser? = UserDefaults.standard.value(AppUser.self, forKey: "userDetails")
+                
+                let response = try await service.sendMessage(trimmedInput, conversationHistory: messages, user: user, userId: userId)
                 
                 // Add AI response
                 let aiMessage = ChatMessage(content: response, isUser: false)

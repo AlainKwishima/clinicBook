@@ -35,23 +35,38 @@ class OpenRouterService {
         self.siteURL = site
     }
     
-    func sendMessage(_ userMessage: String, conversationHistory: [ChatMessage]) async throws -> String {
-        // Build messages array with system prompt
+    func sendMessage(_ userMessage: String, conversationHistory: [ChatMessage], user: AppUser? = nil, userId: String? = nil) async throws -> String {
+        // Build personalized system prompt
+        var systemContent = """
+        You are a helpful medical assistant for the ClinicBooking app. You provide general health information, 
+        help users understand symptoms, and guide them on when to see a doctor. 
+        
+        IMPORTANT RULES:
+        - You NEVER diagnose conditions or prescribe treatments
+        - Always remind users that you're not a replacement for professional medical advice
+        - Be empathetic and supportive
+        - Keep responses concise and easy to understand
+        - If a symptom sounds serious, always recommend seeing a doctor immediately
+        - Do not request or store any personally identifiable health information
+        """
+        
+        // Add user-specific context if available
+        if let user = user {
+            systemContent += "\n\nUser Profile Context:\n"
+            systemContent += "- Name: \(user.firstName) \(user.lastName)\n"
+            if let age = user.age { systemContent += "- Age: \(age)\n" }
+            if let gender = user.gender { systemContent += "- Gender: \(gender)\n" }
+            if let height = user.height { systemContent += "- Height: \(height) cm\n" }
+            if let weight = user.weight { systemContent += "- Weight: \(weight) kg\n" }
+            if let bloodGroup = user.bloodGroup { systemContent += "- Blood Group: \(bloodGroup)\n" }
+            
+            systemContent += "\nPlease use the user's name when appropriate and keep their metrics in mind when providing general health information."
+        }
+        
         var messages: [[String: String]] = [
             [
                 "role": "system",
-                "content": """
-                You are a helpful medical assistant for the ClinicBooking app. You provide general health information, 
-                help users understand symptoms, and guide them on when to see a doctor. 
-                
-                IMPORTANT RULES:
-                - You NEVER diagnose conditions or prescribe treatments
-                - Always remind users that you're not a replacement for professional medical advice
-                - Be empathetic and supportive
-                - Keep responses concise and easy to understand
-                - If a symptom sounds serious, always recommend seeing a doctor immediately
-                - Do not request or store any personally identifiable health information
-                """
+                "content": systemContent
             ]
         ]
         
@@ -71,12 +86,17 @@ class OpenRouterService {
         ])
         
         // Build request body
-        let requestBody: [String: Any] = [
+        var requestBody: [String: Any] = [
             "model": model,
             "messages": messages,
             "max_tokens": 1000,
             "temperature": 0.7
         ]
+        
+        // Add user ID for tracking in body as well
+        if let userId = userId {
+            requestBody["user"] = userId
+        }
         
         // Create request
         var request = URLRequest(url: apiURL)
@@ -85,6 +105,12 @@ class OpenRouterService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(siteURL, forHTTPHeaderField: "HTTP-Referer")
         request.setValue(appName, forHTTPHeaderField: "X-Title")
+        
+        // Add user ID if available for tracking
+        if let userId = userId {
+            request.setValue(userId, forHTTPHeaderField: "X-User-ID")
+        }
+        
         request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
         
         // Send request
@@ -95,6 +121,9 @@ class OpenRouterService {
         }
         
         guard httpResponse.statusCode == 200 else {
+            let errorString = String(data: data, encoding: .utf8) ?? "No error body"
+            print("DEBUG: OpenRouter Error Response (Status \(httpResponse.statusCode)): \(errorString)")
+            
             if let errorData = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
                 throw OpenRouterError.apiError(errorData.error.message)
             }
